@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
-    "shotlist": "node scripts/shotlist.mjs"
+    "shotlist": "node scripts/shotlist.mjs",
+    "images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
@@ -24,6 +25,7 @@
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
+    "sharp": "^0.35.4",
     "tailwindcss": "^4.1.12",
     "typescript": "^5.9.2",
     "vite": "^7.1.3"

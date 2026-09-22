@@ -3,3 +3,7 @@ dist
 *.local
 .DS_Store
 .vite
+
+# Untouched photograph originals. Kept out of the build; re-encoded into
+# public/assets/images by `npm run images`.
+assets-src

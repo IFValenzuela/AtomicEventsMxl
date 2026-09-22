@@ -83,34 +83,51 @@ function Media({
     return (
       <div className="grid grid-cols-5 gap-4 lg:gap-6">
         <Reveal className="col-span-3">
-          <Photo {...photos[0]} />
+          <Photo {...photos[0]} sizes="(min-width: 1024px) 40vw, 86vw" />
         </Reveal>
         <Reveal index={1} className="col-span-2 self-end">
-          <Photo {...photos[1]} />
+          <Photo {...photos[1]} sizes="(min-width: 1024px) 22vw, 52vw" />
         </Reveal>
         <Reveal
           index={2}
           className={`col-span-3 ${mediaLeft ? 'col-start-2' : 'col-start-1'}`}
         >
-          <Photo {...photos[2]} />
+          <Photo {...photos[2]} sizes="(min-width: 1024px) 30vw, 60vw" />
         </Reveal>
       </div>
     )
   }
 
   if (photos.length === 2) {
-    // The pair the reference uses: a wide frame, and a narrower one dropped
-    // below its baseline and overlapping into it.
+    /* The pair, at the reference's proportions rather than a rough imitation
+       of them. Measured off its "Rooms & Suites" row: the small frame starts
+       about 17% down the big one and runs a little past its bottom edge, so
+       the two overlap by roughly 83% of their height and the pair is only
+       ~15% taller than the big photo alone.
+
+       Ours used to drop the small frame to 71% down, overlapping by 29%. That
+       is not a pair, it is a column: it made the media 45% taller than the big
+       photo, and since the row centres its two columns, every pixel of that
+       extra height became dead white above and below the text. The text ended
+       up marooned in the middle of a tall empty gutter, which is what made the
+       section read as plain.
+
+       Absolute placement from lg up, so the small frame's position is stated
+       rather than derived from a negative margin against the big frame's
+       height. Below lg the two stack in flow with a shallower pull, because
+       there is no width for a side-by-side overlap on a phone. */
     return (
-      <div className="relative">
-        <Reveal className="w-[82%]">
-          <Photo {...photos[0]} />
+      <div className="relative lg:pb-[7%]">
+        <Reveal className="w-[86%] lg:w-[78%]">
+          <Photo {...photos[0]} sizes="(min-width: 1024px) 40vw, 86vw" />
         </Reveal>
         <Reveal
           index={1}
-          className={`relative -mt-[18%] w-[46%] ${mediaLeft ? 'ml-auto' : 'ml-auto'}`}
+          className={`relative -mt-[22%] ml-auto w-[52%] lg:absolute lg:top-[32%] lg:mt-0 lg:w-[44%] ${
+            mediaLeft ? 'lg:left-0' : 'lg:right-0'
+          }`}
         >
-          <Photo {...photos[1]} />
+          <Photo {...photos[1]} sizes="(min-width: 1024px) 22vw, 52vw" />
         </Reveal>
       </div>
     )
@@ -118,7 +135,7 @@ function Media({
 
   return (
     <Reveal>
-      <Photo {...photos[0]} />
+      <Photo {...photos[0]} sizes="(min-width: 1024px) 40vw, 86vw" />
     </Reveal>
   )
 }

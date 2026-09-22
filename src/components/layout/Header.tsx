@@ -155,7 +155,7 @@ export function Header() {
                           dark
                             ? isActive
                               ? 'text-ink'
-                              : 'text-ink/60 hover:text-ink'
+                              : 'inkwipe text-ink/60 [--wipe-from:color-mix(in_oklab,var(--color-ink)_60%,transparent)]'
                             : isActive
                               ? 'text-white'
                               : 'text-white/80 hover:text-white'
@@ -214,7 +214,7 @@ export function Header() {
             aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
             className={`inline-flex h-11 w-11 items-center justify-center border transition-colors duration-300 ${
               dark
-                ? 'border-ink/25 text-ink hover:border-ink'
+                ? 'border-pink/40 text-pink hover:border-pink'
                 : 'border-white/60 text-white'
             }`}
           >
@@ -236,7 +236,7 @@ export function Header() {
                     to={item.href}
                     className={({ isActive }) =>
                       `font-display block py-4 text-xl transition-colors duration-300 ${
-                        isActive ? 'text-ink' : 'text-ink/60 hover:text-ink'
+                        isActive ? 'text-ink' : 'inkwipe text-ink/60 [--wipe-from:color-mix(in_oklab,var(--color-ink)_60%,transparent)]'
                       }`
                     }
                   >

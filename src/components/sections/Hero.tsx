@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { CONTACT, HERO_VIDEO, HOME_HERO } from '../../data/site'
+import { CONTACT, HERO_VIDEO, HERO_VIDEO_POSTER, HOME_HERO } from '../../data/site'
 import { Phone, WhatsappLogo } from '../ui/icons'
 import { Button } from '../ui/Button'
 import { Photo } from '../ui/Photo'
@@ -27,11 +27,11 @@ import { Photo } from '../ui/Photo'
  * lead occasion's photograph, so the opening shot can be chosen without
  * touching the propuestas page.
  *
- * A video is optional. When HERO_VIDEO is set it plays over the photograph,
- * muted, looping and inline, with that photograph as its poster so the first
- * paint is an image rather than a black rectangle; it is never downloaded at
- * all when the visitor prefers reduced motion. HERO_VIDEO is null today, so
- * the hero is the photograph on its own.
+ * A video plays over the photograph on phones, muted, looping and inline. It
+ * is vertical footage, which is the right crop for a handheld and the wrong
+ * one for a desktop, so it is gated on a media query in JS rather than CSS:
+ * a desktop never requests the file, and neither does anyone who prefers
+ * reduced motion. Both of those fall back to the photograph.
  */
 export function Hero() {
   const wa = `${CONTACT.whatsapp}?text=${encodeURIComponent(CONTACT.whatsappMessage)}`
@@ -40,10 +40,24 @@ export function Hero() {
   const gap = useRef<HTMLDivElement>(null)
   const video = useRef<HTMLVideoElement>(null)
 
+  /* Phones only, and decided here rather than in CSS so a desktop never
+     requests the file at all. Both queries are watched, so rotating a tablet
+     or turning Reduce Motion on mid-visit lands in the right state instead of
+     keeping whatever happened to be true at mount. */
   useEffect(() => {
     if (!HERO_VIDEO) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    setPlayVideo(true)
+
+    const handheld = window.matchMedia('(max-width: 1023px)')
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const decide = () => setPlayVideo(handheld.matches && !still.matches)
+
+    decide()
+    handheld.addEventListener('change', decide)
+    still.addEventListener('change', decide)
+    return () => {
+      handheld.removeEventListener('change', decide)
+      still.removeEventListener('change', decide)
+    }
   }, [])
 
   /* Once the page has closed over the scene there is nothing left to show, so
@@ -60,13 +74,18 @@ export function Hero() {
     return () => io.disconnect()
   }, [])
 
+  /* `playVideo` is in the deps, not just `covered`. The video mounts on the
+     render AFTER the media query resolves, so with `[covered]` alone this
+     effect had already run against a null ref and never ran again: play() was
+     never called on the element that actually exists. The autoplay attribute
+     was covering for it. */
   useEffect(() => {
     const el = video.current
     if (!el) return
 
     if (covered) el.pause()
     else void el.play().catch(() => {})
-  }, [covered])
+  }, [covered, playVideo])
 
   return (
     <div className="curtain">
@@ -84,7 +103,7 @@ export function Hero() {
             <video
               ref={video}
               src={HERO_VIDEO}
-              poster={HOME_HERO.src}
+              poster={HERO_VIDEO_POSTER}
               autoPlay
               muted
               loop

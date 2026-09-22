@@ -29,7 +29,10 @@ export function OccasionRail() {
               <div className="overflow-hidden">
                 {/* No hover zoom — see Paquetes.tsx. Photographs never
                     move under the pointer on the reference. */}
-                <Photo {...occasion.photo} />
+                <Photo
+                  {...occasion.photo}
+                  sizes="(min-width: 1024px) 270px, (min-width: 768px) 30vw, (min-width: 640px) 42vw, 62vw"
+                />
               </div>
 
               <h3 className="mt-5 text-2xl transition-colors duration-300 group-hover:text-ink-soft">

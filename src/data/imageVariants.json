@@ -1,0 +1,286 @@
+{
+  "/assets/images/hero/Hero.jpg": [
+    {
+      "w": 640,
+      "src": "/assets/images/_responsive/hero/Hero-640.jpg"
+    },
+    {
+      "w": 1024,
+      "src": "/assets/images/_responsive/hero/Hero-1024.jpg"
+    },
+    {
+      "w": 1536,
+      "src": "/assets/images/_responsive/hero/Hero-1536.jpg"
+    },
+    {
+      "w": 2048,
+      "src": "/assets/images/_responsive/hero/Hero-2048.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/_responsive/hero/Hero-2560.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/hero/Hero.jpg"
+    }
+  ],
+  "/assets/images/hero/baby-shower.jpg": [
+    {
+      "w": 640,
+      "src": "/assets/images/_responsive/hero/baby-shower-640.jpg"
+    },
+    {
+      "w": 1024,
+      "src": "/assets/images/_responsive/hero/baby-shower-1024.jpg"
+    },
+    {
+      "w": 1536,
+      "src": "/assets/images/_responsive/hero/baby-shower-1536.jpg"
+    },
+    {
+      "w": 2048,
+      "src": "/assets/images/_responsive/hero/baby-shower-2048.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/_responsive/hero/baby-shower-2560.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/hero/baby-shower.jpg"
+    }
+  ],
+  "/assets/images/hero/galeria.jpg": [
+    {
+      "w": 640,
+      "src": "/assets/images/_responsive/hero/galeria-640.jpg"
+    },
+    {
+      "w": 1024,
+      "src": "/assets/images/_responsive/hero/galeria-1024.jpg"
+    },
+    {
+      "w": 1536,
+      "src": "/assets/images/_responsive/hero/galeria-1536.jpg"
+    },
+    {
+      "w": 2048,
+      "src": "/assets/images/_responsive/hero/galeria-2048.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/_responsive/hero/galeria-2560.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/hero/galeria.jpg"
+    }
+  ],
+  "/assets/images/hero/paquetes.jpg": [
+    {
+      "w": 640,
+      "src": "/assets/images/_responsive/hero/paquetes-640.jpg"
+    },
+    {
+      "w": 1024,
+      "src": "/assets/images/_responsive/hero/paquetes-1024.jpg"
+    },
+    {
+      "w": 1536,
+      "src": "/assets/images/_responsive/hero/paquetes-1536.jpg"
+    },
+    {
+      "w": 2048,
+      "src": "/assets/images/_responsive/hero/paquetes-2048.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/_responsive/hero/paquetes-2560.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/hero/paquetes.jpg"
+    }
+  ],
+  "/assets/images/hero/propuestas.jpg": [
+    {
+      "w": 640,
+      "src": "/assets/images/_responsive/hero/propuestas-640.jpg"
+    },
+    {
+      "w": 1024,
+      "src": "/assets/images/_responsive/hero/propuestas-1024.jpg"
+    },
+    {
+      "w": 1536,
+      "src": "/assets/images/_responsive/hero/propuestas-1536.jpg"
+    },
+    {
+      "w": 2048,
+      "src": "/assets/images/_responsive/hero/propuestas-2048.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/_responsive/hero/propuestas-2560.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/hero/propuestas.jpg"
+    }
+  ],
+  "/assets/images/hero/servicios.jpg": [
+    {
+      "w": 640,
+      "src": "/assets/images/_responsive/hero/servicios-640.jpg"
+    },
+    {
+      "w": 1024,
+      "src": "/assets/images/_responsive/hero/servicios-1024.jpg"
+    },
+    {
+      "w": 1536,
+      "src": "/assets/images/_responsive/hero/servicios-1536.jpg"
+    },
+    {
+      "w": 2048,
+      "src": "/assets/images/_responsive/hero/servicios-2048.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/_responsive/hero/servicios-2560.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/hero/servicios.jpg"
+    }
+  ],
+  "/assets/images/nosotros/equipo.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/nosotros/equipo-400.jpg"
+    },
+    {
+      "w": 734,
+      "src": "/assets/images/nosotros/equipo.jpg"
+    }
+  ],
+  "/assets/images/nosotros/montaje.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/nosotros/montaje-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/nosotros/montaje-800.jpg"
+    },
+    {
+      "w": 1080,
+      "src": "/assets/images/nosotros/montaje.jpg"
+    }
+  ],
+  "/assets/images/packages/baby-shower.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/packages/baby-shower-400.jpg"
+    },
+    {
+      "w": 506,
+      "src": "/assets/images/packages/baby-shower.jpg"
+    }
+  ],
+  "/assets/images/packages/baby-shower/teaser.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/packages/baby-shower/teaser-400.jpg"
+    },
+    {
+      "w": 513,
+      "src": "/assets/images/packages/baby-shower/teaser.jpg"
+    }
+  ],
+  "/assets/images/servicios/cabina-360.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/servicios/cabina-360-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/servicios/cabina-360-800.jpg"
+    },
+    {
+      "w": 860,
+      "src": "/assets/images/servicios/cabina-360.jpg"
+    }
+  ],
+  "/assets/images/servicios/chisperos.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/servicios/chisperos-400.jpg"
+    },
+    {
+      "w": 507,
+      "src": "/assets/images/servicios/chisperos.jpg"
+    }
+  ],
+  "/assets/images/servicios/dron.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/servicios/dron-400.jpg"
+    },
+    {
+      "w": 740,
+      "src": "/assets/images/servicios/dron.jpg"
+    }
+  ],
+  "/assets/images/servicios/globos.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/servicios/globos-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/servicios/globos-800.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/_responsive/servicios/globos-1200.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/servicios/globos.jpg"
+    }
+  ],
+  "/assets/images/servicios/letras.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/servicios/letras-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/servicios/letras-800.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/_responsive/servicios/letras-1200.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/servicios/letras.jpg"
+    }
+  ],
+  "/assets/images/servicios/petalos.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/servicios/petalos-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/servicios/petalos-800.jpg"
+    },
+    {
+      "w": 1080,
+      "src": "/assets/images/servicios/petalos.jpg"
+    }
+  ]
+}

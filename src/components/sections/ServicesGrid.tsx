@@ -5,18 +5,25 @@ import { Photo } from '../ui/Photo'
 import { Reveal } from '../ui/Reveal'
 
 /**
- * The six services.
+ * The services.
  *
  * Built on the reference's offer-card treatment: a bare photograph with the
  * name set directly on it in white at the top, no container, no border, no
  * radius. Nothing here is a card with a background and a stroke.
  *
  * Three across at desktop, two at tablet, one on a phone.
+ *
+ * `limit` exists for the home page, which shows the first row only. All six
+ * belong on /servicios; on the home page two full rows of tiles cost over
+ * 2000px, which is more than two viewports spent on a list the visitor can
+ * reach from the link underneath the heading.
  */
-export function ServicesGrid() {
+export function ServicesGrid({ limit }: { limit?: number } = {}) {
+  const services = limit ? SERVICES.slice(0, limit) : SERVICES
+
   return (
     <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16">
-      {SERVICES.map((service, i) => (
+      {services.map((service, i) => (
         <Reveal key={service.id} index={i % 3}>
           <ServiceTile service={service} />
         </Reveal>
@@ -29,7 +36,10 @@ function ServiceTile({ service }: { service: Service }) {
   const body = (
     <>
       <div className="relative overflow-hidden">
-        <Photo {...service.photo} />
+        <Photo
+          {...service.photo}
+          sizes="(min-width: 1024px) 460px, (min-width: 640px) 50vw, 100vw"
+        />
 
         {/* The veil is only as tall as the text needs, so the photograph is
             not dimmed across its whole face. */}
@@ -49,7 +59,7 @@ function ServiceTile({ service }: { service: Service }) {
           flex column it would otherwise stretch its underline the full
           width of the tile. */}
       {service.href && (
-        <span className="morelink mt-6 self-start group-hover:text-ink-soft">
+        <span className="morelink mt-6 self-start">
           Ver más
           <ArrowRight
             size={16}

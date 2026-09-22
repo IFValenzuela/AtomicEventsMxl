@@ -82,7 +82,10 @@ function OccasionCard({
             background-color, color, fill and border-color only, which is an
             explicit decision to keep photographs out of hover motion. The
             title below carries the whole affordance. */}
-        <Photo {...occasion.photo} />
+        <Photo
+          {...occasion.photo}
+          sizes="(min-width: 768px) 46vw, 100vw"
+        />
       </div>
 
       <div className={wide ? 'mt-7 md:mt-0' : 'mt-7'}>
@@ -102,7 +105,7 @@ function OccasionCard({
           cotizar
         </p>
 
-        <span className="morelink mt-7 group-hover:text-ink-soft">
+        <span className="morelink mt-7">
           Ver paquete
           <ArrowRight
             size={16}

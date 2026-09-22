@@ -186,13 +186,45 @@ colours. Recoloured, never redrawn.
 
 ## The hero video
 
-`public/assets/images/hero/Hero.mp4` plays in the home hero, muted and
-looping, with the lead occasion photograph as its poster. Swap the file to
-change it, or set `HERO_VIDEO` to `null` in `src/data/site.ts` to fall back to
-the photograph. It is never downloaded when the visitor prefers reduced
-motion.
+`public/assets/images/hero/hero-portrait.mp4` plays in the home hero on
+**phones only**, muted and looping. The footage is shot vertical, which is the
+right crop for a handheld and the wrong one for a desktop: a 16:9 viewport
+shows about a third of a 9:16 frame. So it is gated on a media query in JS
+rather than CSS, and a desktop never requests the file. Neither does anyone
+who prefers reduced motion. Both fall back to `HOME_HERO`, the photograph.
 
-Keep it short and small: it competes with the first paint.
+Set `HERO_VIDEO` to `null` in `src/data/site.ts` to drop the video entirely.
+
+To replace it, put the new footage in `assets-src/hero/` and re-encode:
+
+```sh
+ffmpeg -i assets-src/hero/Hero.mp4 \
+  -vf "scale=1080:1920:flags=lanczos" \
+  -c:v libx264 -profile:v high -crf 28 -preset slow \
+  -pix_fmt yuv420p -movflags +faststart -an \
+  public/assets/images/hero/hero-portrait.mp4
+
+# poster, pulled from the video so the hand-off is invisible
+ffmpeg -ss 8 -i assets-src/hero/Hero.mp4 -frames:v 1 \
+  -vf "scale=1080:1920:flags=lanczos" -q:v 3 \
+  public/assets/images/hero/hero-portrait.jpg
+```
+
+`yuv420p` is required or it will not play in Safari, and `+faststart` moves
+the index to the front of the file so playback can begin before the whole
+thing downloads. `-an` drops the audio track, which is dead weight on a muted
+loop and can trip autoplay.
+
+The source clip was 2160x3840 at 47.8 Mbps, which is 99 MB and unplayable on
+cellular. The settings above give 3.9 MB for the same 16.57 seconds.
+
+## Photographs
+
+`npm run images` re-encodes everything under `public/assets/images` and builds
+a responsive ladder beside each one. Run it after dropping new photographs in;
+it is safe to run repeatedly. Originals are preserved untouched in
+`assets-src/`, which never ships, and every run optimises from those rather
+than from its own output.
 
 ## Deploying
 

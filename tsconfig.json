@@ -17,7 +17,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* The responsive-image manifest that `npm run images` writes. */
+    "resolveJsonModule": true
   },
   "include": ["src", "vite.config.ts"]
 }

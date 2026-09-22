@@ -1,6 +1,17 @@
 import { useState } from 'react'
 import { Camera } from './icons'
 import type { Photo as PhotoData } from '../../data/site'
+import VARIANTS from '../../data/imageVariants.json'
+
+/**
+ * Widths that `npm run images` actually produced for this file, or nothing.
+ *
+ * Nothing is the important case. A photograph dropped in without running the
+ * script is absent from the manifest and renders from its plain `src`, so a
+ * missing rung can never 404 inside a srcset and blank the image.
+ */
+const rungs = (src: string): { w: number; src: string }[] | undefined =>
+  (VARIANTS as Record<string, { w: number; src: string }[]>)[src]
 
 type Props = PhotoData & {
   className?: string
@@ -19,6 +30,13 @@ type Props = PhotoData & {
    * note near the top so it does not sit under a headline.
    */
   overlay?: boolean
+  /**
+   * What width this photograph occupies, as a `sizes` list. Getting it wrong
+   * is the whole ballgame: the default of `100vw` is honest for a full-bleed
+   * hero and wasteful for a tile in a five-column strip, where the browser
+   * would fetch five times the pixels it can show.
+   */
+  sizes?: string
 }
 
 /**
@@ -30,7 +48,8 @@ type Props = PhotoData & {
  *
  * Atomic has no professional photography yet, so each slot renders a labelled
  * placeholder at the right aspect ratio. Drop a real JPG at `src` under
- * `public/` and it appears; there is nothing to change in code.
+ * `public/` and it appears; there is nothing to change in code. Run
+ * `npm run images` afterwards and it also gets a responsive ladder.
  */
 export function Photo({
   src,
@@ -41,8 +60,10 @@ export function Photo({
   priority = false,
   fill = false,
   overlay = false,
+  sizes = '100vw',
 }: Props) {
   const [loaded, setLoaded] = useState(false)
+  const ladder = rungs(src)
 
   return (
     <figure
@@ -54,6 +75,8 @@ export function Photo({
     >
       <img
         src={src}
+        srcSet={ladder?.map((r) => `${r.src} ${r.w}w`).join(', ')}
+        sizes={ladder ? sizes : undefined}
         alt={alt}
         loading={priority ? 'eager' : 'lazy'}
         fetchPriority={priority ? 'high' : 'auto'}

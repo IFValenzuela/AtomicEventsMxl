@@ -1,6 +1,7 @@
 import { CTA } from '../data/site'
 import { useMeta } from '../lib/useMeta'
 import { Button } from '../components/ui/Button'
+import { MoreLink } from '../components/ui/MoreLink'
 
 export default function NoEncontrado() {
   useMeta(
@@ -20,12 +21,12 @@ export default function NoEncontrado() {
           escríbenos y te decimos dónde está lo que buscas.
         </p>
 
-        <div className="mt-11 flex flex-wrap justify-center gap-4">
+        {/* One fill, one hairline link. Same rule as CtaBand: the reference
+            never sets two solid buttons against each other. */}
+        <div className="mt-11 flex flex-col items-center gap-8 sm:flex-row sm:justify-center sm:gap-10">
           <Button to="/contacto">{CTA.quote}</Button>
 
-          <Button to="/paquetes" variant="accent">
-            Ver paquetes
-          </Button>
+          <MoreLink to="/paquetes" label="Ver paquetes" />
         </div>
       </div>
     </section>

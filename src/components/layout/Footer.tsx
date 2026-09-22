@@ -89,12 +89,12 @@ export function Footer() {
 
           <div>
             <h2 className="text-xl">Contacto</h2>
-            <ul className="mt-11 text-[0.9375rem] leading-6">
+            <ul className="mt-9 -my-2.5 text-[0.9375rem] leading-6 lg:mt-11 lg:my-0">
               {CONTACT.phones.map((phone) => (
                 <li key={phone.tel}>
                   <a
                     href={`tel:${phone.tel}`}
-                    className="text-ink transition-colors duration-300 hover:text-ink-soft"
+                    className="inkwipe block py-2.5 text-ink lg:py-0"
                   >
                     {phone.display}
                   </a>
@@ -105,7 +105,7 @@ export function Footer() {
                   href={CONTACT.whatsapp}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-ink transition-colors duration-300 hover:text-ink-soft"
+                  className="inkwipe block py-2.5 text-ink lg:py-0"
                 >
                   WhatsApp
                 </a>
@@ -118,7 +118,7 @@ export function Footer() {
               that makes a footer look assembled from a kit. */}
           <nav aria-label="Síguenos">
             <h2 className="text-xl">Síguenos</h2>
-            <ul className="mt-11 text-[0.9375rem] leading-6">
+            <ul className="mt-9 -my-2.5 text-[0.9375rem] leading-6 lg:mt-11 lg:my-0">
               {SOCIALS.map((social) => (
                 <li key={social.name}>
                   {social.url ? (
@@ -126,14 +126,14 @@ export function Footer() {
                       href={social.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-ink transition-colors duration-300 hover:text-ink-soft"
+                      className="inkwipe block py-2.5 text-ink lg:py-0"
                     >
                       {social.name}
                     </a>
                   ) : (
                     <span
                       title={`${social.name}: perfil pendiente`}
-                      className="cursor-default text-ink-soft"
+                      className="block cursor-default py-2.5 text-ink-soft lg:py-0"
                     >
                       {social.name}
                       <span className="sr-only">, perfil pendiente</span>
@@ -186,12 +186,12 @@ function FooterNav({
 
       {/* 44px under the heading, then a 24px pitch carried entirely by
           line-height. No per-row margin — that is the reference's list. */}
-      <ul className="mt-11 text-[0.9375rem] leading-6">
+      <ul className="mt-9 -my-2.5 text-[0.9375rem] leading-6 lg:mt-11 lg:my-0">
         {links.map((link) => (
           <li key={link.to}>
             <Link
               to={link.to}
-              className="text-ink transition-colors duration-300 hover:text-ink-soft"
+              className="inkwipe block py-2.5 text-ink lg:py-0"
             >
               {link.label}
             </Link>

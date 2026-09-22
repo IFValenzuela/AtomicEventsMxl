@@ -8,7 +8,6 @@ import { Hero } from '../components/sections/Hero'
 import { OccasionRail } from '../components/sections/OccasionRail'
 import { PhotoBand } from '../components/sections/PhotoBand'
 import { ServicesGrid } from '../components/sections/ServicesGrid'
-import { Testimonials } from '../components/sections/Testimonials'
 
 /**
  * Home.
@@ -18,12 +17,11 @@ import { Testimonials } from '../components/sections/Testimonials'
  *   servicios     three-across photo tiles with the name set on the image
  *   pedidas       the held band: a pinned photograph with a white card on it
  *   paquetes      five portraits in a strip
- *   testimonios   three quotes in the display serif, no boxes
  *   cierre        the one tinted band
  *
- * Six sections, and that ceiling is deliberate. Two more used to sit here: a
- * second alternating row for the 360 booth, and a gallery preview. Both were
- * cut, for the same two reasons.
+ * Five sections, and that ceiling is deliberate. Four more used to sit here:
+ * a second alternating row for the 360 booth, a gallery preview, a testimonial
+ * block, and the second row of service tiles.
  *
  * The first is duplication. GalleryGrid is the component /galeria renders, and
  * the Instagram strip above the footer already says "look at our work".
@@ -70,7 +68,7 @@ export default function Home() {
           />
 
           <div className="mt-20">
-            <ServicesGrid />
+            <ServicesGrid limit={3} />
           </div>
         </div>
       </section>
@@ -95,16 +93,6 @@ export default function Home() {
 
           <div className="mt-20">
             <OccasionRail />
-          </div>
-        </div>
-      </section>
-
-      <section className="band">
-        <div className="shell">
-          <SectionHeader title="Lo que dicen nuestros clientes" />
-
-          <div className="mt-20">
-            <Testimonials />
           </div>
         </div>
       </section>

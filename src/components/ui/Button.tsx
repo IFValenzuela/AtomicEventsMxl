@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
 
-type Variant = 'solid' | 'accent' | 'outline' | 'onPhoto'
+type Variant = 'solid' | 'outline' | 'onPhoto'
 
 type Props = {
   children: ReactNode
@@ -70,9 +70,8 @@ const FILLED = 'border-0 py-3'
 const HAIRLINE = 'border py-[11px]'
 
 const variants: Record<Variant, string> = {
-  solid: `${FILLED} bg-ink text-white hover:bg-ink-deep`,
-  accent: `${FILLED} bg-pink text-white hover:bg-pink-deep`,
-  outline: `${HAIRLINE} border-ink/25 bg-transparent text-ink hover:border-ink/40 hover:bg-ink/5`,
+  solid: `${FILLED} bg-pink text-white hover:bg-pink-deep`,
+  outline: `${HAIRLINE} border-pink/40 bg-transparent text-pink hover:border-pink hover:bg-pink/5`,
   onPhoto:
     `${HAIRLINE} border-white/35 bg-white/15 text-white backdrop-blur-md backdrop-saturate-150 ` +
     'hover:border-white/60 hover:bg-white/25',

@@ -74,7 +74,7 @@ export function GalleryGrid({ filterable = false, limit }: Props) {
               index={i % 3}
               className="mb-4 block break-inside-avoid lg:mb-5"
             >
-              <Photo {...item} />
+              <Photo {...item} sizes="(min-width: 1024px) 460px, (min-width: 640px) 50vw, 100vw" />
             </Reveal>
           ))}
         </div>

@@ -108,18 +108,46 @@ export const HOME_HERO: Photo = {
 }
 
 /**
- * Optional video for the home hero.
+ * The photograph behind the closing ask.
  *
- * When a path is set the home hero plays it, muted and looping, over
- * HOME_HERO as the poster. If it is null, or the visitor prefers reduced
- * motion, the photograph is used on its own and nothing is downloaded.
+ * The reference's one tinted band always carries photography beside the copy;
+ * a bare coloured rectangle is not the device, it is the device with its
+ * content removed. This is that content.
  *
- * Currently off: the hero is the photograph. The clip that was here was
- * 2160x3840 at 47.8 Mbps — 99 MB, and vertical, so a desktop only ever saw
- * about a third of its height. If a video comes back, it wants to be
- * 1920x1080, H.264, no audio track, around 3 Mbps and 6 MB.
+ * It defaults to the same proposal the home page opens on, which makes the
+ * page a bookend rather than a repeat: you arrive on it and you leave on it.
+ * Any page can pass its own.
  */
-export const HERO_VIDEO: string | null = null
+export const CLOSING_PHOTO: Photo = {
+  src: '/assets/images/hero/Hero.jpg',
+  alt: '',
+  caption: 'Pedida de mano de noche, letras iluminadas y chisperos',
+  ratio: '16/9',
+}
+
+/**
+ * The home hero video, and it is a PHONE video specifically.
+ *
+ * The footage is shot vertical, which is the wrong crop for a desktop: a 16:9
+ * viewport shows about a third of a 9:16 frame's height, so you get a
+ * horizontal slice of a vertical video. On a phone it is exactly the right
+ * crop, so this plays below 1024px and a desktop never downloads it at all.
+ *
+ * The source was 2160x3840 at 47.8 Mbps, which is 99 MB and unplayable on
+ * Mexicali cellular. Re-encoded to 1080x1920, H.264 high, CRF 28, no audio
+ * track, faststart. Same 16.57 seconds, 3.9 MB. The original is kept in
+ * assets-src/hero/ and the command that produced this is in README.
+ *
+ * Set to null to go back to the photograph alone.
+ */
+export const HERO_VIDEO: string | null = '/assets/images/hero/hero-portrait.mp4'
+
+/**
+ * A frame pulled from that video rather than a separate photograph, so the
+ * poster and the first frame of playback are the same picture and the
+ * hand-off is invisible.
+ */
+export const HERO_VIDEO_POSTER = '/assets/images/hero/hero-portrait.jpg'
 
 /**
  * Header photographs for the pages that are not an occasion. Occasion pages

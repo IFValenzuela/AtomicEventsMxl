@@ -62,7 +62,7 @@ export function InstagramStrip() {
           href={PROFILE}
           target="_blank"
           rel="noreferrer"
-          className="mt-4 inline-block text-[0.9375rem] text-ink-soft transition-colors duration-200 hover:text-ink"
+          className="inkwipe mt-3 inline-block py-1.5 text-[0.9375rem] text-ink-soft [--wipe-from:var(--color-ink-soft)]"
         >
           {HANDLE}
         </a>
@@ -88,7 +88,10 @@ export function InstagramStrip() {
               rel="noreferrer"
               className="group relative block"
             >
-              <Photo {...post} />
+              <Photo
+                {...post}
+                sizes="(min-width: 1024px) 20vw, (min-width: 768px) 30vw, (min-width: 640px) 42vw, 62vw"
+              />
 
               {/* The glyph the reference puts in the corner of each tile. A
                   drop-shadow rather than a scrim, so it stays legible over a

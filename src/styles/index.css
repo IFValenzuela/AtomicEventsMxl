@@ -26,10 +26,9 @@
    Logo.png and Logo2.png:
 
      ink   #00303f  navy, from the badge. The text colour. 14:1 on white.
-     pink  #e0195f  from the shooting star. Focus rings and selection only.
-                    Not the button fill, not a link hover, not a rule. The
-                    reference paints every control in its one ink and lets
-                    fill-versus-hollow carry the emphasis instead.
+     pink  #e0195f  from the shooting star. The button colour: every control
+                    shaped like a button is pink, and nothing else is. Not a
+                    heading, not a link hover, not a rule.
      gold           lives inside the badge artwork and over photographs only.
                     1.5:1 on white, so never a UI colour here.
    ========================================================================= */
@@ -38,30 +37,33 @@
   --color-paper: #ffffff;
   --color-paper-tint: #f4f2ee; /* photo placeholder ground, not a band */
 
-  /* The one non-white band. The reference runs an unbroken white page and
-     breaks it exactly once, with a sand #d9cdb7 at 1.57:1 against white —
-     faint enough to stay quiet, present enough to actually read as a band.
-     #f4f2ee was 1.12:1, which is below the threshold where a full-bleed
-     section reads as anything at all.
-
-     This tone is the same move made in Atomic's palette instead of the
-     hotel's: the brand gold measured off Logo.png (#fedb5b) taken down to
-     band luminance. 1.31:1 on white, 10.7:1 under ink. */
-  --color-sand: #ece0c6;
 
   --color-ink: #00303f;
   --color-ink-soft: #55686f; /* 6.2:1. Tertiary meta only. */
   --color-rule: #e4e2de;
 
-  --color-ink-deep: #001d26; /* The filled button's hover. A darken, not a hue. */
+  /* Pink is the button colour, and only the button colour.
 
-  /* Pink is no longer a UI colour. The reference has no accent hue at all:
-     emphasis comes from filling a control rather than from colouring it, and
-     a large saturated rectangle was the single loudest thing on our page.
-     Pink now lives in the logo artwork, the focus ring and the text
-     selection — places the brand shows without competing with the design. */
+     The reference has no accent hue at all: it paints every control in its
+     one brown and lets fill-versus-hollow carry the emphasis. This page does
+     it the other way round. Ink for everything you read, pink for everything
+     you press. The rule is just as strict, it simply draws the line somewhere
+     else, and it buys something the reference never needed: on a page this
+     photographic, a saturated control is findable at a glance.
+
+     Nothing that is not pressable is pink. No pink headings, rules, italics
+     or link hovers.
+
+     Measured: white on #e0195f is 4.69:1, over the 4.5:1 a 15px label needs.
+     The #b8104b hover is 6.53:1. On the near-black closing band the floor is
+     measured rather than assumed: see CtaBand. */
   --color-pink: #e0195f;
   --color-pink-deep: #b8104b;
+
+  /* The same pink, lifted enough to read on a dark surface. #e0195f manages
+     only 2.99:1 on the ink, which fails link text; this is 4.95:1. Used only
+     where the ground is dark, never on white, where it drops to 2.84:1. */
+  --color-pink-lift: #f56a97;
   --color-danger: #b3261e; /* 6.4:1. Form errors only. */
 
   /* Heading line-height, pinned to the reference's 43.2/36 = 1.2. Tailwind's
@@ -318,24 +320,174 @@
     }
   }
 
+  /* ==========================================================================
+     The ink-to-pink sweep.
+
+     Pink means pressable on this page, and every button already says so by
+     being pink. Links could not: they are ink, like the prose around them, so
+     nothing distinguished a link from a heading until the pointer arrived.
+
+     So the link states it on approach. Pink sweeps across the glyphs from the
+     left, and on a `.morelink` its hairline underline fills on the same curve
+     over the same 450ms, so the two read as one gesture rather than two
+     effects that happen to fire together.
+
+     The sweep is a two-stop gradient clipped to the text and slid by
+     background-position, not an opacity cross-fade: the point is that the
+     colour ARRIVES, travelling, and a fade has no direction. `.morelink`
+     carries an arrow glyph, and an SVG cannot be clipped to text, so its
+     colour flips on a 280ms delay - about when the sweep reaches the right
+     edge where the arrow sits. The eye reads it as the sweep hitting it.
+
+     Guarded by @supports, because the technique needs transparent text fill
+     and an unsupported browser would render an invisible link. Reset under
+     forced-colors, where the system owns the palette.
+     ========================================================================== */
+  .inkwipe,
+  .morelink {
+    background-image: linear-gradient(
+      to right,
+      var(--color-pink) 50%,
+      var(--wipe-from, var(--color-ink)) 50%
+    );
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    transition: background-position 0.45s var(--ease-out-expo);
+  }
+
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .inkwipe,
+    .morelink {
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .inkwipe:hover,
+  .inkwipe:focus-visible,
+  .morelink:hover,
+  .morelink:focus-visible,
+  .group:hover .morelink {
+    background-position: 0 0;
+  }
+
   /* The small uppercase link under a section heading. 2px of tracking,
      matching the reference exactly. */
   .morelink {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
     padding-bottom: 0.4rem;
-    border-bottom: 1px solid currentColor;
+    border-bottom: 1px solid var(--color-ink);
     font-size: 0.8125rem;
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--color-ink);
-    transition: color 0.4s var(--ease-out-expo);
+    transition:
+      background-position 0.45s var(--ease-out-expo),
+      color 0.2s ease-out 0.28s;
   }
 
-  .morelink:hover {
+  /* The pink half of the underline, riding the same curve as the glyphs.
+
+     `bottom: -1px` lands it exactly on the border, which an absolutely
+     positioned child measures from the padding box, so the pink line covers
+     the ink one rather than sitting under it. The ink border therefore never
+     fades: fading it left a brief gap at the right end while the sweep was
+     still finishing. */
+  .morelink::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 1px;
+    background-color: var(--color-pink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-out-expo);
+  }
+
+  .morelink:hover,
+  .morelink:focus-visible,
+  .group:hover .morelink {
+    /* Only the arrow reads this; the label's fill is transparent. */
     color: var(--color-pink);
+  }
+
+  .morelink:hover::after,
+  .morelink:focus-visible::after,
+  .group:hover .morelink::after {
+    transform: scaleX(1);
+  }
+
+  /* The same sweep over photography. MoreLink has always applied this class
+     for its `onPhoto` prop and nothing ever defined it, so the link rendered
+     in ink on top of a dark picture. White resting, lifted pink arriving. */
+  .morelink-photo {
+    --wipe-from: #ffffff;
+    border-bottom-color: rgb(255 255 255 / 0.6);
+    color: #ffffff;
+    background-image: linear-gradient(
+      to right,
+      var(--color-pink-lift) 50%,
+      var(--wipe-from) 50%
+    );
+  }
+
+  .morelink-photo::after {
+    background-color: var(--color-pink-lift);
+  }
+
+  .morelink-photo:hover,
+  .morelink-photo:focus-visible,
+  .group:hover .morelink-photo {
+    color: var(--color-pink-lift);
+  }
+
+  /* The system owns the palette here, so hand it back. */
+  @media (forced-colors: active) {
+    .inkwipe,
+    .morelink {
+      background-image: none;
+      -webkit-text-fill-color: currentColor;
+    }
+    .morelink::after {
+      display: none;
+    }
+  }
+
+  /* Reduced motion keeps the feedback and drops the travel: the colour still
+     confirms the link, it simply arrives rather than sweeps. */
+  @media (prefers-reduced-motion: reduce) {
+    .inkwipe,
+    .morelink {
+      background-image: none;
+      -webkit-text-fill-color: currentColor;
+      transition: color 0.15s ease-out;
+    }
+
+    .inkwipe:hover,
+    .inkwipe:focus-visible,
+    .morelink:hover,
+    .morelink:focus-visible,
+    .group:hover .morelink {
+      color: var(--color-pink);
+    }
+
+    .morelink-photo:hover,
+    .morelink-photo:focus-visible,
+    .group:hover .morelink-photo {
+      color: var(--color-pink-lift);
+    }
+
+    .morelink::after {
+      transition: none;
+    }
   }
 
   /* ==========================================================================
