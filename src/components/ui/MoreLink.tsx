@@ -6,8 +6,6 @@ type Props = {
   to: string
   label?: string
   className?: string
-  /** Over a photograph, where the label and its rule must be white. */
-  onPhoto?: boolean
 }
 
 /**
@@ -16,11 +14,11 @@ type Props = {
  * This is the quiet affordance that sits under a section heading, and it is
  * deliberately not a button.
  */
-export function MoreLink({ to, label = CTA.more, className = '', onPhoto }: Props) {
+export function MoreLink({ to, label = CTA.more, className = '' }: Props) {
   return (
     <Link
       to={to}
-      className={`morelink group ${onPhoto ? 'morelink-photo' : ''} ${className}`}
+      className={`morelink group ${className}`}
     >
       {label}
       <ArrowRight

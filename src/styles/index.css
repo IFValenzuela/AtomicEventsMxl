@@ -60,10 +60,6 @@
   --color-pink: #e0195f;
   --color-pink-deep: #b8104b;
 
-  /* The same pink, lifted enough to read on a dark surface. #e0195f manages
-     only 2.99:1 on the ink, which fails link text; this is 4.95:1. Used only
-     where the ground is dark, never on white, where it drops to 2.84:1. */
-  --color-pink-lift: #f56a97;
   --color-danger: #b3261e; /* 6.4:1. Form errors only. */
 
   /* Heading line-height, pinned to the reference's 43.2/36 = 1.2. Tailwind's
@@ -425,30 +421,6 @@
     transform: scaleX(1);
   }
 
-  /* The same sweep over photography. MoreLink has always applied this class
-     for its `onPhoto` prop and nothing ever defined it, so the link rendered
-     in ink on top of a dark picture. White resting, lifted pink arriving. */
-  .morelink-photo {
-    --wipe-from: #ffffff;
-    border-bottom-color: rgb(255 255 255 / 0.6);
-    color: #ffffff;
-    background-image: linear-gradient(
-      to right,
-      var(--color-pink-lift) 50%,
-      var(--wipe-from) 50%
-    );
-  }
-
-  .morelink-photo::after {
-    background-color: var(--color-pink-lift);
-  }
-
-  .morelink-photo:hover,
-  .morelink-photo:focus-visible,
-  .group:hover .morelink-photo {
-    color: var(--color-pink-lift);
-  }
-
   /* The system owns the palette here, so hand it back. */
   @media (forced-colors: active) {
     .inkwipe,
@@ -479,11 +451,6 @@
       color: var(--color-pink);
     }
 
-    .morelink-photo:hover,
-    .morelink-photo:focus-visible,
-    .group:hover .morelink-photo {
-      color: var(--color-pink-lift);
-    }
 
     .morelink::after {
       transition: none;
