@@ -78,10 +78,11 @@ function OccasionCard({
       className={`group block ${wide ? 'md:grid md:grid-cols-2 md:items-center md:gap-12' : ''}`}
     >
       <div className="overflow-hidden">
-        <Photo
-          {...occasion.photo}
-          className="transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
-        />
+        {/* No hover zoom. The reference declares its transitions on
+            background-color, color, fill and border-color only, which is an
+            explicit decision to keep photographs out of hover motion. The
+            title below carries the whole affordance. */}
+        <Photo {...occasion.photo} />
       </div>
 
       <div className={wide ? 'mt-7 md:mt-0' : 'mt-7'}>
@@ -89,7 +90,7 @@ function OccasionCard({
           <StarTier stars={top.stars} of={top.starsOf} />
         )}
 
-        <h2 className="mt-4 text-[1.75rem] transition-colors duration-300 group-hover:text-pink lg:text-3xl">
+        <h2 className="mt-4 text-[1.75rem] transition-colors duration-300 group-hover:text-ink-soft lg:text-3xl">
           {occasion.title}
         </h2>
 
@@ -101,7 +102,7 @@ function OccasionCard({
           cotizar
         </p>
 
-        <span className="morelink mt-7 group-hover:text-pink">
+        <span className="morelink mt-7 group-hover:text-ink-soft">
           Ver paquete
           <ArrowRight
             size={16}

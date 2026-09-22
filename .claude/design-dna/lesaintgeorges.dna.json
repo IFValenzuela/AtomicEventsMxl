@@ -1,0 +1,328 @@
+{
+  "meta": {
+    "name": "Le Saint Georges — Alpine Hotel Editorial",
+    "description": "Quiet luxury hospitality: a white page, one brown ink, a serif that only ever sets headings, square-cornered photographs printed at full size, and 96px of silence between every section. Motion is restrained to two ideas — a held parallax photograph and a short fade as blocks enter. Nothing bounces, nothing glows, nothing is rounded.",
+    "source_references": [
+      "https://lesaintgeorges.ch/en/ (live DOM computed styles, 1543px viewport, 2026-09-22)",
+      "et-core-unified-tb-1096-tb-1100-1089.min.css (Divi 5 unified stylesheet)",
+      "scratchpad/lsg-reference.jpg (k-means color measurement, k=8)"
+    ],
+    "created_at": "2026-09-22"
+  },
+
+  "design_system": {
+    "color": {
+      "palette_type": "monochromatic",
+      "primary": {
+        "hex": "#472300",
+        "role": "The single brand ink. Every heading, every link, the filled button, the nav on scrolled state, the footer headings, the decorative frieze line-work. This one value carries roughly all of the site's chroma."
+      },
+      "secondary": {
+        "hex": "#d9cdb7",
+        "role": "Sand/taupe band. Used exactly once on the home page, as a full-bleed background behind the Signature Offers carousel, to break an otherwise unbroken run of white sections."
+      },
+      "accent": {
+        "hex": "#472300",
+        "role": "There is no separate accent. CTA emphasis is the same brown as everything else, achieved by filling it rather than by changing hue — a filled brown button against outlined/underlined siblings."
+      },
+      "neutral": {
+        "scale": ["#ffffff", "#fefefe", "#e0e0e0", "#d9cdb7", "#000000"],
+        "usage": "#ffffff is the page and the floating cards. #e0e0e0 is the only divider value in the stylesheet (footer hairline, form borders). #000000 is body copy — the measured foreground against the measured #ffffff background; it is genuinely pure black, not a softened near-black. Headings deliberately do NOT use it, they use the brown, which is the whole contrast device: brown heading over black body over white page."
+      },
+      "semantic": {
+        "success": "#472300",
+        "warning": "#472300",
+        "error": "#b3261e",
+        "info": "#0c71c3"
+      },
+      "surface": {
+        "background": "#ffffff",
+        "card": "#ffffff",
+        "elevated": "#ffffff"
+      },
+      "contrast_strategy": "High contrast, zero tint. Pure white page, pure black body, 12.9:1 brown headings. Depth never comes from a grey ramp — there is no grey ramp. Separation comes from whitespace and from full-bleed photography, so every surface in the UI is literally the same white and reads as one continuous sheet of paper.",
+      "measurement": {
+        "k": 8,
+        "sampling": {
+          "method": "deterministic_stratified",
+          "max_pixels": 160000,
+          "sampled_pixels": 160000
+        },
+        "note": "Token roles below are taken from live DOM computed styles, which are exact. The clustered palette is retained for traceability but is dominated by photographic content (a 55%-of-frame interior photo), so its mid-tones are photo tones, not UI tokens."
+      },
+      "measured_palette": [
+        { "hex": "#fefefe", "coverage": 0.6998, "role": "background" },
+        { "hex": "#b9a794", "coverage": 0.0805, "role": "photography" },
+        { "hex": "#d0c6c0", "coverage": 0.0648, "role": "photography" },
+        { "hex": "#9e8972", "coverage": 0.0455, "role": "photography" },
+        { "hex": "#6c5949", "coverage": 0.0394, "role": "photography" },
+        { "hex": "#433224", "coverage": 0.0353, "role": "photography" },
+        { "hex": "#b6793c", "coverage": 0.0214, "role": "accent" },
+        { "hex": "#15212b", "coverage": 0.0133, "role": "text" }
+      ]
+    },
+
+    "typography": {
+      "type_scale": {
+        "display": { "size": "36px", "weight": "500", "line_height": "43.2px (1.2)", "tracking": "0" },
+        "heading_1": { "size": "36px", "weight": "500", "line_height": "43.2px (1.2)", "tracking": "0" },
+        "heading_2": { "size": "36px", "weight": "500", "line_height": "43.2px (1.2)", "tracking": "0" },
+        "heading_3": { "size": "28px", "weight": "500", "line_height": "33.6px (1.2)", "tracking": "0" },
+        "body": { "size": "18px", "weight": "400", "line_height": "21.6px (1.2)", "tracking": "0" },
+        "body_small": { "size": "16px", "weight": "400", "line_height": "19.2px (1.2)", "tracking": "0" },
+        "caption": { "size": "13px", "weight": "400", "line_height": "1.4", "tracking": "0" },
+        "overline": { "size": "13px", "weight": "400", "line_height": "1", "tracking": "2px" }
+      },
+      "font_families": {
+        "heading": "'Lora Regular', Georgia, 'Times New Roman', serif — a transitional serif with a low-contrast, slightly calligraphic axis, self-hosted as a static weight and always set at 500",
+        "body": "'Avenir Next Regular' / 'Avenir Next Medium' / 'Avenir Next Demi-Bold', Helvetica, Arial, sans-serif — geometric sans, three discrete self-hosted weights rather than a variable axis",
+        "mono": "not used anywhere on the site"
+      },
+      "font_style_notes": "The type system is a hard two-family split with no overlap: the serif sets headings and nothing else, the geometric sans sets body, nav, buttons, labels and links and never sets a heading. There is exactly one heading size for the whole page (36px) with a single 28px step down for cards — no 48/64/72 display tier at all, so the hero does not shout. Line-height is an unusually tight 1.2 on BOTH headings and body; that tightness plus the 96px section padding is what produces the 'dense block floating in emptiness' texture. Tracking is zero everywhere except the 2px uppercase button/overline treatment. Headings are sentence case, never uppercase; nav links are sentence case with no tracking (13px Avenir Next Medium)."
+    },
+
+    "spacing": {
+      "base_unit": "8px",
+      "scale": ["8px", "16px", "24px", "32px", "48px", "96px", "128px", "144px"],
+      "content_density": "spacious",
+      "section_rhythm": "Measured: every content section is padding-top 96px with padding-bottom alternating 48px / 96px / 144px depending on whether the next section continues the same thought. Rows add up to 128px of their own bottom padding. Real observed gaps between a section's last element and the next section's heading run 200–300px. The emptiness is the luxury signal and it is not negotiable — halving it is the single fastest way to make this design read as generic."
+    },
+
+    "layout": {
+      "grid_system": "Two-column 50/50 feature rows that alternate side each time, plus full-bleed single-column bands. No card grid on the home page except the 5-up Instagram strip.",
+      "max_content_width": "1440px for standard rows; 1632px for the wide offers row; 640px for narrow centered intro copy; 100vw for parallax photo bands and the pre-footer frieze",
+      "columns": "2 (feature rows), 1 (centered intro/CTA), 5 (footer link columns, Instagram strip)",
+      "gutter": "32px horizontal page gutter; roughly 80–120px between the text column and the photo column",
+      "breakpoints": ["980px (Divi tablet)", "767px (Divi phone)"],
+      "alignment_tendency": "mixed — centered for section intros and full-bleed cards, asymmetric for the alternating feature rows. Notably, the text inside feature-row paragraphs is ALSO centered even when the column sits left, which is unusual and is a strong part of the signature."
+    },
+
+    "shape": {
+      "border_radius": { "small": "0px", "medium": "0px", "large": "0px", "pill": "0px (not used — even the carousel arrow buttons are the only circles, and they are icons, not components)" },
+      "border_usage": "subtle 1px, and only three places: the 1px brown hairline rule under the centered wordmark in the header, the 1px underline beneath a 'Learn more' link, and the 1px outline on the ghost button over photography.",
+      "divider_style": "A single hairline in #e0e0e0 above the footer copyright line. Sections are never divided by a rule — they are divided by 200px of white."
+    },
+
+    "elevation": {
+      "shadow_style": "none",
+      "levels": { "low": "none", "medium": "none", "high": "none" },
+      "depth_cues": "Overlapping layers only. Two devices carry all the depth in the design: (1) a pair of photographs where the smaller one is absolutely offset so it overlaps the corner of the larger; (2) a solid white card that floats on top of a full-bleed parallax photograph. Neither casts a shadow — the depth is read purely from occlusion, which is what keeps the page looking printed rather than rendered."
+    },
+
+    "iconography": {
+      "style": "Hairline linear, almost no icons at all",
+      "stroke_weight": "1px",
+      "size_scale": ["14px (footer/contact glyphs)", "18px (the long right arrow after a link)"],
+      "preferred_set": "A long thin right arrow (→) after 'Learn more'; a phone and envelope glyph in the hero contact line; a chevron inside the carousel's circular white buttons. There are no feature icons, no icon cards, no decorative icon grid."
+    },
+
+    "motion": {
+      "easing": "ease-out for entrances, linear for the parallax translate, plain `0.2s` (browser default ease) for all hover state changes",
+      "duration_scale": { "micro": "200ms", "normal": "500ms", "macro": "800ms" },
+      "entrance_pattern": "A short opacity fade as a module crosses the viewport waypoint. No travel, no scale, no stagger-by-character. Applied sparingly — 4 modules on the whole home page carry it, not every block.",
+      "exit_pattern": "none — content never animates out",
+      "philosophy": "minimal functional, verging on cinematic restraint. The site's one genuinely authored piece of motion is the parallax: photographs are held while the page moves over them. Everything else is a 200ms hover. The professionalism the client is asking for comes precisely from this ratio — one big idea, executed on the photographs, and total stillness everywhere else."
+    },
+
+    "components": {
+      "button_style": "Two variants, both 0px radius, both 13px Avenir Next Regular, UPPERCASE, 2px letter-spacing, padding 12px 24px 10px (note the optically-corrected asymmetric vertical padding), transition 0.2s. Primary = solid #472300 fill, white text. Ghost = transparent with a 1px solid #ffffff border and white text, used only over photography.",
+      "input_style": "Square, hairline-bordered, no fill, no inner shadow, label above.",
+      "card_style": "Two kinds. (a) The floating white card: solid #ffffff, no radius, no shadow, ~430px wide, ~48px padding, absolutely positioned over a full-bleed photo, containing a centered serif heading, centered body and a centered 'Learn more'. (b) The carousel offer card: the photograph IS the card, with a top-down dark gradient scrim and white serif heading + white body sitting on the upper third.",
+      "navigation_pattern": "A two-tier fixed header. Tier one: a circular crest badge pinned far left, the wordmark centered, a BOOK button and language switcher far right. A 1px brown rule spans between. Tier two: the horizontal nav, centered, 13px, sentence case. Over the hero the whole header is transparent with white content; once scrolled past the hero it becomes solid white with brown content. The transition is a simple color/background swap, not a shrink or a slide.",
+      "modal_style": "not used",
+      "list_style": "Numbered circular brown badges beside plain text for the village map legend; otherwise plain unstyled link columns in the footer.",
+      "component_notes": "The inventory is deliberately tiny: header, button, learn-more link, photo, floating card, carousel, footer. There are no tabs, accordions, badges, chips, tooltips, progress bars or stat counters anywhere. Restricting the component vocabulary this hard is a large part of why the page reads as expensive — nothing on screen looks like a UI kit."
+    }
+  },
+
+  "design_style": {
+    "aesthetic": {
+      "mood": ["calm", "warm", "unhurried", "assured", "handmade"],
+      "visual_metaphor": "A well-printed hotel brochure laid flat on a white table — large photographs, wide margins, one ink.",
+      "era_influence": "Contemporary Swiss editorial print, with a deliberate pre-digital warmth from the serif and the hand-drawn frieze; no 2020s SaaS cues at all.",
+      "genre": "luxury hospitality / editorial",
+      "personality_traits": ["hospitable", "understated", "meticulous", "regional", "self-assured"],
+      "adjectives": ["airy", "warm", "square", "quiet", "photographic", "expensive"]
+    },
+    "visual_language": {
+      "complexity": "minimal",
+      "ornamentation": "subtle accents — and one deliberate exception. The page is ornament-free until the pre-footer, where a full-bleed hand-drawn line-art frieze of the valley (cows, chalets, cheesemakers, edelweiss) runs the full width in brown hairline. That single burst of illustration is what stops the minimalism from reading as cold, and it is the most-copyable idea on the site.",
+      "whitespace_usage": "Extreme and structural. Whitespace is the primary compositional material; on several screens more than half the viewport is empty white.",
+      "visual_weight_distribution": "Alternating. A heavy photographic mass on one side is answered by a light centered text column on the other, then the sides swap on the next section.",
+      "focal_strategy": "progressive reveal — one idea per screen, each introduced by a single 36px serif line",
+      "contrast_level": "high in value (black on white), near-zero in hue (one brown)",
+      "texture_usage": "All texture is photographic. There is no noise overlay, no paper grain, no gradient mesh, no pattern fill. Wood, stone, linen and cheese-rind textures come from the photographs themselves."
+    },
+    "composition": {
+      "hierarchy_method": "spatial isolation first, typographic contrast second. Scale barely participates — the biggest heading on the page is 36px, so the eye is led by emptiness and by serif-vs-sans, not by size.",
+      "balance_type": "asymmetric",
+      "flow_direction": "Strict vertical zig-zag: photo-left/text-right, then text-left/photo-right, punctuated by full-bleed bands that reset the eye to center.",
+      "grouping_strategy": "Heading, paragraph and 'Learn more' are always a single tight centered stack with generous space around it; the group never exceeds ~5 lines of copy.",
+      "negative_space_role": "It is the design. Negative space signals confidence and price; every section is framed by it rather than by a container, border or card."
+    },
+    "imagery": {
+      "photo_treatment": "Full-colour, naturally lit, warm-biased, no filter, no duotone, no desaturation. Real rooms, real food, real staff, real guests. Images are printed large and never cropped into a shape.",
+      "illustration_style": "A single hand-drawn hairline-brown panoramic frieze, naive and regional, used once above the footer.",
+      "graphic_elements": "A circular engraved crest badge (the hotel seal) and a letterspaced wordmark lockup. Nothing else.",
+      "pattern_usage": "none",
+      "image_shape": "Hard rectangles, 0px radius. Mixed portrait and landscape, frequently paired so a portrait overlaps the corner of a landscape."
+    },
+    "interaction_feel": {
+      "feedback_style": "Quiet and immediate — a colour change, an underline, nothing more.",
+      "hover_behavior": "200ms colour/background-colour swap. The brown button inverts to outlined, the learn-more underline and label shift tone. Images do NOT zoom on hover, which is notable and is part of the restraint.",
+      "transition_personality": "fade-subtle",
+      "loading_style": "Content is simply there; imagery lazy-loads without a skeleton or spinner.",
+      "microinteraction_density": "low"
+    },
+    "brand_voice_in_ui": {
+      "tone": "Warm, specific, first-person-plural, never salesy. Copy names real things — '14 intimate rooms', 'a master cheesemaker from the region of Fribourg', 'the 4th World Championship'.",
+      "formality": "Formal but hospitable; full sentences, no exclamation marks, no emoji.",
+      "cta_style": "subtle suggestion. The dominant call to action on the page is the word 'Learn more' with a thin arrow — an invitation to read on, not to convert. The only imperative on the page is 'Book a room', and it appears twice.",
+      "empty_state_approach": "not applicable — no empty states exist",
+      "error_tone": "not observable"
+    }
+  },
+
+  "visual_effects": {
+    "overview": {
+      "effect_intensity": "subtle-accent",
+      "performance_tier": "lightweight",
+      "fallback_strategy": "reduce to CSS — the parallax degrades to a static background and the fades degrade to plain visibility; nothing on the page requires a GPU or a canvas to be legible.",
+      "primary_technology": "CSS only, plus a small amount of scroll-position JS for the parallax translate, the sticky-header state swap, and Swiper for one carousel."
+    },
+
+    "background_effects": {
+      "type": "video-bg",
+      "description": "The opening screen is a full-viewport, autoplaying, muted, looping mp4 of the hotel and the valley (video_le-saint-georges_08.2026.mp4), with a dark top-down gradient scrim so the white wordmark, ghost button and contact line stay legible. It is the only moving pixel above the fold; there is no text animation over it.",
+      "technology": "HTML5 <video autoplay muted loop playsinline> behind a CSS linear-gradient overlay",
+      "params": {
+        "color_palette": ["#000000 at ~60% opacity at the top", "transparent through the middle", "#000000 at ~40% at the bottom"],
+        "speed": "1x, real-time, no ramping",
+        "density": "single full-bleed layer",
+        "opacity": "video 1.0, scrim 0.4–0.6",
+        "blend_mode": "normal"
+      }
+    },
+
+    "particle_systems": {
+      "enabled": false,
+      "type": "none",
+      "description": "No particles anywhere. This matters for the port: an events/fireworks brand will be tempted to add sparks, and the reference's professionalism comes from not doing that.",
+      "technology": "none",
+      "params": {
+        "count": "0", "shape": "none", "size_range": "none",
+        "movement_pattern": "none", "color_behavior": "none",
+        "interaction": "none", "spawn_area": "none"
+      }
+    },
+
+    "3d_elements": {
+      "enabled": false,
+      "type": "none",
+      "description": "No WebGL, no Three.js, no 3D transforms beyond a flat translate.",
+      "technology": "none",
+      "params": {
+        "renderer": "none", "lighting": "none", "camera": "none",
+        "materials": "none", "geometry": "none",
+        "post_processing": [], "interaction_model": "none"
+      }
+    },
+
+    "shader_effects": {
+      "enabled": false,
+      "type": "none",
+      "description": "No shaders. No noise, no distortion, no colour-shift passes.",
+      "technology": "none",
+      "params": {
+        "uniforms": "none", "vertex_manipulation": "none",
+        "fragment_output": "none", "noise_type": "none", "distortion": "none"
+      }
+    },
+
+    "scroll_effects": {
+      "parallax": {
+        "enabled": true,
+        "layers": "2 — a held photographic plane and the page plane that moves over it",
+        "depth_range": "The background plane travels at roughly 0.5–0.7x page speed; 5 of the 14 parallax sections use the CSS mode (background-attachment: fixed, i.e. 0x — the photograph does not move at all while the page scrolls over it), the rest use a JS transform.",
+        "speed_curve": "linear, tied 1:1 to scroll position with no easing or smoothing lag",
+        "note": "This is the site's signature effect and it is used 14 times. The strongest version is the fully-fixed one: a photograph pinned to the viewport while white page closes over it like a curtain."
+      },
+      "scroll_triggered_animations": {
+        "enabled": true,
+        "trigger_points": "Waypoint at roughly 80% of viewport height; fires once per element and is never replayed on scroll-up",
+        "animation_type": "fade-up, but with the travel dialled almost to zero — read it as a plain fade",
+        "scrub_behavior": "not scrubbed — a one-shot timed transition, independent of scroll velocity"
+      },
+      "scroll_morphing": {
+        "enabled": true,
+        "description": "The fixed header morphs between two states as it crosses the hero boundary: transparent background with white wordmark, white nav and white-outlined BOOK button, becoming an opaque white bar with brown wordmark, brown nav and a brown-filled BOOK button. The bar's height and layout do not change — only colour and background, over ~0.2–0.3s. This single morph does more for perceived quality than any other effect on the site."
+      }
+    },
+
+    "text_effects": {
+      "type": "none",
+      "description": "Headings are not split, typed, glitched, gradient-filled or extruded. They fade in with their block, if at all. The restraint is deliberate and is a load-bearing part of the aesthetic.",
+      "technology": "none",
+      "params": {
+        "split_strategy": "none", "animation_per_unit": "none",
+        "stagger": "none", "effect_style": "none"
+      }
+    },
+
+    "cursor_effects": {
+      "enabled": false,
+      "type": "none",
+      "description": "Default system cursor throughout. No custom dot, no trail, no magnetic buttons, no spotlight.",
+      "params": {
+        "shape": "none", "size": "none", "blend_mode": "none",
+        "trail": "none", "interaction_zone": "none"
+      }
+    },
+
+    "image_effects": {
+      "type": "none",
+      "description": "Photographs receive no filter, no hover zoom, no clip-path reveal and no distortion. Their only 'effect' is compositional: the offset overlap of a portrait over a landscape, and the white card floating on a full-bleed band. Hover transitions are declared on colour properties only (background-color, color, fill, border-color at 0.2s), which confirms images are explicitly excluded from hover motion.",
+      "technology": "plain CSS positioning",
+      "params": {
+        "filter_pipeline": "none",
+        "hover_transform": "none",
+        "reveal_animation": "inherits the section's single fade; no per-image clip reveal",
+        "distortion_type": "none"
+      }
+    },
+
+    "glassmorphism_neumorphism": {
+      "enabled": false,
+      "style": "none",
+      "description": "The floating cards over photography are fully opaque white with zero blur — the exact opposite of glassmorphism, and a much better fit for a print-derived aesthetic.",
+      "params": {
+        "blur_radius": "0px", "transparency": "0 (fully opaque)",
+        "border_treatment": "none", "shadow_type": "none",
+        "light_source_angle": "n/a"
+      }
+    },
+
+    "canvas_drawings": {
+      "enabled": false,
+      "type": "none",
+      "description": "No <canvas> element exists on the page.",
+      "technology": "none",
+      "params": {
+        "draw_method": "none", "animation_loop": "none",
+        "color_scheme": "none", "responsiveness": "none", "interaction": "none"
+      }
+    },
+
+    "svg_animations": {
+      "enabled": false,
+      "type": "none",
+      "description": "The pre-footer frieze is a static raster/vector illustration. It is never drawn on, morphed or stroke-animated — it simply sits there full-bleed. Animating it would cheapen it.",
+      "params": {
+        "animation_method": "none", "path_morphing": "none",
+        "stroke_animation": "none", "filter_effects": "none"
+      }
+    },
+
+    "composite_notes": "The whole effect budget of this site is spent on four things, in this order of importance: (1) a full-bleed looping video hero under a dark scrim; (2) parallax photographic bands, fourteen of them, including five where the photo is fully pinned and the white page closes over it; (3) a two-state colour morph on the fixed header at the hero boundary; (4) a short one-shot fade as a handful of blocks enter. Everything else — particles, shaders, canvas, cursor effects, text splitting, hover zoom, glass, shadows, rounded corners — is absent, and the absence is the point. Implementation is cheap: the parallax and the header morph are the only JS worth writing, the rest is CSS. The one carousel (Swiper, circular white chevron buttons, dark-scrimmed photo cards with white serif headings) is the sole third-party widget and it sits on the page's only non-white band (#d9cdb7)."
+  }
+}

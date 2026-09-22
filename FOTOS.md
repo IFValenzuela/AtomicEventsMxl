@@ -2,7 +2,7 @@
 
 Lista generada desde el código. No la edites a mano: corre `npm run shotlist`.
 
-**1 de 49 listas.**
+**15 de 55 listas.**
 
 Para poner una foto: guárdala en `public/` + la ruta exacta de la columna
 "Archivo", con ese mismo nombre. No hay que tocar nada de código. Si el
@@ -32,24 +32,35 @@ que deja aire alrededor de lo importante.
 
 | Archivo | Proporción | Qué debe salir |
 | --- | --- | --- |
-| `/assets/images/hero/baby-shower.jpg` | 21/9 | Letras "OH BABY" y globos en la revelación |
+| `/assets/images/hero/baby-shower.jpg` ✅ | 21/9 | Letras "OH BABY" y globos en la revelación |
 | `/assets/images/hero/bodas.jpg` | 21/9 | Entrada de los novios bajo los chisperos |
 | `/assets/images/hero/cabina-360.jpg` | 21/9 | Cabina 360° montada y lista, alfombra roja al frente |
 | `/assets/images/hero/contacto.jpg` | 21/9 | Velas y pétalos, detalle nocturno |
-| `/assets/images/hero/galeria.jpg` | 21/9 | Invitados en la cabina, luces girando |
+| `/assets/images/hero/galeria.jpg` ✅ | 21/9 | Invitados en la cabina, luces girando |
+| `/assets/images/hero/Hero.jpg` ✅ | 16/9 | Pedida de mano con letras "CÁSATE CONMIGO" y chisperos |
 | `/assets/images/hero/nosotros.jpg` | 21/9 | Salón montado y listo, antes de abrir puertas |
-| `/assets/images/hero/paquetes.jpg` | 21/9 | Chisperos y alfombra roja hacia las letras |
+| `/assets/images/hero/paquetes.jpg` ✅ | 21/9 | Chisperos y alfombra roja hacia las letras |
 | `/assets/images/hero/propuestas.jpg` ✅ | 21/9 | Pareja dentro del corazón de pétalos, chisperos al fondo |
-| `/assets/images/hero/servicios.jpg` | 21/9 | Montaje completo: letras, globos y cabina 360° |
+| `/assets/images/hero/servicios.jpg` ✅ | 21/9 | Montaje completo: letras, globos y cabina 360° |
 | `/assets/images/hero/xv-anos.jpg` | 21/9 | Vals de la quinceañera entre chisperos |
+
+## instagram
+
+| Archivo | Proporción | Qué debe salir |
+| --- | --- | --- |
+| `/assets/images/instagram/01.jpg` | 4/5 | Entrada de novios con chisperos |
+| `/assets/images/instagram/02.jpg` | 4/5 | Cabina 360° en plena fiesta |
+| `/assets/images/instagram/03.jpg` | 4/5 | Letras iluminadas en la entrada |
+| `/assets/images/instagram/04.jpg` | 4/5 | Corazón de pétalos y velas |
+| `/assets/images/instagram/05.jpg` | 4/5 | Quinceañera frente a las letras "XV" |
 
 ## Nosotros
 
 | Archivo | Proporción | Qué debe salir |
 | --- | --- | --- |
-| `/assets/images/nosotros/equipo.jpg` | 4/3 | El equipo montando antes del evento |
+| `/assets/images/nosotros/equipo.jpg` ✅ | 4/3 | El equipo montando antes del evento |
 | `/assets/images/nosotros/luces.jpg` | 1/1 | Prueba de luces antes de abrir |
-| `/assets/images/nosotros/montaje.jpg` | 1/1 | Acomodando los pétalos a mano |
+| `/assets/images/nosotros/montaje.jpg` ✅ | 1/1 | Acomodando los pétalos a mano |
 
 ## Paquetes: baby shower y revelación
 
@@ -59,7 +70,7 @@ que deja aire alrededor de lo importante.
 | `/assets/images/packages/baby-shower/destellos-rosas-y-azules.jpg` | 4/3 | Toma aérea del dron durante la revelación |
 | `/assets/images/packages/baby-shower/explosion-de-amor.jpg` | 4/3 | Arco de globos alrededor de las letras "BABY" |
 | `/assets/images/packages/baby-shower/hecho-con-amor.jpg` | 4/3 | Revelación con humo de color y cohetes |
-| `/assets/images/packages/baby-shower/teaser.jpg` | 4/5 | Futuros papás frente a las letras iluminadas |
+| `/assets/images/packages/baby-shower/teaser.jpg` ✅ | 4/5 | Futuros papás frente a las letras iluminadas |
 
 ## Paquetes: bodas
 
@@ -98,9 +109,9 @@ que deja aire alrededor de lo importante.
 
 | Archivo | Proporción | Qué debe salir |
 | --- | --- | --- |
-| `/assets/images/servicios/cabina-360.jpg` | 3/4 | Cabina 360° en uso |
-| `/assets/images/servicios/chisperos.jpg` | 3/4 | Fuentes de chispas frías encendidas |
-| `/assets/images/servicios/dron.jpg` | 3/4 | Toma aérea del dron sobre el evento |
-| `/assets/images/servicios/globos.jpg` | 3/4 | Arco de globos montado en sitio |
-| `/assets/images/servicios/letras.jpg` | 3/4 | Letras iluminadas montadas en el salón |
-| `/assets/images/servicios/petalos.jpg` | 3/4 | Camino de pétalos y velas encendidas |
+| `/assets/images/servicios/cabina-360.jpg` ✅ | 3/4 | Cabina 360° en uso |
+| `/assets/images/servicios/chisperos.jpg` ✅ | 3/4 | Fuentes de chispas frías encendidas |
+| `/assets/images/servicios/dron.jpg` ✅ | 3/4 | Toma aérea del dron sobre el evento |
+| `/assets/images/servicios/globos.jpg` ✅ | 3/4 | Arco de globos montado en sitio |
+| `/assets/images/servicios/letras.jpg` ✅ | 3/4 | Letras iluminadas montadas en el salón |
+| `/assets/images/servicios/petalos.jpg` ✅ | 3/4 | Camino de pétalos y velas encendidas |

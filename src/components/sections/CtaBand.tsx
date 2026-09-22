@@ -23,7 +23,7 @@ export function CtaBand({
   const wa = `${CONTACT.whatsapp}?text=${encodeURIComponent(CONTACT.whatsappMessage)}`
 
   return (
-    <section className="band bg-paper-tint">
+    <section className="band bg-sand">
       <Reveal className="shell text-center">
         <h2 className="mx-auto max-w-[18ch] text-[1.75rem] lg:text-4xl">{title}</h2>
 
@@ -34,7 +34,7 @@ export function CtaBand({
             {CTA.quote}
           </Button>
 
-          <Button href={wa} variant="outline" >
+          <Button href={wa} variant="accent">
             <WhatsappLogo size={17} weight="regular" aria-hidden="true" />
             WhatsApp
           </Button>

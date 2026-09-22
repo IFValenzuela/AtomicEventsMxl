@@ -45,7 +45,11 @@ export function PageHero({ title, lead, photo, children }: Props) {
           floating over the picture instead of the page closing over it. */}
       <section className="rise pt-20 text-center lg:pt-28">
         <div className="shell">
-          <h1 className="mx-auto max-w-[18ch] text-[2rem] lg:text-[2.75rem]">
+          {/* 36px, not 44px. The reference has exactly one heading size for
+              its entire site and no display tier above it, so a page title
+              is the same size as a section title and the hierarchy is carried
+              by the whitespace around it instead. */}
+          <h1 className="mx-auto max-w-[18ch] text-[1.75rem] lg:text-4xl">
             {title}
           </h1>
 

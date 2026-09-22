@@ -20,7 +20,7 @@ export function MoreLink({ to, label = CTA.more, className = '', onPhoto }: Prop
   return (
     <Link
       to={to}
-      className={`morelink group ${onPhoto ? 'text-white hover:text-white/70' : ''} ${className}`}
+      className={`morelink group ${onPhoto ? 'morelink-photo' : ''} ${className}`}
     >
       {label}
       <ArrowRight

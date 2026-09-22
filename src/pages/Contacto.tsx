@@ -36,7 +36,7 @@ export default function Contacto() {
                   <li key={phone.tel}>
                     <a
                       href={`tel:${phone.tel}`}
-                      className="font-display text-2xl text-ink transition-colors duration-300 hover:text-pink"
+                      className="font-display text-2xl text-ink transition-colors duration-300 hover:text-ink-soft"
                     >
                       {phone.display}
                     </a>

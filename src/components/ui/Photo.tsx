@@ -59,9 +59,11 @@ export function Photo({
         fetchPriority={priority ? 'high' : 'auto'}
         decoding="async"
         onLoad={() => setLoaded(true)}
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
-          loaded ? 'opacity-100' : 'opacity-0'
-        }`}
+        data-loaded={loaded}
+        /* `.photo-img` in index.css holds the arrival: the frame fades in
+           while the last 5% of scale settles out of it, so the picture reads
+           as being placed rather than switched on. */
+        className="photo-img absolute inset-0 h-full w-full object-cover"
       />
 
       {!loaded && <Pending caption={caption} src={src} overlay={overlay} />}
@@ -82,7 +84,7 @@ function Pending({
   return (
     <div
       aria-hidden="true"
-      className={`absolute inset-0 flex flex-col items-center gap-4 border border-dashed border-ink/25 p-6 text-center ${
+      className={`absolute inset-0 flex flex-col items-center gap-4 border border-dashed border-ink/15 p-6 text-center ${
         overlay ? 'justify-start pt-40' : 'justify-center'
       }`}
     >

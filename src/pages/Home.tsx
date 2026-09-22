@@ -4,26 +4,41 @@ import { useMeta } from '../lib/useMeta'
 import { SectionHeader } from '../components/ui/SectionHeader'
 import { CtaBand } from '../components/sections/CtaBand'
 import { FeatureRow } from '../components/sections/FeatureRow'
-import { GalleryGrid } from '../components/sections/GalleryGrid'
 import { Hero } from '../components/sections/Hero'
 import { OccasionRail } from '../components/sections/OccasionRail'
+import { PhotoBand } from '../components/sections/PhotoBand'
 import { ServicesGrid } from '../components/sections/ServicesGrid'
 import { Testimonials } from '../components/sections/Testimonials'
 
 /**
  * Home.
  *
- *   hero          a photograph and one button, nothing else
+ *   hero          a photograph, one button, a number you can call
  *   nosotros      alternating row, photographs right, bleeding off the edge
  *   servicios     three-across photo tiles with the name set on the image
+ *   pedidas       the held band: a pinned photograph with a white card on it
  *   paquetes      five portraits in a strip
- *   cabina 360    alternating row, photographs left
- *   galeria       masonry preview
  *   testimonios   three quotes in the display serif, no boxes
  *   cierre        the one tinted band
  *
- * Section headings are centred with a short centred paragraph and a small
- * "VER MÁS" underneath, which is the reference's repeating unit.
+ * Six sections, and that ceiling is deliberate. Two more used to sit here: a
+ * second alternating row for the 360 booth, and a gallery preview. Both were
+ * cut, for the same two reasons.
+ *
+ * The first is duplication. GalleryGrid is the component /galeria renders, and
+ * the Instagram strip above the footer already says "look at our work".
+ * Three photo walls on one page is one idea told three times. The 360 booth already
+ * has a card in the rail directly above where its row used to be, plus its own
+ * page.
+ *
+ * The second is rhythm, and it mattered more. Four of the eight sections were
+ * the same unit: centred heading, centred paragraph, "VER MÁS", grid. A reader
+ * does not experience that as eight sections, they experience it as one section
+ * repeating, which is what made the page feel like a receipt. Three of those
+ * units remain and they are separated by the held band, so the eye gets a
+ * full-bleed reset between them.
+ *
+ * Before adding a section here, check it is not the fourth centred-header grid.
  */
 export default function Home() {
   useMeta(
@@ -31,7 +46,7 @@ export default function Home() {
     'Atomic Events crea pedidas de mano, revelaciones de género, XV años y bodas inolvidables en Mexicali. Cabina de fotos 360°, letras iluminadas, chisperos, pétalos y video con dron.',
   )
 
-  const cabina = byslug('cabina-360')
+  const propuestas = byslug('propuestas')
 
   return (
     <>
@@ -60,6 +75,16 @@ export default function Home() {
         </div>
       </section>
 
+      {propuestas && (
+        <PhotoBand
+          title={propuestas.kicker}
+          body={propuestas.blurb}
+          more={{ to: `/paquetes/${propuestas.slug}` }}
+          photo={propuestas.hero}
+          card="right"
+        />
+      )}
+
       <section className="band">
         <div className="shell">
           <SectionHeader
@@ -70,30 +95,6 @@ export default function Home() {
 
           <div className="mt-20">
             <OccasionRail />
-          </div>
-        </div>
-      </section>
-
-      {cabina && (
-        <FeatureRow
-          title="La cabina 360° que no para en toda la noche"
-          body={cabina.lead}
-          more={{ to: '/paquetes/cabina-360' }}
-          media="left"
-          photos={cabina.packages.map((p) => p.photo)}
-        />
-      )}
-
-      <section className="band">
-        <div className="shell">
-          <SectionHeader
-            title="Eventos que ya montamos"
-            body="Bodas, XV años, baby showers y pedidas en Mexicali y el valle."
-            more={{ to: '/galeria', label: 'Ver la galería' }}
-          />
-
-          <div className="mt-20">
-            <GalleryGrid limit={6} />
           </div>
         </div>
       </section>

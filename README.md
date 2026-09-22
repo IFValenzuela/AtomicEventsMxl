@@ -13,8 +13,9 @@ npm run shotlist   # regenerate FOTOS.md from the data files
 ```
 
 Vite + React 19 + TypeScript + Tailwind v4. React Router for the pages,
-Phosphor for icons, self-hosted Lora and Mulish. No animation library: the
-three effects the site needs are an IntersectionObserver and two CSS keyframes.
+Phosphor for icons, self-hosted Lora and Mulish. No animation library: every
+effect on the site is an IntersectionObserver, three CSS keyframes and one
+pointer handler that writes two custom properties.
 
 ## The one rule
 
@@ -88,17 +89,53 @@ described from memory. Its computed values are the spec:
 | Headings | Lora 36px / 500 / line-height 1.2 | same |
 | Card headings | Lora 28px | same |
 | Body | 18px | same, Mulish |
-| Buttons | 40px tall, `12px 24px 10px`, 13px, uppercase, 2px tracking, radius 0 | same |
 | Nav | 13px, sentence case | same |
 | Photographs | bare rectangles, radius 0, large, often portrait | same |
+| Buttons | 40px tall, radius 0 | **48px capsule** — see below |
 
-**Everything is square.** Zero border-radius sitewide except the circular badge
-seal. **Photographs carry no chrome** and deliberately bleed past the container
-edge in the alternating rows. **"VER MÁS ->"** is a small underlined uppercase
-link, never a button. The `.band` utility owns the very large gaps between
-sections; that emptiness is most of what makes the reference feel expensive.
+**Photographs carry no chrome** and deliberately bleed past the container edge
+in the alternating rows. **"VER MÁS ->"** is a small uppercase link with a
+hairline that wipes in on hover, never a button. The `.band` utility owns the
+very large gaps between sections; that emptiness is most of what makes the
+reference feel expensive.
 
 There are no kickers or eyebrows anywhere. Headings carry their own weight.
+
+### One geometry rule: square for content, capsule for controls
+
+This is the one place the page deliberately leaves the reference behind.
+Square buttons are right for a Swiss hotel and wrong here: at 13px uppercase
+they read as a form control rather than an invitation.
+
+So radius now carries meaning instead of being uniformly zero:
+
+- **Square — anything that *is* content.** Every photograph, every band, every
+  hairline rule. Still bare rectangles on white.
+- **Capsule — anything you can *operate*.** Buttons, inputs, the select, the
+  filter chips, the menu toggle. Full-round ends, 48px tall (52px for fields).
+
+A reader can tell what is pressable from across the room without a single
+extra colour being spent on saying so. Which is exactly why **a photograph
+must never pick up a radius**: round one picture and the signal stops meaning
+anything.
+
+Type tracking is size-specific, not one value for the whole scale: `h1` at
+`-0.022em` down to `h4` at `0`, because letterforms read further apart as they
+grow. Tokens and the full reasoning are at the top of `src/styles/index.css`.
+
+### Chrome and materials
+
+The header is a translucent layer (`backdrop-filter`), not an opaque bar, so
+content passes underneath it; its lower edge is a fading shadow rather than a
+1px line. `onPhoto` buttons blur the photograph behind them for the same
+reason. Both fall back to solid surfaces under `prefers-reduced-transparency`
+and `prefers-contrast: more`, and the header goes solid whenever the mobile
+menu is open, because a modal surface you can see through reads as a mistake.
+
+The closing band is the one dark surface on the site: navy, with the badge
+seal and the pink button on it. It used to be a pale tint. A tint is the right
+call for a hotel with two hundred photographs to protect; this page needs its
+last screen to be the one a reader remembers.
 
 ### One text colour
 
@@ -110,18 +147,35 @@ ramp is what made an earlier version of this page read as generic.
 - **Ink-soft** `#55686f` for genuinely tertiary meta only. 5.8:1. Rationed.
 - **Pink** `#e0195f`, from the shooting star. The primary button fill and
   nothing else, so every pink thing on the page is something you can press.
-- **Gold** lives inside the badge artwork and over photographs. It is 1.5:1 on
-  white, so it is never a UI colour here.
+- **Gold** lives inside the badge artwork, over photographs, and as the one
+  decorative wash behind the seal on the navy closing band. It is 1.5:1 on
+  white, so it is never a text or UI colour and nothing is ever read off it.
 
 Tokens and the full reasoning are at the top of `src/styles/index.css`.
 
 ### Motion
 
-One authored idea: the photographs arrive. Images rise and settle as they enter
-the viewport; text is already there. Nothing else animates on scroll, so the
-movement reads as a decision rather than a template. The hero video and a
-single scroll-driven drift are the only other motion, and all of it collapses
-under `prefers-reduced-motion`.
+One authored idea on scroll: the photographs arrive. Images rise and settle as
+they enter the viewport, fading in while the last 5% of scale comes off them;
+text is already there. Nothing else animates on scroll, so the movement reads
+as a decision rather than a template.
+
+Everything you can touch follows Apple's fluid-interface rules instead:
+
+- **Feedback lands on the press, not the release.** `:active` shrinks the
+  capsule by 3%, using the independent `scale` property so it composes with
+  the magnetic translate rather than fighting it.
+- **Hover is a fill that rises from the bottom edge**, not a colour swap.
+  Motion in the direction of the gesture says the control is arming itself.
+- **The pointer pulls a button toward it**, up to six pixels, tracked 1:1 with
+  no easing and released onto a 700ms expo curve from wherever it is. Fine
+  pointers only; there is no hover on a phone.
+- **Route changes cross-fade.** Opacity only — a transform on `<main>` would
+  become the containing block for the fixed curtain scene inside it and unpin
+  the opening photograph mid-fade.
+
+There are three durations in the whole system (`--dur-press`, `--dur-ui`,
+`--dur-scene`) and all of it collapses under `prefers-reduced-motion`.
 
 ### Brand assets
 

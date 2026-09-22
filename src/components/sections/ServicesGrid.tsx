@@ -49,7 +49,7 @@ function ServiceTile({ service }: { service: Service }) {
           flex column it would otherwise stretch its underline the full
           width of the tile. */}
       {service.href && (
-        <span className="morelink mt-6 self-start group-hover:text-pink">
+        <span className="morelink mt-6 self-start group-hover:text-ink-soft">
           Ver más
           <ArrowRight
             size={16}

@@ -9,7 +9,14 @@
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 
-const DATA = ['site.ts', 'occasions.ts', 'services.ts', 'gallery.ts', 'about.ts']
+const DATA = [
+  'site.ts',
+  'occasions.ts',
+  'services.ts',
+  'gallery.ts',
+  'about.ts',
+  'instagram.ts',
+]
 
 const SLOT =
   /src:\s*'(\/assets\/images\/[^']+)',\s*\n\s*alt:\s*'((?:[^'\\]|\\.)*)',\s*\n\s*caption:\s*'((?:[^'\\]|\\.)*)',\s*\n\s*ratio:\s*'([^']+)'/g

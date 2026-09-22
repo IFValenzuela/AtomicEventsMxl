@@ -82,7 +82,7 @@ export default function Ocasion() {
 
             {occasion.promos && (
               <Reveal index={1} className="lg:col-span-4 lg:col-start-9">
-                <div className="border-t border-pink pt-8">
+                <div className="border-t border-ink pt-8">
                   {occasion.promos.map((promo) => (
                     <p
                       key={promo}

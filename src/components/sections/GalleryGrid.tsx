@@ -23,8 +23,10 @@ type Props = {
  * strict grid would either crop them or leave gaps. Bare frames, square
  * corners, tight gaps.
  *
- * The filter is a row of small uppercase text links, not pills, matching the
- * rest of the site's link language.
+ * The filter is a row of capsules, because the site's geometry rule is that
+ * anything you can operate is a capsule and anything that is content is
+ * square. The one in effect fills with ink rather than announcing itself in
+ * pink; the page has one ink and no accent hue.
  */
 export function GalleryGrid({ filterable = false, limit }: Props) {
   const [filter, setFilter] = useState<Filter>('Todas')
@@ -38,7 +40,7 @@ export function GalleryGrid({ filterable = false, limit }: Props) {
   return (
     <div>
       {filterable && (
-        <div className="mb-14 flex flex-wrap justify-center gap-x-9 gap-y-4">
+        <div className="mb-14 flex flex-wrap justify-center gap-2.5">
           {(['Todas', ...GALLERY_CATEGORIES] as Filter[]).map((category) => {
             const active = filter === category
             return (
@@ -47,11 +49,7 @@ export function GalleryGrid({ filterable = false, limit }: Props) {
                 type="button"
                 onClick={() => setFilter(category)}
                 aria-pressed={active}
-                className={`border-b pb-1.5 text-[0.8125rem] tracking-[0.125em] uppercase transition-colors duration-300 ${
-                  active
-                    ? 'border-pink text-pink'
-                    : 'border-transparent text-ink-soft hover:text-ink'
-                }`}
+                className="chip"
               >
                 {category}
               </button>

@@ -23,7 +23,7 @@ export default function NoEncontrado() {
         <div className="mt-11 flex flex-wrap justify-center gap-4">
           <Button to="/contacto">{CTA.quote}</Button>
 
-          <Button to="/paquetes" variant="outline">
+          <Button to="/paquetes" variant="accent">
             Ver paquetes
           </Button>
         </div>

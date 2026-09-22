@@ -12,8 +12,7 @@ type Props = {
  * The tier rating from the flyers.
  *
  * Ink, not gold and not pink. The logo's gold is 1.5:1 on white, so it would
- * be invisible here, and pink is reserved for the primary button so that every
- * pink thing on the page is something you can press. Gold still lives in the
+ * be invisible here, and pink is no longer a UI colour at all. Gold still lives in the
  * badge artwork and over photographs.
  */
 export function StarTier({ stars, of, size = 15 }: Props) {

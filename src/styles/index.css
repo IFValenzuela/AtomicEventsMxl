@@ -26,21 +26,41 @@
    Logo.png and Logo2.png:
 
      ink   #00303f  navy, from the badge. The text colour. 14:1 on white.
-     pink  #e0195f  from the shooting star. The primary button fill, and
-                    nothing else. No pink stars, rules, or italics.
+     pink  #e0195f  from the shooting star. Focus rings and selection only.
+                    Not the button fill, not a link hover, not a rule. The
+                    reference paints every control in its one ink and lets
+                    fill-versus-hollow carry the emphasis instead.
      gold           lives inside the badge artwork and over photographs only.
                     1.5:1 on white, so never a UI colour here.
    ========================================================================= */
 
 @theme {
   --color-paper: #ffffff;
-  --color-paper-tint: #f4f2ee;
+  --color-paper-tint: #f4f2ee; /* photo placeholder ground, not a band */
+
+  /* The one non-white band. The reference runs an unbroken white page and
+     breaks it exactly once, with a sand #d9cdb7 at 1.57:1 against white —
+     faint enough to stay quiet, present enough to actually read as a band.
+     #f4f2ee was 1.12:1, which is below the threshold where a full-bleed
+     section reads as anything at all.
+
+     This tone is the same move made in Atomic's palette instead of the
+     hotel's: the brand gold measured off Logo.png (#fedb5b) taken down to
+     band luminance. 1.31:1 on white, 10.7:1 under ink. */
+  --color-sand: #ece0c6;
 
   --color-ink: #00303f;
   --color-ink-soft: #55686f; /* 6.2:1. Tertiary meta only. */
   --color-rule: #e4e2de;
 
-  --color-pink: #e0195f; /* 4.69:1 with white. Primary button fill. */
+  --color-ink-deep: #001d26; /* The filled button's hover. A darken, not a hue. */
+
+  /* Pink is no longer a UI colour. The reference has no accent hue at all:
+     emphasis comes from filling a control rather than from colouring it, and
+     a large saturated rectangle was the single loudest thing on our page.
+     Pink now lives in the logo artwork, the focus ring and the text
+     selection — places the brand shows without competing with the design. */
+  --color-pink: #e0195f;
   --color-pink-deep: #b8104b;
   --color-danger: #b3261e; /* 6.4:1. Form errors only. */
 
@@ -150,15 +170,24 @@
    The idea is that the photographs arrive. Images rise and settle as they
    enter; text is already there. Nothing else on the page animates on scroll,
    so the movement reads as a decision instead of a template.
+
+   Timings are the reference's, measured rather than remembered. Its entrances
+   are a short one-shot fade with the travel dialled almost to zero, and every
+   hover on the site is a flat 0.2s colour change. A 1.1s expo glide with a
+   scale on it is a different, showier idea; it is what a template does when it
+   wants to be noticed. The numbers below are 600ms, 12px, no scale.
    ========================================================================= */
 
 @layer components {
   .reveal {
     opacity: 0;
-    transform: translateY(26px) scale(0.985);
+    /* Reveal.tsx sets --reveal-y per element. It used to be computed and then
+       thrown away here, which is why every reveal travelled the same 26px
+       whatever the caller asked for. */
+    transform: translateY(var(--reveal-y, 12px));
     transition:
-      opacity 1.1s var(--ease-out-expo),
-      transform 1.1s var(--ease-out-expo);
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
     transition-delay: var(--reveal-delay, 0ms);
     will-change: opacity, transform;
   }
@@ -184,6 +213,24 @@
     animation: rise 1s var(--ease-out-expo) both;
   }
 
+  /* The photograph's arrival. Photo.tsx has always put this class on the img
+     and flipped data-loaded on it; the rule it named never existed, so every
+     photograph simply snapped in. A decoded JPG appearing instantly over a
+     placeholder is the one moment on the page that looks unfinished.
+
+     Deliberately NOT a hover effect. The reference declares its transitions on
+     background-color, color, fill and border-color only, which is an explicit
+     decision to keep photographs out of hover motion — no zoom, no tilt, no
+     filter. See `image_effects` in the DNA. */
+  .photo-img {
+    opacity: 0;
+    transition: opacity 0.7s ease-out;
+  }
+
+  .photo-img[data-loaded='true'] {
+    opacity: 1;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .reveal,
     .reveal[data-shown='false'] {
@@ -192,6 +239,10 @@
     }
     .rise {
       animation: none;
+    }
+    .photo-img {
+      opacity: 1;
+      transition: none;
     }
   }
 }
@@ -219,6 +270,51 @@
   @media (min-width: 1024px) {
     .band {
       padding-block: 9rem;
+    }
+  }
+
+  /* ==========================================================================
+     The held band.
+
+     The reference's second parallax device, and the one it leans on hardest:
+     fourteen sections on that page pin a photograph and let the copy travel
+     over it. Five of them use the CSS mode, which is literally
+     `background-attachment: fixed` — the picture does not move at all.
+
+     The curtain above does this once, for the opening. This does it for a
+     band in the middle of the page: a full-bleed photograph that stays put
+     while an opaque white card crosses it. Occlusion is the only depth cue —
+     no shadow under the card, no blur behind it, no rounded corner on either.
+     That is what keeps it reading as print rather than as a modal.
+
+     `background-attachment: fixed` is ignored on iOS Safari and is a known
+     jank source on low-end Android, so it is opted into only on hover-capable
+     pointers with a real viewport; everywhere else the photograph simply sits
+     still and covers, which is the same composition minus the parallax.
+     ========================================================================== */
+  .photoband {
+    position: relative;
+    background-color: var(--color-ink);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  @media (min-width: 1024px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .photoband {
+      background-attachment: fixed;
+    }
+  }
+
+  /* Apple's corners are continuous curves, not circular arcs — the curvature
+     eases into the straight edge instead of meeting it at a tangent, which is
+     why an iOS button looks softer than a plain border-radius at the same
+     value. `corner-shape` is the first web primitive for that, so take it
+     where it exists and fall back to the 12px arc everywhere else. */
+  @supports (corner-shape: squircle) {
+    .btn {
+      corner-shape: squircle;
+      border-radius: 16px;
     }
   }
 

@@ -35,7 +35,7 @@ function RouteFallback() {
       <span className="sr-only">Cargando la página</span>
       <span
         aria-hidden="true"
-        className="h-8 w-8 rounded-full border-2 border-rule border-t-pink motion-safe:animate-spin"
+        className="h-8 w-8 rounded-full border-2 border-rule border-t-ink motion-safe:animate-spin"
       />
     </div>
   )

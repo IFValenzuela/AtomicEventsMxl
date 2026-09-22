@@ -27,13 +27,12 @@ export function OccasionRail() {
           <div role="listitem">
             <Link to={`/paquetes/${occasion.slug}`} className="group block">
               <div className="overflow-hidden">
-                <Photo
-                  {...occasion.photo}
-                  className="transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
-                />
+                {/* No hover zoom — see Paquetes.tsx. Photographs never
+                    move under the pointer on the reference. */}
+                <Photo {...occasion.photo} />
               </div>
 
-              <h3 className="mt-5 text-2xl transition-colors duration-300 group-hover:text-pink">
+              <h3 className="mt-5 text-2xl transition-colors duration-300 group-hover:text-ink-soft">
                 {occasion.nav}
               </h3>
 

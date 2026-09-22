@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { Header } from './Header'
 import { Footer } from './Footer'
+import { Frieze } from './Frieze'
+import { InstagramStrip } from '../sections/InstagramStrip'
 
 /** Start each route at the top, the way a real page load would. */
 function ScrollToTop() {
@@ -32,6 +34,8 @@ export function Layout() {
         <Outlet />
       </main>
 
+      <InstagramStrip />
+      <Frieze />
       <Footer />
     </>
   )

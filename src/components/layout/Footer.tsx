@@ -1,71 +1,73 @@
 import { Link } from 'react-router-dom'
-import { FacebookLogo, InstagramLogo, WhatsappLogo } from '../ui/icons'
 import { BRAND, CONTACT, SOCIALS, TRUST } from '../../data/site'
 import { OCCASIONS } from '../../data/occasions'
 
-const SOCIAL_ICONS = {
-  WhatsApp: WhatsappLogo,
-  Instagram: InstagramLogo,
-  Facebook: FacebookLogo,
-} as const
-
 /**
- * Footer, following the reference's arrangement: the brand centred on its own
- * at the top with plenty of air, then the sitemap in left-aligned columns with
- * serif headings, a row of trust marks, and a single hairline above the
- * copyright line.
+ * Footer, rebuilt to the reference's actual geometry rather than to a memory
+ * of it. Every number below was read off lesaintgeorges.ch at a 1920 viewport:
  *
- * Light, like the rest of the page. Nothing here is boxed.
+ *   columns          5 equal columns starting at the shell's left edge
+ *                    (x = 233, 527, 821, 1116, 1410 — a 294px pitch)
+ *   column heading   Lora 20px / 24px line-height, brand ink
+ *   heading to list  44px
+ *   links            15px / 24px line-height, and that line-height IS the
+ *                    spacing — there is no margin between rows
+ *   trust marks      a left-aligned row roughly 150px below the columns
+ *   close            one hairline, then the copyright line
+ *
+ * Two things this footer used to get wrong, both of them structural:
+ *
+ *   1. It opened with a large centred badge, a large centred wordmark and a
+ *      centred tagline — three stacked brand elements and about 400px of
+ *      vertical space before any content. The reference has no centred block
+ *      at all. Its brand is a single small wordmark sitting in column one,
+ *      left-aligned, in the same grid as the link lists, with the address and
+ *      phone directly beneath it. The circular crest never appears down here;
+ *      it belongs to the header.
+ *   2. The link lists were set at 17px with 12px of extra margin per row,
+ *      about a 40px pitch. The reference runs a 24px pitch. That near-double
+ *      spacing is what made our columns sprawl while the reference's read as
+ *      a row of tight, quiet blocks.
+ *
+ * No rule along the top: the frieze above it is the divider, exactly as on
+ * the reference, where the footer simply continues off the bottom of the
+ * illustration. See Frieze.tsx.
  */
 export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="relative z-[1] border-t border-rule bg-paper">
-      <div className="shell pt-20 pb-16 lg:pt-28 lg:pb-20">
-        {/* Centred brand. */}
-        <div className="flex flex-col items-center text-center">
-          <img
-            src={BRAND.badge}
-            alt=""
-            width={84}
-            height={84}
-            loading="lazy"
-            aria-hidden="true"
-            className="h-21 w-21 rounded-full"
-          />
+    <footer className="relative z-[1] bg-paper">
+      {/* 80px of air under the frieze. Measured: the reference leaves 67px
+          between the bottom of its illustration and the top of its footer
+          columns, and every column starts on that same line. */}
+      <div className="shell pt-16 pb-14 lg:pt-20 lg:pb-16">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-14 lg:grid-cols-5 lg:gap-x-10">
+          {/* Column one: the brand, then where we are and how to reach us.
+              This is the reference's arrangement — the wordmark is a column
+              heading's worth of weight, not a hero. */}
+          <div className="col-span-2 lg:col-span-1">
+            <img
+              src={BRAND.wordmarkNavy}
+              srcSet={`${BRAND.wordmarkNavy} 1x, ${BRAND.wordmarkNavy2x} 2x`}
+              alt={BRAND.name}
+              width={150}
+              height={79}
+              loading="lazy"
+              className="h-auto w-[168px]"
+            />
 
-          <img
-            src={BRAND.wordmarkNavy}
-            srcSet={`${BRAND.wordmarkNavy} 1x, ${BRAND.wordmarkNavy2x} 2x`}
-            alt={BRAND.name}
-            width={150}
-            height={79}
-            loading="lazy"
-            className="mt-7 h-14 w-auto"
-          />
+            <address className="mt-9 text-[0.9375rem] leading-6 text-ink not-italic">
+              {BRAND.city}
+              <br />
+              {BRAND.country}
 
-          <p className="mt-6 max-w-[42ch] text-[1.0625rem] text-ink">
-            {BRAND.tagline}. Decoración y foto para eventos en {BRAND.city}.
-          </p>
-        </div>
-
-        {/* Trust marks. Claims the flyers actually make, not certifications. */}
-        <ul className="mt-16 grid grid-cols-1 gap-y-6 border-y border-rule py-8 sm:grid-cols-3">
-          {TRUST.map((item) => (
-            <li key={item.value} className="text-center">
-              <span className="font-display block text-xl text-ink">
-                {item.value}
+              <span className="mt-6 block text-ink-soft">
+                Damos servicio en {CONTACT.area}
               </span>
-              <span className="mt-1 block text-[0.8125rem] tracking-[0.08em] text-ink-soft uppercase">
-                {item.label}
-              </span>
-            </li>
-          ))}
-        </ul>
+            </address>
+          </div>
 
-        {/* Sitemap. */}
-        <div className="mt-16 grid grid-cols-2 gap-x-8 gap-y-12 lg:grid-cols-4 lg:gap-x-10">
           <FooterNav
             title="Paquetes"
             links={OCCASIONS.map((o) => ({
@@ -87,63 +89,80 @@ export function Footer() {
 
           <div>
             <h2 className="text-xl">Contacto</h2>
-            <ul className="mt-6 space-y-3 text-[1.0625rem]">
+            <ul className="mt-11 text-[0.9375rem] leading-6">
               {CONTACT.phones.map((phone) => (
                 <li key={phone.tel}>
                   <a
                     href={`tel:${phone.tel}`}
-                    className="text-ink transition-colors duration-300 hover:text-pink"
+                    className="text-ink transition-colors duration-300 hover:text-ink-soft"
                   >
                     {phone.display}
                   </a>
                 </li>
               ))}
-              <li className="pt-2 text-ink">
-                {BRAND.city}
-                <br />
-                {BRAND.country}
+              <li>
+                <a
+                  href={CONTACT.whatsapp}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-ink transition-colors duration-300 hover:text-ink-soft"
+                >
+                  WhatsApp
+                </a>
               </li>
-              <li className="text-ink-soft">Damos servicio en {CONTACT.area}</li>
             </ul>
           </div>
 
-          <div>
+          {/* Plain text links, no glyphs. The reference's social column is
+              four unadorned words, and an icon beside each one is the detail
+              that makes a footer look assembled from a kit. */}
+          <nav aria-label="Síguenos">
             <h2 className="text-xl">Síguenos</h2>
-            <ul className="mt-6 space-y-3 text-[1.0625rem]">
-              {SOCIALS.map((social) => {
-                const Icon = SOCIAL_ICONS[social.name as keyof typeof SOCIAL_ICONS]
-                return (
-                  <li key={social.name}>
-                    {social.url ? (
-                      <a
-                        href={social.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-3 text-ink transition-colors duration-300 hover:text-pink"
-                      >
-                        <Icon size={18} weight="regular" aria-hidden="true" />
-                        {social.name}
-                      </a>
-                    ) : (
-                      <span
-                        title={`${social.name}: perfil pendiente`}
-                        className="inline-flex cursor-default items-center gap-3 text-ink-soft"
-                      >
-                        <Icon size={18} weight="regular" aria-hidden="true" />
-                        {social.name}
-                        <span className="sr-only">, perfil pendiente</span>
-                      </span>
-                    )}
-                  </li>
-                )
-              })}
+            <ul className="mt-11 text-[0.9375rem] leading-6">
+              {SOCIALS.map((social) => (
+                <li key={social.name}>
+                  {social.url ? (
+                    <a
+                      href={social.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-ink transition-colors duration-300 hover:text-ink-soft"
+                    >
+                      {social.name}
+                    </a>
+                  ) : (
+                    <span
+                      title={`${social.name}: perfil pendiente`}
+                      className="cursor-default text-ink-soft"
+                    >
+                      {social.name}
+                      <span className="sr-only">, perfil pendiente</span>
+                    </span>
+                  )}
+                </li>
+              ))}
             </ul>
-          </div>
+          </nav>
         </div>
+
+        {/* Trust marks, in the slot where the reference runs its row of award
+            logos: left-aligned, well below the columns, and quiet. These used
+            to sit above the sitemap as a full-width banded row of 20px serif
+            — which gave three self-made claims more weight than anything else
+            on the page. They are claims, not certifications, so they are
+            sized like a caption. */}
+        <ul className="mt-16 flex flex-col gap-x-14 gap-y-5 text-[0.9375rem] leading-6 sm:flex-row lg:mt-24">
+          {TRUST.map((item) => (
+            <li key={item.value}>
+              <span className="text-ink">{item.value}</span>{' '}
+              <span className="text-ink-soft">{item.label}</span>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="border-t border-rule">
-        <div className="shell flex flex-col items-center justify-between gap-2 py-7 text-center text-[0.8125rem] text-ink-soft sm:flex-row sm:text-left">
+        <div className="shell flex flex-col justify-between gap-2 py-7 text-[0.8125rem] text-ink-soft sm:flex-row">
           <p>
             © {year} {BRAND.name}. Todos los derechos reservados.
           </p>
@@ -164,12 +183,15 @@ function FooterNav({
   return (
     <nav aria-label={title}>
       <h2 className="text-xl">{title}</h2>
-      <ul className="mt-6 space-y-3 text-[1.0625rem]">
+
+      {/* 44px under the heading, then a 24px pitch carried entirely by
+          line-height. No per-row margin — that is the reference's list. */}
+      <ul className="mt-11 text-[0.9375rem] leading-6">
         {links.map((link) => (
           <li key={link.to}>
             <Link
               to={link.to}
-              className="text-ink transition-colors duration-300 hover:text-pink"
+              className="text-ink transition-colors duration-300 hover:text-ink-soft"
             >
               {link.label}
             </Link>

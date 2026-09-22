@@ -5,20 +5,38 @@ import { BRAND, CTA, NAV } from '../../data/site'
 import { Button } from '../ui/Button'
 
 /**
- * Header, built to the reference's architecture rather than the usual
- * logo-left / nav-right bar.
+ * Header, rebuilt to the reference's measured geometry.
  *
- * Two stacked rows inside a fixed 139px band:
- *   row 1   circular badge seal at the left, the wordmark centred, the
- *           booking button at the right
- *   rule    a hairline spanning the middle
- *   row 2   the nav, centred under the rule
+ * Read off lesaintgeorges.ch at a 1920 viewport (1905 of content):
  *
- * It starts transparent so the hero photograph runs under it, with the white
- * wordmark and a white-hairline button. Once past the hero it turns solid
- * white and swaps to the navy wordmark and navy chrome. That is a genuine
- * light/dark swap, which is what the reference does and what the brief asked
- * for.
+ *   band            139px tall, fixed, 24px of padding at the top
+ *   crest           91x91, at x=32 — thirty-two pixels from the VIEWPORT's
+ *                   left edge, not from the content column
+ *   wordmark        200x40, centred on the viewport, top-aligned at y=24
+ *   BOOK            97x40 at x=1702, and the language switcher after it sits
+ *                   flush 32px from the right edge
+ *   rule            1px, y=84, x=400, w=1105 — 58% of the viewport, centred
+ *   nav             13px, sentence case, no tracking, items padded 13px/12px,
+ *                   the row starting at y=92
+ *   on scroll       background fades to white over 0.2s, the ink goes from
+ *                   white to brand brown, and the crest shrinks 91 -> 80
+ *
+ * Three things ours was getting wrong, all of them structural:
+ *
+ *   1. The crest and the button sat inside the content column. The reference
+ *      pins them to the viewport's corners. That single decision is most of
+ *      why its header reads as a masthead rather than as a navbar.
+ *   2. The crest was 44-52px. The reference's is 91px — nearly twice the
+ *      size, and tall enough to cross the rule below it into the nav row.
+ *      It is the anchor of the whole composition.
+ *   3. The rule ran the full width of the content column. The reference's
+ *      runs 58% of the viewport, centred, and that width is not arbitrary:
+ *      it is exactly what clears the crest on the left and the button on the
+ *      right, so the line can pass behind neither and between both.
+ *
+ * Mobile and desktop are composed separately rather than as one responsive
+ * tangle, because the desktop version is an absolutely-placed masthead and
+ * the mobile version is an ordinary bar. They share the scroll state.
  */
 export function Header() {
   const [solid, setSolid] = useState(false)
@@ -60,90 +78,84 @@ export function Header() {
       <div ref={sentinel} aria-hidden="true" className="absolute top-0 h-10 w-px" />
 
       <header
-        className={`fixed inset-x-0 top-0 z-40 transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          dark ? 'border-b border-rule bg-paper' : 'border-b border-transparent bg-transparent'
+        /* 0.2s on the reference, on background-color and colour only. Nothing
+           here moves or resizes except the crest. */
+        className={`fixed inset-x-0 top-0 z-40 border-b transition-colors duration-300 ${
+          dark ? 'border-ink/20 bg-paper' : 'border-transparent bg-transparent'
         }`}
       >
-        <div className="shell">
-          {/* Row 1: seal, wordmark, action. */}
-          <div className="flex h-[72px] items-center justify-between gap-6 lg:h-[84px]">
-            <Link
-              to="/"
-              aria-label={`${BRAND.name}, ir al inicio`}
-              className="flex shrink-0 items-center lg:w-[220px]"
-            >
-              <img
-                src={BRAND.badge}
-                alt=""
-                width={52}
-                height={52}
-                aria-hidden="true"
-                className="h-11 w-11 rounded-full lg:h-13 lg:w-13"
-              />
-            </Link>
+        {/* ---------------------------------------------------------------
+            Desktop: a masthead, absolutely composed. Every position below is
+            the reference's, scaled to this band.
+            --------------------------------------------------------------- */}
+        <div className="relative hidden h-[138px] lg:block">
+          <Link
+            to="/"
+            aria-label={`${BRAND.name}, ir al inicio`}
+            className="absolute top-6 left-8"
+          >
+            <img
+              src={BRAND.badge}
+              alt=""
+              width={88}
+              height={88}
+              aria-hidden="true"
+              /* 91 -> 80 on scroll, as a transform rather than a size change
+                 so the surrounding layout never reflows. */
+              className={`h-22 w-22 origin-top-left rounded-full transition-transform duration-300 ${
+                dark ? 'scale-90' : 'scale-100'
+              }`}
+            />
+          </Link>
 
-            <Link
-              to="/"
-              aria-label={`${BRAND.name}, ir al inicio`}
-              className="absolute left-1/2 -translate-x-1/2"
-            >
-              <img
-                src={dark ? BRAND.wordmarkNavy : BRAND.wordmark}
-                srcSet={
-                  dark
-                    ? `${BRAND.wordmarkNavy} 1x, ${BRAND.wordmarkNavy2x} 2x`
-                    : `${BRAND.wordmark} 1x, ${BRAND.wordmark2x} 2x`
-                }
-                alt={BRAND.name}
-                width={132}
-                height={70}
-                className="h-10 w-auto lg:h-12"
-              />
-            </Link>
+          <Link
+            to="/"
+            aria-label={`${BRAND.name}, ir al inicio`}
+            className="absolute top-6 left-1/2 -translate-x-1/2"
+          >
+            <img
+              src={dark ? BRAND.wordmarkNavy : BRAND.wordmark}
+              srcSet={
+                dark
+                  ? `${BRAND.wordmarkNavy} 1x, ${BRAND.wordmarkNavy2x} 2x`
+                  : `${BRAND.wordmark} 1x, ${BRAND.wordmark2x} 2x`
+              }
+              alt={BRAND.name}
+              width={132}
+              height={70}
+              className="h-12 w-auto"
+            />
+          </Link>
 
-            {/* The side columns are only pinned to a width at lg, where they
-                balance the absolutely-centred wordmark. Fixing that width on a
-                phone overflows the 390px viewport and clips the menu button. */}
-            <div className="flex shrink-0 items-center justify-end lg:w-[220px]">
-              <span className="hidden lg:block">
-                <Button to="/contacto" variant={dark ? 'outline' : 'onPhoto'}>
-                  {CTA.quote}
-                </Button>
-              </span>
-
-              <button
-                type="button"
-                onClick={() => setMenuOpen((v) => !v)}
-                aria-expanded={menuOpen}
-                aria-controls="menu-movil"
-                aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
-                className={`inline-flex h-11 w-11 items-center justify-center border transition-colors duration-300 lg:hidden ${
-                  dark
-                    ? 'border-ink/25 text-ink hover:border-pink hover:text-pink'
-                    : 'border-white/60 text-white'
-                }`}
-              >
-                {menuOpen ? <X size={19} /> : <List size={19} />}
-              </button>
-            </div>
+          <div className="absolute top-6 right-8">
+            {/* Filled once scrolled, ghost over the hero. That is the
+                reference's own pairing: a white hairline on the photograph,
+                a solid fill on white. */}
+            <Button to="/contacto" variant={dark ? 'solid' : 'onPhoto'}>
+              {CTA.quote}
+            </Button>
           </div>
 
-          {/* Row 2: the rule and the centred nav. */}
+          {/* The rule and the nav under it. 58% of the viewport, centred —
+              wide enough to read as a masthead rule, narrow enough to clear
+              the crest and the button on either side. */}
           <div
-            className={`hidden border-t lg:block ${dark ? 'border-rule' : 'border-white/30'}`}
+            className={`absolute top-[84px] left-1/2 w-[58%] -translate-x-1/2 border-t transition-colors duration-300 ${
+              dark ? 'border-ink/30' : 'border-white/40'
+            }`}
           >
             <nav aria-label="Principal">
-              <ul className="flex items-center justify-center gap-10 py-4">
+              <ul className="flex items-center justify-center pt-2">
                 {NAV.map((item) => (
                   <li key={item.href}>
                     <NavLink
                       to={item.href}
                       className={({ isActive }) =>
-                        `text-[0.8125rem] whitespace-nowrap transition-colors duration-300 ${
+                        `block px-3 py-[11px] text-[0.8125rem] whitespace-nowrap transition-colors duration-300 ${
                           dark
                             ? isActive
-                              ? 'text-pink'
-                              : 'text-ink hover:text-pink'
+                              ? 'text-ink'
+                              : 'text-ink/60 hover:text-ink'
                             : isActive
                               ? 'text-white'
                               : 'text-white/80 hover:text-white'
@@ -159,6 +171,57 @@ export function Header() {
           </div>
         </div>
 
+        {/* ---------------------------------------------------------------
+            Mobile: an ordinary bar. The masthead composition needs width it
+            does not have here.
+            --------------------------------------------------------------- */}
+        <div className="flex h-[72px] items-center justify-between px-6 lg:hidden">
+          <Link to="/" aria-label={`${BRAND.name}, ir al inicio`}>
+            <img
+              src={BRAND.badge}
+              alt=""
+              width={44}
+              height={44}
+              aria-hidden="true"
+              className="h-11 w-11 rounded-full"
+            />
+          </Link>
+
+          <Link
+            to="/"
+            aria-label={`${BRAND.name}, ir al inicio`}
+            className="absolute left-1/2 -translate-x-1/2"
+          >
+            <img
+              src={dark ? BRAND.wordmarkNavy : BRAND.wordmark}
+              srcSet={
+                dark
+                  ? `${BRAND.wordmarkNavy} 1x, ${BRAND.wordmarkNavy2x} 2x`
+                  : `${BRAND.wordmark} 1x, ${BRAND.wordmark2x} 2x`
+              }
+              alt={BRAND.name}
+              width={132}
+              height={70}
+              className="h-10 w-auto"
+            />
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-expanded={menuOpen}
+            aria-controls="menu-movil"
+            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            className={`inline-flex h-11 w-11 items-center justify-center border transition-colors duration-300 ${
+              dark
+                ? 'border-ink/25 text-ink hover:border-ink'
+                : 'border-white/60 text-white'
+            }`}
+          >
+            {menuOpen ? <X size={19} /> : <List size={19} />}
+          </button>
+        </div>
+
         {/* Mobile menu. */}
         <div
           id="menu-movil"
@@ -172,8 +235,8 @@ export function Header() {
                   <NavLink
                     to={item.href}
                     className={({ isActive }) =>
-                      `block py-4 font-display text-xl transition-colors duration-300 ${
-                        isActive ? 'text-pink' : 'text-ink hover:text-pink'
+                      `font-display block py-4 text-xl transition-colors duration-300 ${
+                        isActive ? 'text-ink' : 'text-ink/60 hover:text-ink'
                       }`
                     }
                   >
@@ -183,7 +246,7 @@ export function Header() {
               ))}
             </ul>
 
-            <Button to="/contacto"  className="mt-8 w-full">
+            <Button to="/contacto" className="mt-8 w-full">
               {CTA.quote}
             </Button>
           </nav>

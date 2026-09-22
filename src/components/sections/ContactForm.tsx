@@ -149,7 +149,7 @@ export function ContactForm() {
           size={40}
           weight="regular"
           aria-hidden="true"
-          className="mx-auto text-pink"
+          className="mx-auto text-ink"
         />
 
         <h3 className="mt-6 text-[1.75rem]">
@@ -241,9 +241,7 @@ export function ContactForm() {
             onChange={(e) => set('ocasion')(e.target.value)}
             aria-invalid={Boolean(errors.ocasion)}
             aria-describedby={errors.ocasion ? `${uid}-ocasion-error` : undefined}
-            className={`w-full border bg-paper px-4 py-3.5 text-[1.0625rem] text-ink transition-colors duration-300 focus:border-pink focus:outline-none ${
-              errors.ocasion ? 'border-danger' : 'border-rule'
-            }`}
+            className="field field-select"
           >
             <option value="">Elige una opción</option>
             {OCCASIONS.map((occasion) => (
@@ -285,9 +283,7 @@ export function ContactForm() {
             aria-invalid={Boolean(errors.mensaje)}
             aria-describedby={errors.mensaje ? `${uid}-mensaje-error` : undefined}
             placeholder="Cuántos invitados, en qué salón, a qué hora empieza."
-            className={`w-full resize-y border bg-paper px-4 py-3.5 text-[1.0625rem] text-ink placeholder:text-ink-soft transition-colors duration-300 focus:border-pink focus:outline-none ${
-              errors.mensaje ? 'border-danger' : 'border-rule'
-            }`}
+            className="field field-area"
           />
 
           {errors.mensaje && (
@@ -374,9 +370,7 @@ function Field({
         inputMode={inputMode}
         aria-invalid={Boolean(error)}
         aria-describedby={[helpId, errorId].filter(Boolean).join(' ') || undefined}
-        className={`w-full border bg-paper px-4 py-3.5 text-[1.0625rem] text-ink placeholder:text-ink-soft transition-colors duration-300 focus:border-pink focus:outline-none ${
-          error ? 'border-danger' : 'border-rule'
-        }`}
+        className="field"
       />
 
       {help && !error && (

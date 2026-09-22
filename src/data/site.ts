@@ -89,16 +89,37 @@ export const CTA = {
 } as const
 
 /**
+ * The home hero photograph.
+ *
+ * Its own slot rather than the lead occasion's, so the opening shot of the
+ * site can be chosen independently of what the propuestas page uses.
+ *
+ * It is displayed in the full viewport with object-cover, so the crop swings
+ * from the whole frame on a wide desktop to roughly the middle quarter of the
+ * width on a phone. Keep the subject centred, and keep anything that matters
+ * clear of the top 256px and the bottom 288px, where the two gradients and the
+ * button sit.
+ */
+export const HOME_HERO: Photo = {
+  src: '/assets/images/hero/Hero.jpg',
+  alt: 'Pedida de mano de noche sobre un muelle: el novio de rodillas frente a las letras iluminadas "CÁSATE CONMIGO", con chisperos encendidos detrás y un camino de pétalos de rosa al frente.',
+  caption: 'Pedida de mano con letras "CÁSATE CONMIGO" y chisperos',
+  ratio: '16/9',
+}
+
+/**
  * Optional video for the home hero.
  *
- * When a file exists at this path the home hero plays it, muted and looping,
- * with the lead occasion's photograph as the poster. If the file is missing,
- * or the visitor prefers reduced motion, the photograph is used on its own and
- * nothing is downloaded. Set to null to turn the video off entirely.
+ * When a path is set the home hero plays it, muted and looping, over
+ * HOME_HERO as the poster. If it is null, or the visitor prefers reduced
+ * motion, the photograph is used on its own and nothing is downloaded.
  *
- * Keep it short and under a few megabytes: it competes with the first paint.
+ * Currently off: the hero is the photograph. The clip that was here was
+ * 2160x3840 at 47.8 Mbps — 99 MB, and vertical, so a desktop only ever saw
+ * about a third of its height. If a video comes back, it wants to be
+ * 1920x1080, H.264, no audio track, around 3 Mbps and 6 MB.
  */
-export const HERO_VIDEO: string | null = '/assets/images/hero/Hero.mp4'
+export const HERO_VIDEO: string | null = null
 
 /**
  * Header photographs for the pages that are not an occasion. Occasion pages
