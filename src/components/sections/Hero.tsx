@@ -136,13 +136,20 @@ export function Hero() {
             That line is the piece this hero was missing. It is also the one
             thing a person looking for a quinceañera in three weeks actually
             wants on the first screen: a number they can press. */}
-        <div className="shell rise relative flex h-full items-end justify-center pb-12 lg:justify-start lg:pb-24">
+        {/* 100svh, not the scene's full height. The scene is 100lvh so no
+            strip of page shows when a phone's browser bars retract, but on
+            first load those bars are showing and cover the bottom of an lvh
+            box: pinned to it, the contact line sat half under the address
+            bar on Android Chrome. The small viewport is the height that is
+            actually on screen when the page opens, so the block ends there.
+            On desktop the two are the same. */}
+        <div className="shell rise relative flex h-[100svh] items-end justify-center pb-10 lg:justify-start lg:pb-24">
           <div className="flex flex-col items-center">
             <Button to="/paquetes" variant="onPhoto">
               Ver paquetes
             </Button>
 
-            <div className="mt-4 flex flex-col items-center gap-x-10 text-[0.9375rem] font-semibold text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] sm:flex-row">
+            <div className="mt-3 flex items-center gap-x-8 text-[0.9375rem] font-semibold text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] sm:gap-x-10">
               <a
                 href={`tel:${CONTACT.phones[0].tel}`}
                 className="inline-flex min-h-11 items-center gap-2 transition-opacity duration-200 hover:opacity-75"
