@@ -15,7 +15,7 @@ import { Reveal } from '../ui/Reveal'
 export function OccasionRail() {
   return (
     <div
-      className="-mx-6 flex snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto px-6 md:-mx-8 md:scroll-px-8 md:px-8 lg:mx-0 lg:grid lg:grid-cols-5 lg:gap-5 lg:overflow-visible lg:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      className="-mx-6 flex snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto overflow-y-hidden px-6 md:-mx-8 md:scroll-px-8 md:px-8 lg:mx-0 lg:grid lg:grid-cols-5 lg:gap-5 lg:overflow-visible lg:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       role="list"
     >
       {OCCASIONS.map((occasion, i) => (
@@ -26,14 +26,14 @@ export function OccasionRail() {
         >
           <div role="listitem">
             <Link to={`/paquetes/${occasion.slug}`} className="group block">
-              <div className="overflow-hidden">
-                {/* No hover zoom — see Paquetes.tsx. Photographs never
-                    move under the pointer on the reference. */}
-                <Photo
-                  {...occasion.photo}
-                  sizes="(min-width: 1024px) 270px, (min-width: 768px) 30vw, (min-width: 640px) 42vw, 62vw"
-                />
-              </div>
+              {/* No hover zoom — see Paquetes.tsx. Photographs never move
+                  under the pointer on the reference; the frame's hairline
+                  darkens instead (see .frame in index.css). */}
+              <Photo
+                {...occasion.photo}
+                sizes="(min-width: 1024px) 270px, (min-width: 768px) 30vw, (min-width: 640px) 42vw, 62vw"
+                className="frame"
+              />
 
               <h3 className="mt-5 text-2xl transition-colors duration-300 group-hover:text-ink-soft">
                 {occasion.nav}

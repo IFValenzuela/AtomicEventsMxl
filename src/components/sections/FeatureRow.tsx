@@ -83,16 +83,16 @@ function Media({
     return (
       <div className="grid grid-cols-5 gap-4 lg:gap-6">
         <Reveal className="col-span-3">
-          <Photo {...photos[0]} sizes="(min-width: 1024px) 40vw, 86vw" />
+          <Photo {...photos[0]} sizes="(min-width: 1024px) 40vw, 86vw" className="frame" />
         </Reveal>
         <Reveal index={1} className="col-span-2 self-end">
-          <Photo {...photos[1]} sizes="(min-width: 1024px) 22vw, 52vw" />
+          <Photo {...photos[1]} sizes="(min-width: 1024px) 22vw, 52vw" className="frame" />
         </Reveal>
         <Reveal
           index={2}
           className={`col-span-3 ${mediaLeft ? 'col-start-2' : 'col-start-1'}`}
         >
-          <Photo {...photos[2]} sizes="(min-width: 1024px) 30vw, 60vw" />
+          <Photo {...photos[2]} sizes="(min-width: 1024px) 30vw, 60vw" className="frame" />
         </Reveal>
       </div>
     )
@@ -119,7 +119,7 @@ function Media({
     return (
       <div className="relative lg:pb-[7%]">
         <Reveal className="w-[86%] lg:w-[78%]">
-          <Photo {...photos[0]} sizes="(min-width: 1024px) 40vw, 86vw" />
+          <Photo {...photos[0]} sizes="(min-width: 1024px) 40vw, 86vw" className="frame" />
         </Reveal>
         <Reveal
           index={1}
@@ -127,7 +127,7 @@ function Media({
             mediaLeft ? 'lg:left-0' : 'lg:right-0'
           }`}
         >
-          <Photo {...photos[1]} sizes="(min-width: 1024px) 22vw, 52vw" />
+          <Photo {...photos[1]} sizes="(min-width: 1024px) 22vw, 52vw" className="frame" />
         </Reveal>
       </div>
     )
@@ -135,7 +135,7 @@ function Media({
 
   return (
     <Reveal>
-      <Photo {...photos[0]} sizes="(min-width: 1024px) 40vw, 86vw" />
+      <Photo {...photos[0]} sizes="(min-width: 1024px) 40vw, 86vw" className="frame" />
     </Reveal>
   )
 }

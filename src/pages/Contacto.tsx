@@ -22,10 +22,14 @@ export default function Contacto() {
         photo={PAGE_HEROES.contacto}
       />
 
-      {/* pb-0: the frieze under it brings its own air. */}
-      <section className="band pb-0">
+      {/* Less than a full band's padding at the foot: the frieze under it
+          brings some air of its own, but not enough on its own. */}
+      <section className="band pb-16 lg:pb-24">
         <div className="shell grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-14">
-          <Reveal className="lg:col-span-7">
+          {/* The two columns end on one line. The grid stretches the form's
+              column to the sidebar's height, and the message box takes up
+              the difference (see ContactForm). */}
+          <Reveal className="lg:col-span-7 lg:flex lg:flex-col">
             <ContactForm />
           </Reveal>
 
@@ -46,7 +50,7 @@ export default function Contacto() {
               </ul>
             </div>
 
-            <div className="mt-12 border-t border-rule pt-10">
+            <div className="mt-10 border-t border-rule pt-8">
               <h2 className="text-2xl">WhatsApp</h2>
               <p className="mt-4 text-[1.0625rem] text-ink">
                 Es por donde contestamos más rápido, sobre todo en fin de
@@ -62,7 +66,7 @@ export default function Contacto() {
               </a>
             </div>
 
-            <div className="mt-12 border-t border-rule pt-10">
+            <div className="mt-10 border-t border-rule pt-8">
               <h2 className="text-2xl">Dónde trabajamos</h2>
               <p className="mt-4 text-[1.0625rem] text-ink">
                 {BRAND.city}, {BRAND.country}

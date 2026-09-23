@@ -181,7 +181,9 @@ export function ContactForm() {
     <form
       onSubmit={onSubmit}
       noValidate
-      className="border-t border-ink pt-10"
+      /* On desktop the form fills its column, which the page stretches to
+         the sidebar's height; the message row takes up the slack. */
+      className="border-t border-ink pt-10 lg:flex lg:flex-1 lg:flex-col"
     >
       {status === 'error' && errorCount > 0 && (
         <p
@@ -198,7 +200,7 @@ export function ContactForm() {
         </p>
       )}
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:flex-1 lg:grid-rows-[auto_auto_1fr]">
         <Field
           id={`${uid}-nombre`}
           label="Tu nombre"
@@ -283,7 +285,7 @@ export function ContactForm() {
             aria-invalid={Boolean(errors.mensaje)}
             aria-describedby={errors.mensaje ? `${uid}-mensaje-error` : undefined}
             placeholder="Cuántos invitados, en qué salón, a qué hora empieza."
-            className="field field-area"
+            className="field field-area lg:flex-1"
           />
 
           {errors.mensaje && (

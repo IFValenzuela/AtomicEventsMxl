@@ -212,13 +212,14 @@ export function Header() {
             aria-expanded={menuOpen}
             aria-controls="menu-movil"
             aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
-            className={`inline-flex h-11 w-11 items-center justify-center border transition-colors duration-300 ${
-              dark
-                ? 'border-pink/40 text-pink hover:border-pink'
-                : 'border-white/60 text-white'
+            /* No box: the bare glyph, sized to sit with the badge and the
+               wordmark. The button keeps its 44px tap target, pulled right
+               so the glyph lines up with the edge of the bar's padding. */
+            className={`-mr-2 inline-flex h-11 w-11 items-center justify-center transition-colors duration-300 ${
+              dark ? 'text-pink' : 'text-white'
             }`}
           >
-            {menuOpen ? <X size={19} /> : <List size={19} />}
+            {menuOpen ? <X size={28} /> : <List size={30} />}
           </button>
         </div>
 

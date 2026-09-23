@@ -30,10 +30,10 @@ export default function Nosotros() {
           {/* Two frames offset against each other, the reference's pairing. */}
           <div className="mt-20 grid grid-cols-1 items-start gap-6 sm:grid-cols-12 lg:gap-8">
             <Reveal className="sm:col-span-7">
-              <Photo {...ABOUT.photo} />
+              <Photo {...ABOUT.photo} className="frame" />
             </Reveal>
             <Reveal index={1} className="sm:col-span-4 sm:col-start-9 sm:mt-24">
-              <Photo {...ABOUT.detail[0]} />
+              <Photo {...ABOUT.detail[0]} className="frame" />
             </Reveal>
           </div>
         </div>

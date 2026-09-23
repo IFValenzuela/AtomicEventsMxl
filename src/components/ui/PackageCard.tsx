@@ -34,7 +34,7 @@ export function PackageCard({ pkg, occasion }: Props) {
 
   return (
     <article className="flex h-full flex-col">
-      <Photo {...pkg.photo} sizes="(min-width: 640px) 46vw, 100vw" />
+      <Photo {...pkg.photo} sizes="(min-width: 640px) 46vw, 100vw" className="frame" />
 
       <div className="flex flex-1 flex-col pt-7">
         {pkg.stars != null && pkg.starsOf != null && (
@@ -100,7 +100,7 @@ export function FeaturedPackage({ pkg, occasion }: Props) {
   return (
     <article className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
       <div className="relative min-h-[18rem] lg:col-span-6 lg:min-h-[32rem]">
-        <Photo {...pkg.photo} fill sizes="(min-width: 1024px) 50vw, 100vw" />
+        <Photo {...pkg.photo} fill sizes="(min-width: 1024px) 50vw, 100vw" className="frame" />
       </div>
 
       <div className="lg:col-span-5 lg:col-start-8">

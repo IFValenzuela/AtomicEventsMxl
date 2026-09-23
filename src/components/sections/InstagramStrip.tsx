@@ -84,7 +84,7 @@ export function InstagramStrip() {
           column, which is what lets five portraits read as a run of
           photographs rather than a card grid. Slides sideways below the
           desktop breakpoint, where five tiles would be thumbnails. */}
-      <ul className="mt-9 flex snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto px-6 lg:grid lg:grid-cols-5 lg:gap-5 lg:overflow-visible lg:px-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <ul className="mt-9 flex snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto overflow-y-hidden px-6 lg:grid lg:grid-cols-5 lg:gap-5 lg:overflow-visible lg:px-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {INSTAGRAM.map((post, i) => (
           <Reveal
             key={post.url}
@@ -101,6 +101,7 @@ export function InstagramStrip() {
               <Photo
                 {...post}
                 sizes="(min-width: 1024px) 20vw, (min-width: 768px) 30vw, (min-width: 640px) 42vw, 62vw"
+                className="frame"
               />
 
               <InstagramLogo

@@ -13,7 +13,8 @@ import { PageHero } from '../components/sections/PageHero'
  * Packages hub.
  *
  * The five occasions as bare photographs with the title and detail set
- * beneath, two across so the frames stay large. No boxes, no strokes.
+ * beneath, two across so the frames stay large. No boxes; the only stroke
+ * is the frame's hairline edge.
  * The last one, when the count is odd, runs full width.
  */
 export default function Paquetes() {
@@ -77,16 +78,16 @@ function OccasionCard({
       to={`/paquetes/${occasion.slug}`}
       className={`group block ${wide ? 'md:grid md:grid-cols-2 md:items-center md:gap-12' : ''}`}
     >
-      <div className="overflow-hidden">
-        {/* No hover zoom. The reference declares its transitions on
-            background-color, color, fill and border-color only, which is an
-            explicit decision to keep photographs out of hover motion. The
-            title below carries the whole affordance. */}
-        <Photo
-          {...occasion.photo}
-          sizes="(min-width: 768px) 46vw, 100vw"
-        />
-      </div>
+      {/* No hover zoom. The reference declares its transitions on
+          background-color, color, fill and border-color only, which is an
+          explicit decision to keep photographs out of hover motion. The
+          title below carries the affordance, with the frame's hairline
+          darkening under it (see .frame in index.css). */}
+      <Photo
+        {...occasion.photo}
+        sizes="(min-width: 768px) 46vw, 100vw"
+        className="frame"
+      />
 
       <div className={wide ? 'mt-7 md:mt-0' : 'mt-7'}>
         {top?.stars != null && top.starsOf != null && (

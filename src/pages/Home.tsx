@@ -68,9 +68,13 @@ export default function Home() {
             more={{ to: '/servicios' }}
           />
 
-          <div className="mt-16 lg:mt-20">
-            <ServicesCarousel />
-          </div>
+        </div>
+
+        {/* Outside the shell on purpose: the row runs full-bleed like the
+            Instagram strip, inset from the viewport edge rather than held in
+            the content column. */}
+        <div className="mt-16 lg:mt-20">
+          <ServicesCarousel />
         </div>
       </section>
 

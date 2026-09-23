@@ -12,9 +12,8 @@ import { Reveal } from '../ui/Reveal'
  * one sentence of body. That is the reference's grouping rule, the same stack
  * the feature rows, the pedida card and the closing ask use.
  *
- * Each photograph gets a soft navy shadow with a long downward offset, so it
- * sits on the page like a print laid on paper instead of a rectangle pasted
- * into white. Square corners stay: the photographs are prints, not cards.
+ * Each photograph sits in the shared hairline frame (see .frame in
+ * index.css). Square corners: the photographs are prints, not cards.
  *
  * Two layouts share the tile. ServicesGrid is /servicios, where the six are
  * the content and get a grid. ServicesCarousel is the home page, where they
@@ -35,7 +34,11 @@ export function ServicesGrid() {
 /**
  * One row of services that slides, the reference's offers carousel.
  *
- * Four tiles across on desktop, three on a tablet, one and a bit on a phone.
+ * Laid out like the Instagram strip: full-bleed, 24px in from the viewport
+ * edge (32px on desktop), tight gaps, five tiles across on desktop with the
+ * sixth a step away, three on a tablet, one and a bit on a phone. Held in the
+ * content column it read as four heavy frames boxed into the middle of the
+ * page; run edge to edge it reads as a strip of pictures.
  * No library: the track is native horizontal scroll with snap points, so
  * touch, trackpad, shift-wheel and focus-into-view all work for free and
  * nothing has to be kept in sync with a JS position.
@@ -43,7 +46,7 @@ export function ServicesGrid() {
  * The arrows are the reference's: round white buttons with a chevron (the
  * only circles in its whole vocabulary, and the only ones here), sitting on
  * the row's two edges, centred on the photographs and half over them, with
- * the same soft shadow the prints cast. Each one leaves when there is nothing
+ * a soft shadow to lift them off the picture. Each one leaves when there is nothing
  * further that way, so the row never shows a dead control. The chevron goes
  * pink on hover, the site's sign for pressable.
  *
@@ -90,21 +93,20 @@ export function ServicesCarousel() {
 
   return (
     <div role="region" aria-roledescription="carrusel" aria-label="Servicios" className="relative">
-      {/* The negative margin and padding give the shadows room: a scroll
-          container clips on both axes, and the drop under each photograph
-          would otherwise be cut off flat. scroll-px keeps the snap point on
-          the shell edge. */}
+      {/* The padding is the strip's inset from the viewport edge, and
+          scroll-px keeps the snap point on it. The bottom padding is room for
+          the text under the tiles inside the clipped scroll container. */}
       <ul
         ref={track}
         onScroll={measure}
-        className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pt-2 pb-12 sm:gap-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto overflow-y-hidden px-6 pt-2 pb-12 lg:scroll-px-8 lg:gap-5 lg:px-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {SERVICES.map((service, i) => (
           <Reveal
             key={service.id}
             as="li"
             index={i}
-            className="w-[72%] shrink-0 snap-start sm:w-[calc((100%-2rem)/2.4)] md:w-[calc((100%-4rem)/3)] lg:w-[calc((100%-6rem)/4)]"
+            className="w-[72%] shrink-0 snap-start sm:w-[calc((100%-1rem)/2.4)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-5rem)/5)]"
           >
             <ServiceTile service={service} />
           </Reveal>
@@ -118,7 +120,7 @@ export function ServicesCarousel() {
             hidden={pos.start}
             onClick={() => step(-1)}
             style={{ top: pos.mid }}
-            className="left-0 -translate-x-1/2"
+            className="left-6 -translate-x-1/2 lg:left-8"
           >
             <CaretLeft size={20} weight="regular" aria-hidden="true" />
           </CarouselButton>
@@ -128,7 +130,7 @@ export function ServicesCarousel() {
             hidden={pos.end}
             onClick={() => step(1)}
             style={{ top: pos.mid }}
-            className="right-0 translate-x-1/2"
+            className="right-6 translate-x-1/2 lg:right-8"
           >
             <CaretRight size={20} weight="regular" aria-hidden="true" />
           </CarouselButton>
@@ -173,8 +175,8 @@ function ServiceTile({ service }: { service: Service }) {
       {/* No hover zoom, no veil. Photographs never move or dim here. */}
       <Photo
         {...service.photo}
-        sizes="(min-width: 1024px) 320px, (min-width: 640px) 42vw, 72vw"
-        className="shadow-[0_22px_44px_-22px_rgb(0_48_63/0.45),0_2px_6px_rgb(0_48_63/0.08)]"
+        sizes="(min-width: 1024px) 20vw, (min-width: 768px) 33vw, (min-width: 640px) 42vw, 72vw"
+        className="frame"
       />
 
       <h3
