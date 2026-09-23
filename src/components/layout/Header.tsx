@@ -73,6 +73,16 @@ export function Header() {
 
   const dark = solid || menuOpen
 
+  /* A link to the page you are already on does nothing, so on the home page
+     the crest and the wordmark scroll back to the top instead. Smooth unless
+     the visitor has asked for reduced motion. */
+  const toTop = () => {
+    if (pathname !== '/') return
+    setMenuOpen(false)
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    window.scrollTo({ top: 0, behavior: still ? 'auto' : 'smooth' })
+  }
+
   return (
     <>
       <div ref={sentinel} aria-hidden="true" className="absolute top-0 h-10 w-px" />
@@ -92,6 +102,7 @@ export function Header() {
           <Link
             to="/"
             aria-label={`${BRAND.name}, ir al inicio`}
+            onClick={toTop}
             className="absolute top-6 left-8"
           >
             <img
@@ -111,6 +122,7 @@ export function Header() {
           <Link
             to="/"
             aria-label={`${BRAND.name}, ir al inicio`}
+            onClick={toTop}
             className="absolute top-6 left-1/2 -translate-x-1/2"
           >
             <img
@@ -176,7 +188,11 @@ export function Header() {
             does not have here.
             --------------------------------------------------------------- */}
         <div className="flex h-[72px] items-center justify-between px-6 lg:hidden">
-          <Link to="/" aria-label={`${BRAND.name}, ir al inicio`}>
+          <Link
+            to="/"
+            aria-label={`${BRAND.name}, ir al inicio`}
+            onClick={toTop}
+          >
             <img
               src={BRAND.badge}
               alt=""
@@ -190,6 +206,7 @@ export function Header() {
           <Link
             to="/"
             aria-label={`${BRAND.name}, ir al inicio`}
+            onClick={toTop}
             className="absolute left-1/2 -translate-x-1/2"
           >
             <img
