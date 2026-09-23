@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { List, X } from '../ui/icons'
-import { BRAND, CTA, NAV } from '../../data/site'
+import { List, Phone, WhatsappLogo, X } from '../ui/icons'
+import { BRAND, CONTACT, CTA, NAV } from '../../data/site'
 import { Button } from '../ui/Button'
 
 /**
@@ -222,34 +222,82 @@ export function Header() {
           </button>
         </div>
 
-        {/* Mobile menu. */}
+        {/* Mobile menu: a full sheet, not a dropdown.
+
+            It used to open as a short panel under the bar with the page
+            still showing beneath it, which read as unfinished. Now it takes
+            the whole screen below the bar and is composed like a page of the
+            site: the five places in the serif at the card step, the one pink
+            button, a direct line to call or write, and the frieze along the
+            foot, the same drawing that closes every page. The menu is the
+            one screen a phone visitor always sees, so it carries the brand
+            the way the masthead does on desktop.
+
+            Every link closes the sheet on tap, including the page you are
+            already on, which the route change alone would not. */}
         <div
           id="menu-movil"
           hidden={!menuOpen}
-          className="border-t border-rule bg-paper lg:hidden"
+          className="fixed inset-x-0 top-[73px] bottom-0 overflow-y-auto overscroll-contain bg-paper lg:hidden"
         >
-          <nav aria-label="Principal, móvil" className="shell py-6">
-            <ul className="flex flex-col">
-              {NAV.map((item) => (
-                <li key={item.href} className="border-b border-rule last:border-0">
-                  <NavLink
-                    to={item.href}
-                    className={({ isActive }) =>
-                      `font-display block py-4 text-xl transition-colors duration-300 ${
-                        isActive ? 'text-ink' : 'inkwipe text-ink/60 [--wipe-from:color-mix(in_oklab,var(--color-ink)_60%,transparent)]'
-                      }`
-                    }
-                  >
-                    {item.label}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
+          <div className="flex min-h-full flex-col">
+            <nav aria-label="Principal, móvil" className="shell pt-3">
+              <ul>
+                {NAV.map((item) => (
+                  <li key={item.href} className="border-b border-rule">
+                    <NavLink
+                      to={item.href}
+                      onClick={() => setMenuOpen(false)}
+                      className={({ isActive }) =>
+                        `font-display flex min-h-16 items-center text-[1.75rem] transition-colors duration-200 ${
+                          isActive ? 'text-ink' : 'text-ink/60 hover:text-ink'
+                        }`
+                      }
+                    >
+                      {item.label}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
 
-            <Button to="/contacto" className="mt-8 w-full">
-              {CTA.quote}
-            </Button>
-          </nav>
+              <div className="mt-9" onClick={() => setMenuOpen(false)}>
+                <Button to="/contacto" className="w-full">
+                  {CTA.quote}
+                </Button>
+              </div>
+
+              <div className="mt-5 flex items-center justify-center gap-8 text-[0.9375rem] font-semibold text-ink">
+                <a
+                  href={`tel:${CONTACT.phones[0].tel}`}
+                  className="inline-flex min-h-11 items-center gap-2"
+                >
+                  <Phone size={16} weight="regular" aria-hidden="true" />
+                  {CONTACT.phones[0].display}
+                </a>
+                <a
+                  href={`${CONTACT.whatsapp}?text=${encodeURIComponent(CONTACT.whatsappMessage)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex min-h-11 items-center gap-2"
+                >
+                  <WhatsappLogo size={16} weight="regular" aria-hidden="true" />
+                  WhatsApp
+                </a>
+              </div>
+            </nav>
+
+            <div className="mt-auto pt-10 pb-[env(safe-area-inset-bottom)]">
+              <img
+                src="/assets/images/frieze/frieze-1280.png"
+                alt=""
+                aria-hidden="true"
+                width={1280}
+                height={173}
+                loading="lazy"
+                className="h-[92px] w-full max-w-none object-cover object-center"
+              />
+            </div>
+          </div>
         </div>
       </header>
     </>

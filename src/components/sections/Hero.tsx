@@ -136,16 +136,16 @@ export function Hero() {
             That line is the piece this hero was missing. It is also the one
             thing a person looking for a quinceañera in three weeks actually
             wants on the first screen: a number they can press. */}
-        <div className="shell rise relative flex h-full items-end pb-16 lg:pb-24">
+        <div className="shell rise relative flex h-full items-end justify-center pb-12 lg:justify-start lg:pb-24">
           <div className="flex flex-col items-center">
             <Button to="/paquetes" variant="onPhoto">
               Ver paquetes
             </Button>
 
-            <div className="mt-6 flex flex-col items-center gap-x-10 gap-y-3 text-[0.9375rem] font-semibold text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] sm:flex-row">
+            <div className="mt-4 flex flex-col items-center gap-x-10 text-[0.9375rem] font-semibold text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] sm:flex-row">
               <a
                 href={`tel:${CONTACT.phones[0].tel}`}
-                className="inline-flex items-center gap-2 transition-opacity duration-200 hover:opacity-75"
+                className="inline-flex min-h-11 items-center gap-2 transition-opacity duration-200 hover:opacity-75"
               >
                 <Phone size={16} weight="fill" aria-hidden="true" />
                 {CONTACT.phones[0].display}
@@ -155,7 +155,7 @@ export function Hero() {
                 href={wa}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 transition-opacity duration-200 hover:opacity-75"
+                className="inline-flex min-h-11 items-center gap-2 transition-opacity duration-200 hover:opacity-75"
               >
                 <WhatsappLogo size={16} weight="fill" aria-hidden="true" />
                 WhatsApp

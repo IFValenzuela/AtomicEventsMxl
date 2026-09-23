@@ -62,7 +62,7 @@ export function InstagramStrip() {
           href={PROFILE}
           target="_blank"
           rel="noreferrer"
-          className="inkwipe mt-3 inline-block py-1.5 text-[0.9375rem] text-ink-soft [--wipe-from:var(--color-ink-soft)]"
+          className="inkwipe mt-2 inline-block py-3 text-[0.9375rem] text-ink-soft [--wipe-from:var(--color-ink-soft)]"
         >
           {HANDLE}
         </a>
@@ -73,7 +73,7 @@ export function InstagramStrip() {
           photographs rather than as a card grid. Scrolls sideways below the
           desktop breakpoint, where five tiles would be thumbnails. */}
       <ul
-        className="mt-11 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 lg:grid lg:grid-cols-5 lg:gap-5 lg:overflow-visible lg:px-8 lg:pb-0 [scrollbar-width:thin]"
+        className="mt-11 flex snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto px-6 lg:grid lg:grid-cols-5 lg:gap-5 lg:overflow-visible lg:px-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {INSTAGRAM.map((post, i) => (
           <Reveal

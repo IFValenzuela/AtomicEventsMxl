@@ -534,6 +534,16 @@
       color 0.2s ease-out 0.28s;
   }
 
+  /* A 44px touch target without moving the glyphs: the link itself is
+     ~26px tall, which is the reference's proportion and too small to hit
+     reliably with a thumb. ::after is the underline, so the hit area is
+     ::before. */
+  .morelink::before {
+    content: '';
+    position: absolute;
+    inset: -9px -6px -9px -6px;
+  }
+
   /* The pink half of the underline, riding the same curve as the glyphs.
 
      `bottom: -1px` lands it exactly on the border, which an absolutely
@@ -601,6 +611,52 @@
     .morelink::after {
       transition: none;
     }
+  }
+
+  /* ==========================================================================
+     Gallery filter.
+
+     GalleryGrid has always put `.chip` on its filter buttons and the rule
+     never existed, so they rendered as bare words with no state. Not chips
+     now either: the reference has no chips, badges or pills anywhere. They
+     are set like the "Ver más" link, 13px caps with 2px of tracking, and the
+     active one carries the same ink hairline underneath, drawn on the same
+     curve. Inactive ones sit in ink-soft. 44px tall for a thumb.
+     ========================================================================== */
+  .chip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--color-ink-soft);
+    transition: color 0.2s ease-out;
+  }
+
+  .chip::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 2px; /* the tracking trails the last letter */
+    bottom: 9px;
+    height: 1px;
+    background-color: var(--color-ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-out-expo);
+  }
+
+  .chip:hover,
+  .chip[aria-pressed='true'] {
+    color: var(--color-ink);
+  }
+
+  .chip[aria-pressed='true']::after {
+    transform: scaleX(1);
   }
 
   /* ==========================================================================

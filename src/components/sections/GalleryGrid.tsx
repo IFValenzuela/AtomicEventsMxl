@@ -21,12 +21,13 @@ type Props = {
  *
  * CSS columns rather than a grid, because the tiles mix 4:3 and 4:5 and a
  * strict grid would either crop them or leave gaps. Bare frames, square
- * corners, tight gaps.
+ * corners, tight gaps. Two columns even on a phone: a gallery is looked at,
+ * not read, and one column of full-width photographs made twelve pictures
+ * six screens long.
  *
- * The filter is a row of capsules, because the site's geometry rule is that
- * anything you can operate is a capsule and anything that is content is
- * square. The one in effect fills with ink rather than announcing itself in
- * pink; the page has one ink and no accent hue.
+ * The filter is set like the "Ver más" link (see .chip in index.css): small
+ * caps, the one in effect underlined in ink. On a phone it is a single row
+ * that scrolls sideways instead of wrapping one word onto a second line.
  */
 export function GalleryGrid({ filterable = false, limit }: Props) {
   const [filter, setFilter] = useState<Filter>('Todas')
@@ -40,7 +41,7 @@ export function GalleryGrid({ filterable = false, limit }: Props) {
   return (
     <div>
       {filterable && (
-        <div className="mb-14 flex flex-wrap justify-center gap-2.5">
+        <div className="-mx-6 mb-10 flex gap-7 overflow-x-auto px-6 [scrollbar-width:none] sm:mx-0 sm:mb-14 sm:flex-wrap sm:justify-center sm:gap-x-9 sm:gap-y-1 sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden">
           {(['Todas', ...GALLERY_CATEGORIES] as Filter[]).map((category) => {
             const active = filter === category
             return (
@@ -67,14 +68,14 @@ export function GalleryGrid({ filterable = false, limit }: Props) {
           </p>
         </div>
       ) : (
-        <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 lg:gap-5">
+        <div className="columns-2 gap-3 sm:gap-4 lg:columns-3 lg:gap-5">
           {items.map((item, i) => (
             <Reveal
               key={item.src}
               index={i % 3}
-              className="mb-4 block break-inside-avoid lg:mb-5"
+              className="mb-3 block break-inside-avoid sm:mb-4 lg:mb-5"
             >
-              <Photo {...item} sizes="(min-width: 1024px) 460px, (min-width: 640px) 50vw, 100vw" />
+              <Photo {...item} sizes="(min-width: 1024px) 460px, 50vw" />
             </Reveal>
           ))}
         </div>

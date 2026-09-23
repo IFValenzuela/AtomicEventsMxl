@@ -32,12 +32,12 @@ export default function Contacto() {
           <Reveal index={1} className="lg:col-span-4 lg:col-start-9">
             <div className="border-t border-ink pt-10">
               <h2 className="text-2xl">O márcanos directo</h2>
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-5 space-y-1">
                 {CONTACT.phones.map((phone) => (
                   <li key={phone.tel}>
                     <a
                       href={`tel:${phone.tel}`}
-                      className="inkwipe font-display text-2xl text-ink"
+                      className="inkwipe font-display inline-block py-1.5 text-2xl text-ink"
                     >
                       {phone.display}
                     </a>
