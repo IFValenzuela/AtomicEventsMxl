@@ -46,10 +46,17 @@ type Props = PhotoData & {
  * simply a rectangle of image placed on white, and that bareness is most of
  * why the page looks like a studio rather than a template.
  *
- * Atomic has no professional photography yet, so each slot renders a labelled
- * placeholder at the right aspect ratio. Drop a real JPG at `src` under
- * `public/` and it appears; there is nothing to change in code. Run
- * `npm run images` afterwards and it also gets a responsive ladder.
+ * While a photograph downloads, the frame is just the quiet tint at the right
+ * aspect ratio. The labelled placeholder (camera, caption, path) appears only
+ * when the file genuinely is not there, and only in development, so it is a
+ * shot list for whoever is adding photographs rather than something visitors
+ * see. It used to show until the image finished loading, which flashed every
+ * caption on every page load before the real pictures arrived. On the live
+ * site a missing photograph is the plain tinted frame.
+ *
+ * Drop a real JPG at `src` under `public/` and it appears; there is nothing
+ * to change in code. Run `npm run images` afterwards and it also gets a
+ * responsive ladder.
  */
 export function Photo({
   src,
@@ -62,7 +69,8 @@ export function Photo({
   overlay = false,
   sizes = '100vw',
 }: Props) {
-  const [loaded, setLoaded] = useState(false)
+  const [status, setStatus] = useState<'loading' | 'loaded' | 'missing'>('loading')
+  const loaded = status === 'loaded'
   const ladder = rungs(src)
 
   return (
@@ -81,7 +89,8 @@ export function Photo({
         loading={priority ? 'eager' : 'lazy'}
         fetchPriority={priority ? 'high' : 'auto'}
         decoding="async"
-        onLoad={() => setLoaded(true)}
+        onLoad={() => setStatus('loaded')}
+        onError={() => setStatus('missing')}
         data-loaded={loaded}
         /* `.photo-img` in index.css holds the arrival: the frame fades in
            while the last 5% of scale settles out of it, so the picture reads
@@ -89,12 +98,14 @@ export function Photo({
         className="photo-img absolute inset-0 h-full w-full object-cover"
       />
 
-      {!loaded && <Pending caption={caption} src={src} overlay={overlay} />}
+      {status === 'missing' && import.meta.env.DEV && (
+        <Pending caption={caption} src={src} overlay={overlay} />
+      )}
     </figure>
   )
 }
 
-/** Shown until a real photograph exists at the path. */
+/** Development only: marks a slot whose photograph does not exist yet. */
 function Pending({
   caption,
   src,

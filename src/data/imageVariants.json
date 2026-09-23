@@ -51,6 +51,38 @@
       "src": "/assets/images/hero/baby-shower.jpg"
     }
   ],
+  "/assets/images/hero/contacto.jpg": [
+    {
+      "w": 640,
+      "src": "/assets/images/_responsive/hero/contacto-640.jpg"
+    },
+    {
+      "w": 1024,
+      "src": "/assets/images/_responsive/hero/contacto-1024.jpg"
+    },
+    {
+      "w": 1536,
+      "src": "/assets/images/_responsive/hero/contacto-1536.jpg"
+    },
+    {
+      "w": 2048,
+      "src": "/assets/images/_responsive/hero/contacto-2048.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/_responsive/hero/contacto-2560.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/hero/contacto.jpg"
+    }
+  ],
+  "/assets/images/hero/contactp.png": [
+    {
+      "w": 475,
+      "src": "/assets/images/hero/contactp.png"
+    }
+  ],
   "/assets/images/hero/galeria.jpg": [
     {
       "w": 640,
@@ -75,6 +107,46 @@
     {
       "w": 2560,
       "src": "/assets/images/hero/galeria.jpg"
+    }
+  ],
+  "/assets/images/hero/hero-portrait.jpg": [
+    {
+      "w": 640,
+      "src": "/assets/images/_responsive/hero/hero-portrait-640.jpg"
+    },
+    {
+      "w": 1024,
+      "src": "/assets/images/_responsive/hero/hero-portrait-1024.jpg"
+    },
+    {
+      "w": 1080,
+      "src": "/assets/images/hero/hero-portrait.jpg"
+    }
+  ],
+  "/assets/images/hero/nosotros.jpg": [
+    {
+      "w": 640,
+      "src": "/assets/images/_responsive/hero/nosotros-640.jpg"
+    },
+    {
+      "w": 1024,
+      "src": "/assets/images/_responsive/hero/nosotros-1024.jpg"
+    },
+    {
+      "w": 1536,
+      "src": "/assets/images/_responsive/hero/nosotros-1536.jpg"
+    },
+    {
+      "w": 2048,
+      "src": "/assets/images/_responsive/hero/nosotros-2048.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/_responsive/hero/nosotros-2560.jpg"
+    },
+    {
+      "w": 2560,
+      "src": "/assets/images/hero/nosotros.jpg"
     }
   ],
   "/assets/images/hero/paquetes.jpg": [
@@ -153,6 +225,68 @@
     {
       "w": 2560,
       "src": "/assets/images/hero/servicios.jpg"
+    }
+  ],
+  "/assets/images/instagram/01.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/instagram/01-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/instagram/01-800.jpg"
+    },
+    {
+      "w": 1080,
+      "src": "/assets/images/instagram/01.jpg"
+    }
+  ],
+  "/assets/images/instagram/02.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/instagram/02-400.jpg"
+    },
+    {
+      "w": 640,
+      "src": "/assets/images/instagram/02.jpg"
+    }
+  ],
+  "/assets/images/instagram/03.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/instagram/03-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/instagram/03-800.jpg"
+    },
+    {
+      "w": 1080,
+      "src": "/assets/images/instagram/03.jpg"
+    }
+  ],
+  "/assets/images/instagram/04.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/instagram/04-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/instagram/04-800.jpg"
+    },
+    {
+      "w": 1080,
+      "src": "/assets/images/instagram/04.jpg"
+    }
+  ],
+  "/assets/images/instagram/05.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/instagram/05-400.jpg"
+    },
+    {
+      "w": 720,
+      "src": "/assets/images/instagram/05.jpg"
     }
   ],
   "/assets/images/nosotros/equipo.jpg": [
