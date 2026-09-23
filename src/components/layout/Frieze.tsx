@@ -23,14 +23,20 @@
  * distinct values that a palette beats a photographic codec, and the palette
  * shows no banding on the hairlines. Do not "optimise" this to WebP.
  */
-export function Frieze() {
+export function Frieze({ tight = false }: { tight?: boolean }) {
   return (
     <div
       aria-hidden="true"
-      /* Real air above it. The band before this one is usually the tinted
-         closing band, and butting the drawing straight up against that edge
-         makes the two read as one crowded unit. */
-      className="relative z-[1] overflow-hidden bg-paper pt-16 lg:pt-28"
+      /* Real air above it. The band before this one is usually the closing
+         ask or the Instagram strip, and butting the drawing straight up
+         against those makes the two read as one crowded unit.
+
+         `tight` is the contact page, where the band above is the form. There
+         the drawing is pulled up to sit just under it, so it is on screen
+         while people fill the form in rather than a scroll away. */
+      className={`relative z-[1] overflow-hidden bg-paper ${
+        tight ? 'pt-8 lg:pt-10' : 'pt-16 lg:pt-28'
+      }`}
     >
       <img
         src="/assets/images/frieze/frieze-2048.png"

@@ -10,8 +10,12 @@ export default function NoEncontrado() {
   )
 
   return (
-    <section className="py-40">
-      <div className="shell flex min-h-[70vh] flex-col items-center justify-center text-center">
+    /* Top padding clears the overlaid header; no bottom padding, because the
+       frieze under it brings its own. This used to be py-40 around a 70vh
+       centred box, which left ~250px of white above the heading and ~480px
+       below the buttons. */
+    <section className="pt-36 lg:pt-56">
+      <div className="shell flex flex-col items-center text-center">
         <h1 className="max-w-[20ch] text-[2rem] lg:text-[2.75rem]">
           Esta página no existe
         </h1>

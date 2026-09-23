@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import type { Photo as PhotoData } from '../../data/site'
 import { Photo } from '../ui/Photo'
 
@@ -22,13 +22,32 @@ type Props = {
  * its heading quickly.
  */
 export function PageHero({ title, lead, photo, children }: Props) {
+  /* Once the page has closed over the picture, stop painting it, the same as
+     the home hero. It is not only a saving: the scene sits under the whole
+     page, and wherever two white bands meet on a fractional pixel the seam
+     anti-aliases and lets a hairline of photograph through. That read as a
+     stray grey rule under the closing band. */
+  const [covered, setCovered] = useState(false)
+  const gap = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = gap.current
+    if (!el) return
+    const io = new IntersectionObserver(([entry]) => setCovered(!entry.isIntersecting))
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
   return (
     <>
       <div
         className="curtain"
         style={{ '--curtain-h': 'min(72lvh, 46rem)' } as CSSProperties}
       >
-        <section className="curtain-scene overflow-hidden">
+        <section
+          className="curtain-scene overflow-hidden"
+          style={covered ? { visibility: 'hidden' } : undefined}
+        >
           <Photo {...photo} fill overlay priority />
           <div
             aria-hidden="true"
@@ -36,7 +55,7 @@ export function PageHero({ title, lead, photo, children }: Props) {
           />
         </section>
 
-        <div className="curtain-gap" aria-hidden="true" />
+        <div ref={gap} className="curtain-gap" aria-hidden="true" />
       </div>
 
       {/* Full-bleed, with the shell inside it. The curtain's opaque floor is

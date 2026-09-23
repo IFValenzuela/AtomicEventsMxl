@@ -22,7 +22,8 @@ export default function Contacto() {
         photo={PAGE_HEROES.contacto}
       />
 
-      <section className="band">
+      {/* pb-0: the frieze under it brings its own air. */}
+      <section className="band pb-0">
         <div className="shell grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-14">
           <Reveal className="lg:col-span-7">
             <ContactForm />

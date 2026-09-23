@@ -74,19 +74,28 @@ export function PhotoBand({ title, body, more, photo, card = 'right', className 
 
           Still centred on a phone, where the card is full width and there is
           no side to move it to. */}
-      <div className="relative flex min-h-[70vh] items-center px-6 py-24 lg:min-h-[85vh] lg:items-end lg:px-8 lg:py-20">
+      {/* Band height is the reference's, measured: ~470px at 1920 with the
+          card inside it. It used to be 85vh, which made this a second hero;
+          now it is a 30rem strip on desktop. On a phone the card is full
+          width and sits low with a small inset. The letters and the couple
+          sit about halfway down this photograph, so on a phone the card is
+          just the title and the link, and the band is tall enough for the
+          picture to show above it; the sentence returns from sm up. */}
+      <div className="relative flex min-h-[34rem] items-end px-4 pt-16 pb-4 sm:px-6 sm:pb-6 lg:min-h-[30rem] lg:items-center lg:px-8 lg:py-16">
         <Reveal
           y={0}
-          className={`w-full max-w-[34rem] bg-paper p-10 text-center lg:max-w-[28rem] lg:p-12 ${
+          className={`w-full max-w-[34rem] bg-paper px-6 py-7 text-center sm:p-10 lg:max-w-[31rem] lg:px-12 lg:py-11 ${
             card === 'right' ? 'lg:ml-auto' : 'lg:mr-auto'
           }`}
         >
-          <h2 className="mx-auto max-w-[16ch] text-[1.75rem] lg:text-4xl">{title}</h2>
+          {/* One line from lg up: a two-line title was most of the card's
+              height, and the card is what the band has to hold. */}
+          <h2 className="mx-auto max-w-[16ch] text-[1.75rem] lg:max-w-none lg:text-4xl">{title}</h2>
 
-          <p className="mx-auto mt-6 max-w-[42ch] text-ink">{body}</p>
+          <p className="mx-auto mt-6 hidden max-w-[42ch] text-ink sm:block">{body}</p>
 
           {more && (
-            <div className="mt-10 flex justify-center">
+            <div className="mt-6 flex justify-center sm:mt-10">
               <MoreLink to={more.to} label={more.label} />
             </div>
           )}

@@ -15,6 +15,8 @@ export { ArrowRightIcon as ArrowRight } from '@phosphor-icons/react/dist/csr/Arr
 export { ArrowUpRightIcon as ArrowUpRight } from '@phosphor-icons/react/dist/csr/ArrowUpRight'
 export { BalloonIcon as Balloon } from '@phosphor-icons/react/dist/csr/Balloon'
 export { CameraIcon as Camera } from '@phosphor-icons/react/dist/csr/Camera'
+export { CaretLeftIcon as CaretLeft } from '@phosphor-icons/react/dist/csr/CaretLeft'
+export { CaretRightIcon as CaretRight } from '@phosphor-icons/react/dist/csr/CaretRight'
 export { CheckCircleIcon as CheckCircle } from '@phosphor-icons/react/dist/csr/CheckCircle'
 export { ClockIcon as Clock } from '@phosphor-icons/react/dist/csr/Clock'
 export { DroneIcon as Drone } from '@phosphor-icons/react/dist/csr/Drone'

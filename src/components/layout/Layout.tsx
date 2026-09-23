@@ -17,6 +17,11 @@ function ScrollToTop() {
 }
 
 export function Layout() {
+  // The Instagram strip belongs to the home page only. On inner pages it sat
+  // between the content and the footer as one more thing to scroll past.
+  const { pathname } = useLocation()
+  const isHome = pathname === '/'
+
   return (
     <>
       <ScrollToTop />
@@ -34,8 +39,8 @@ export function Layout() {
         <Outlet />
       </main>
 
-      <InstagramStrip />
-      <Frieze />
+      {isHome && <InstagramStrip />}
+      <Frieze tight={pathname === '/contacto'} />
       <Footer />
     </>
   )

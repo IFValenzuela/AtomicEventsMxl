@@ -53,7 +53,11 @@ export function Reveal({
         setShown(true)
         observer.disconnect()
       },
-      { threshold: 0.15, rootMargin: '0px 0px -80px 0px' },
+      /* Fire on the top edge, not on a fraction of the height. A 15% threshold
+         scales with the element: a 700px service tile sat invisible until
+         ~185px of it was on screen, so every section arrived as a blank strip
+         at the foot of the viewport. 64px in is enough to still see it land. */
+      { threshold: 0, rootMargin: '0px 0px -64px 0px' },
     )
 
     observer.observe(node)

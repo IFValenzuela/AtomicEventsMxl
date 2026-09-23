@@ -7,21 +7,21 @@ import { FeatureRow } from '../components/sections/FeatureRow'
 import { Hero } from '../components/sections/Hero'
 import { OccasionRail } from '../components/sections/OccasionRail'
 import { PhotoBand } from '../components/sections/PhotoBand'
-import { ServicesGrid } from '../components/sections/ServicesGrid'
+import { ServicesCarousel } from '../components/sections/ServicesGrid'
 
 /**
  * Home.
  *
  *   hero          a photograph, one button, a number you can call
  *   nosotros      alternating row, photographs right, bleeding off the edge
- *   servicios     three-across photo tiles with the name set on the image
+ *   servicios     all six services in one sliding row
  *   pedidas       the held band: a pinned photograph with a white card on it
  *   paquetes      five portraits in a strip
  *   cierre        the one tinted band
  *
  * Five sections, and that ceiling is deliberate. Four more used to sit here:
- * a second alternating row for the 360 booth, a gallery preview, a testimonial
- * block, and the second row of service tiles.
+ * a second alternating row for the 360 booth, a gallery preview and a testimonial
+ * block.
  *
  * The first is duplication. GalleryGrid is the component /galeria renders, and
  * the Instagram strip above the footer already says "look at our work".
@@ -59,7 +59,8 @@ export default function Home() {
         photos={[ABOUT.photo, ABOUT.detail[0]]}
       />
 
-      <section className="band">
+      {/* pt-0: the row above already closes with a full band of air. */}
+      <section className="band pt-0">
         <div className="shell">
           <SectionHeader
             title="Todo lo que ponemos en tu evento"
@@ -67,8 +68,8 @@ export default function Home() {
             more={{ to: '/servicios' }}
           />
 
-          <div className="mt-20">
-            <ServicesGrid limit={3} />
+          <div className="mt-16 lg:mt-20">
+            <ServicesCarousel />
           </div>
         </div>
       </section>

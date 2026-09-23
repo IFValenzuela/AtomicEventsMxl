@@ -1,5 +1,6 @@
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight } from '../ui/icons'
+import { CaretLeft, CaretRight } from '../ui/icons'
 import { SERVICES, type Service } from '../../data/services'
 import { Photo } from '../ui/Photo'
 import { Reveal } from '../ui/Reveal'
@@ -7,23 +8,22 @@ import { Reveal } from '../ui/Reveal'
 /**
  * The services.
  *
- * Built on the reference's offer-card treatment: a bare photograph with the
- * name set directly on it in white at the top, no container, no border, no
- * radius. Nothing here is a card with a background and a stroke.
+ * A photograph, then a short centred stack under it: the name in the serif,
+ * one sentence of body. That is the reference's grouping rule, the same stack
+ * the feature rows, the pedida card and the closing ask use.
  *
- * Three across at desktop, two at tablet, one on a phone.
+ * Each photograph gets a soft navy shadow with a long downward offset, so it
+ * sits on the page like a print laid on paper instead of a rectangle pasted
+ * into white. Square corners stay: the photographs are prints, not cards.
  *
- * `limit` exists for the home page, which shows the first row only. All six
- * belong on /servicios; on the home page two full rows of tiles cost over
- * 2000px, which is more than two viewports spent on a list the visitor can
- * reach from the link underneath the heading.
+ * Two layouts share the tile. ServicesGrid is /servicios, where the six are
+ * the content and get a grid. ServicesCarousel is the home page, where they
+ * are a preview and get one row.
  */
-export function ServicesGrid({ limit }: { limit?: number } = {}) {
-  const services = limit ? SERVICES.slice(0, limit) : SERVICES
-
+export function ServicesGrid() {
   return (
-    <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16">
-      {services.map((service, i) => (
+    <div className="mx-auto grid max-w-[64rem] grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-16">
+      {SERVICES.map((service, i) => (
         <Reveal key={service.id} index={i % 3}>
           <ServiceTile service={service} />
         </Reveal>
@@ -32,53 +32,172 @@ export function ServicesGrid({ limit }: { limit?: number } = {}) {
   )
 }
 
+/**
+ * One row of services that slides, the reference's offers carousel.
+ *
+ * Four tiles across on desktop, three on a tablet, one and a bit on a phone.
+ * No library: the track is native horizontal scroll with snap points, so
+ * touch, trackpad, shift-wheel and focus-into-view all work for free and
+ * nothing has to be kept in sync with a JS position.
+ *
+ * The arrows are the reference's: round white buttons with a chevron (the
+ * only circles in its whole vocabulary, and the only ones here), sitting on
+ * the row's two edges, centred on the photographs and half over them, with
+ * the same soft shadow the prints cast. Each one leaves when there is nothing
+ * further that way, so the row never shows a dead control. The chevron goes
+ * pink on hover, the site's sign for pressable.
+ *
+ * Hidden below md. On a phone the next tile already shows at the edge and a
+ * swipe is the native gesture; two buttons over a 72%-wide photograph would
+ * only cover it.
+ */
+export function ServicesCarousel() {
+  const track = useRef<HTMLUListElement>(null)
+  const [pos, setPos] = useState({ start: true, end: false, mid: 0 })
+
+  const measure = useCallback(() => {
+    const el = track.current
+    if (!el) return
+    const photo = el.querySelector('figure')
+    const max = el.scrollWidth - el.clientWidth
+    setPos({
+      start: el.scrollLeft <= 2,
+      end: el.scrollLeft >= max - 2,
+      /* Centre of the photographs, from the top of the row. Built from the
+         track's own padding and the photo's height rather than offsetTop:
+         the Reveal around each tile starts 24px low, and a position read
+         mid-entrance would leave the arrows sitting above centre. */
+      mid: photo
+        ? el.offsetTop + parseFloat(getComputedStyle(el).paddingTop) + photo.offsetHeight / 2
+        : 0,
+    })
+  }, [])
+
+  useEffect(() => {
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [measure])
+
+  const step = (dir: 1 | -1) => {
+    const el = track.current
+    const tile = el?.firstElementChild as HTMLElement | null
+    if (!el || !tile) return
+    const gap = parseFloat(getComputedStyle(el).columnGap) || 0
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    el.scrollBy({ left: dir * (tile.offsetWidth + gap), behavior: still ? 'auto' : 'smooth' })
+  }
+
+  return (
+    <div role="region" aria-roledescription="carrusel" aria-label="Servicios" className="relative">
+      {/* The negative margin and padding give the shadows room: a scroll
+          container clips on both axes, and the drop under each photograph
+          would otherwise be cut off flat. scroll-px keeps the snap point on
+          the shell edge. */}
+      <ul
+        ref={track}
+        onScroll={measure}
+        className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pt-2 pb-12 sm:gap-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {SERVICES.map((service, i) => (
+          <Reveal
+            key={service.id}
+            as="li"
+            index={i}
+            className="w-[72%] shrink-0 snap-start sm:w-[calc((100%-2rem)/2.4)] md:w-[calc((100%-4rem)/3)] lg:w-[calc((100%-6rem)/4)]"
+          >
+            <ServiceTile service={service} />
+          </Reveal>
+        ))}
+      </ul>
+
+      {pos.mid > 0 && (
+        <>
+          <CarouselButton
+            label="Anterior"
+            hidden={pos.start}
+            onClick={() => step(-1)}
+            style={{ top: pos.mid }}
+            className="left-0 -translate-x-1/2"
+          >
+            <CaretLeft size={20} weight="regular" aria-hidden="true" />
+          </CarouselButton>
+
+          <CarouselButton
+            label="Siguiente"
+            hidden={pos.end}
+            onClick={() => step(1)}
+            style={{ top: pos.mid }}
+            className="right-0 translate-x-1/2"
+          >
+            <CaretRight size={20} weight="regular" aria-hidden="true" />
+          </CarouselButton>
+        </>
+      )}
+    </div>
+  )
+}
+
+function CarouselButton({
+  label,
+  hidden,
+  onClick,
+  style,
+  className,
+  children,
+}: {
+  label: string
+  hidden: boolean
+  onClick: () => void
+  style: CSSProperties
+  className: string
+  children: ReactNode
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      disabled={hidden}
+      onClick={onClick}
+      style={style}
+      className={`absolute z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-paper text-ink shadow-[0_10px_28px_-10px_rgb(0_48_63/0.45),0_1px_3px_rgb(0_48_63/0.1)] transition-[opacity,color] duration-200 hover:text-pink md:inline-flex disabled:pointer-events-none disabled:opacity-0 ${className}`}
+    >
+      {children}
+    </button>
+  )
+}
+
 function ServiceTile({ service }: { service: Service }) {
   const body = (
     <>
-      <div className="relative overflow-hidden">
-        <Photo
-          {...service.photo}
-          sizes="(min-width: 1024px) 460px, (min-width: 640px) 50vw, 100vw"
-        />
+      {/* No hover zoom, no veil. Photographs never move or dim here. */}
+      <Photo
+        {...service.photo}
+        sizes="(min-width: 1024px) 320px, (min-width: 640px) 42vw, 72vw"
+        className="shadow-[0_22px_44px_-22px_rgb(0_48_63/0.45),0_2px_6px_rgb(0_48_63/0.08)]"
+      />
 
-        {/* The veil is only as tall as the text needs, so the photograph is
-            not dimmed across its whole face. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-ink/85 via-ink/40 to-transparent"
-        />
+      <h3
+        className={`mt-7 text-2xl ${
+          service.href ? 'transition-colors duration-200 group-hover:text-ink-soft' : ''
+        }`}
+      >
+        {service.name}
+      </h3>
 
-        <h3 className="absolute top-6 right-6 left-6 text-2xl text-white lg:text-[1.75rem]">
-          {service.name}
-        </h3>
-      </div>
-
-      <p className="mt-5 text-[1.0625rem] text-ink">{service.blurb}</p>
-
-      {/* `self-start` matters: .morelink is inline-flex, and inside this
-          flex column it would otherwise stretch its underline the full
-          width of the tile. */}
-      {service.href && (
-        <span className="morelink mt-6 self-start">
-          Ver más
-          <ArrowRight
-            size={16}
-            weight="regular"
-            aria-hidden="true"
-            className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5"
-          />
-        </span>
-      )}
+      <p className="mx-auto mt-3 max-w-[34ch] text-[1rem] text-ink">
+        {service.blurb}
+      </p>
     </>
   )
 
   if (service.href) {
     return (
-      <Link to={service.href} className="group flex flex-col">
+      <Link to={service.href} className="group block text-center">
         {body}
       </Link>
     )
   }
 
-  return <article className="flex flex-col">{body}</article>
+  return <article className="text-center">{body}</article>
 }

@@ -41,6 +41,11 @@
   --color-ink: #00303f;
   --color-ink-soft: #55686f; /* 6.2:1. Tertiary meta only. */
   --color-rule: #e4e2de;
+  /* Form control boundary. The rule colour is 1.3:1 on white, which is why
+     the inputs vanished into the page; WCAG 1.4.11 wants 3:1 for the edge of
+     a control. Same navy hue as ink, lifted to 3.3:1. */
+  --color-field-line: #7f9197;
+  --color-field-fill: #fbfaf8;
 
   /* Pink is the button colour, and only the button colour.
 
@@ -55,8 +60,8 @@
      or link hovers.
 
      Measured: white on #e0195f is 4.69:1, over the 4.5:1 a 15px label needs.
-     The #b8104b hover is 6.53:1. On the near-black closing band the floor is
-     measured rather than assumed: see CtaBand. */
+     The #b8104b hover is 6.53:1. Every pink button sits on white, including
+     the closing band's, which is on a white card over its photograph. */
   --color-pink: #e0195f;
   --color-pink-deep: #b8104b;
 
@@ -177,6 +182,49 @@
    ========================================================================= */
 
 @layer components {
+  /* Section rhythm. The reference leaves 200px-plus of nothing between
+     sections; that emptiness is most of what makes it feel expensive.
+
+     A components rule, not a utility, so a page can trim one side with
+     `pt-0` / `pb-0`. It used to sit in the utilities layer after Tailwind's
+     own padding classes, which meant every `band pt-0` on the site was
+     silently ignored: two bands meeting stacked 144px + 144px into a 288px
+     white hole that read as a missing section, not as a pause. */
+  .band {
+    padding-block: 5.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .band {
+      padding-block: 9rem;
+    }
+  }
+
+  /* Bands meet a photograph strip sooner. Once the photo bands came down to
+     the reference's ~480px, a full band of white either side outweighed the
+     picture itself and the strip looked dropped between two empty fields
+     instead of placed. Covers the closing photograph (.cierre) and the held
+     band (.photoband as a section), from both sides. */
+  .band:has(+ .cierre),
+  .band:has(+ .photoband) {
+    padding-bottom: 4rem;
+  }
+
+  .photoband + .band {
+    padding-top: 4rem;
+  }
+
+  @media (min-width: 1024px) {
+    .band:has(+ .cierre),
+    .band:has(+ .photoband) {
+      padding-bottom: 5.5rem;
+    }
+
+    .photoband + .band {
+      padding-top: 5.5rem;
+    }
+  }
+
   .reveal {
     opacity: 0;
     /* Reveal.tsx sets --reveal-y per element. It used to be computed and then
@@ -229,6 +277,116 @@
     opacity: 1;
   }
 
+  /* ==========================================================================
+     Form fields.
+
+     ContactForm has always put `.field` on its controls, but the rule never
+     existed, so Tailwind's preflight left them as borderless white boxes on a
+     white page: nothing said "type here".
+
+     They follow the button rather than the hotel reference. Same 44px floor,
+     same 12px corner (squircle where supported), so a field and the submit
+     button under it read as parts of one kit. A 1px line at 3.3:1 marks the
+     edge, and a barely-warm fill separates the well from the page. Hover
+     darkens the line; focus takes it to ink and adds the site's pink focus
+     outline. Invalid fields take the danger colour on the line itself, not
+     only in the text beneath.
+     ========================================================================== */
+  .field {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 14px; /* 10+22+10+2 = 44px, level with the button */
+    border: 1px solid var(--color-field-line);
+    border-radius: 12px;
+    background-color: var(--color-field-fill);
+    color: var(--color-ink);
+    font: inherit;
+    font-size: 1rem; /* 16px: iOS zooms the page into anything smaller. */
+    line-height: 1.375;
+    transition:
+      border-color 0.2s ease-out,
+      background-color 0.2s ease-out,
+      box-shadow 0.2s ease-out;
+  }
+
+  @supports (corner-shape: squircle) {
+    .field {
+      corner-shape: squircle;
+      border-radius: 16px;
+    }
+  }
+
+  .field::placeholder {
+    color: var(--color-ink-soft);
+    opacity: 0.75;
+  }
+
+  .field:hover {
+    border-color: var(--color-ink-soft);
+  }
+
+  .field:focus {
+    border-color: var(--color-ink);
+    background-color: var(--color-paper);
+    box-shadow: inset 0 0 0 1px var(--color-ink);
+  }
+
+  .field:focus-visible {
+    outline-offset: 2px;
+  }
+
+  .field[aria-invalid='true'] {
+    border-color: var(--color-danger);
+    box-shadow: inset 0 0 0 1px var(--color-danger);
+  }
+
+  .field-area {
+    min-height: 9rem;
+    resize: vertical;
+  }
+
+  /* The native select arrow is the one part of the browser's chrome that
+     survives preflight, and it differs on every OS. Replace it with an ink
+     chevron drawn at the field's own weight. */
+  .field-select {
+    appearance: none;
+    padding-right: 44px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none' stroke='%2300303f' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 5.25 7 9.25l4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 14px;
+    cursor: pointer;
+  }
+
+  /* An unchosen select should read like a placeholder, not like an answer. */
+  .field-select:has(option[value='']:checked) {
+    color: color-mix(in srgb, var(--color-ink-soft) 75%, transparent);
+  }
+
+  .field-select option {
+    color: var(--color-ink);
+  }
+
+  .field[type='date'] {
+    cursor: text;
+  }
+
+  .field[type='date']::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+  .field[type='date']::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+  }
+
+  @media (forced-colors: active) {
+    .field {
+      border-color: CanvasText;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .reveal,
     .reveal[data-shown='false'] {
@@ -256,18 +414,6 @@
   @media (min-width: 768px) {
     .shell {
       padding-inline: 2rem;
-    }
-  }
-
-  /* Section rhythm. The reference leaves 200px-plus of nothing between
-     sections; that emptiness is most of what makes it feel expensive. */
-  .band {
-    padding-block: 5.5rem;
-  }
-
-  @media (min-width: 1024px) {
-    .band {
-      padding-block: 9rem;
     }
   }
 
