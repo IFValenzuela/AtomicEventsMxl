@@ -5,7 +5,6 @@ import { PAGE_HEROES } from '../data/site'
 import { useMeta } from '../lib/useMeta'
 import { Photo } from '../components/ui/Photo'
 import { Reveal } from '../components/ui/Reveal'
-import { StarTier } from '../components/ui/StarTier'
 import { CtaBand } from '../components/sections/CtaBand'
 import { PageHero } from '../components/sections/PageHero'
 
@@ -64,15 +63,6 @@ function OccasionCard({
   occasion: (typeof OCCASIONS)[number]
   wide: boolean
 }) {
-  /** The highest tier available in this occasion, for the card's rating. */
-  const top = occasion.packages.reduce(
-    (best, pkg) =>
-      (pkg.stars ?? 0) / (pkg.starsOf ?? 1) > (best.stars ?? 0) / (best.starsOf ?? 1)
-        ? pkg
-        : best,
-    occasion.packages[0],
-  )
-
   return (
     <Link
       to={`/paquetes/${occasion.slug}`}
@@ -90,11 +80,10 @@ function OccasionCard({
       />
 
       <div className={wide ? 'mt-7 md:mt-0' : 'mt-7'}>
-        {top?.stars != null && top.starsOf != null && (
-          <StarTier stars={top.stars} of={top.starsOf} name={top.name} />
-        )}
-
-        <h2 className="mt-4 text-[1.75rem] transition-colors duration-300 group-hover:text-ink-soft lg:text-3xl">
+        {/* No star rating here. The stars rank packages against each other,
+            and this page lists occasions, not packages; they belong on the
+            occasion page, next to the tiers they compare. */}
+        <h2 className="text-[1.75rem] transition-colors duration-300 group-hover:text-ink-soft lg:text-3xl">
           {occasion.title}
         </h2>
 
