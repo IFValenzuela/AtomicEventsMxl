@@ -14,24 +14,9 @@
     "page": "https://unsplash.com/photos/TXDu6RiDbDI",
     "license": "Unsplash License"
   },
-  "/assets/images/gallery/04.jpg": {
-    "sha1": "ab9176407f29e2202cf3efb4b2773f6d95c7ebca",
-    "page": "https://unsplash.com/photos/9s7EOmv2HDA",
-    "license": "Unsplash License"
-  },
-  "/assets/images/gallery/05.jpg": {
-    "sha1": "9793a4a361fc22efc103f0190c15cebe8e8b7783",
-    "page": "https://unsplash.com/photos/9INtcavGkko",
-    "license": "Unsplash License"
-  },
   "/assets/images/gallery/06.jpg": {
     "sha1": "e76d202c9958c56c7a826375e33dbef578375302",
     "page": "https://unsplash.com/photos/Pp3ReTA3wHk",
-    "license": "Unsplash License"
-  },
-  "/assets/images/gallery/07.jpg": {
-    "sha1": "f0bb0efbe028724ca28c0950ae2e416bfd7a8e9e",
-    "page": "https://unsplash.com/photos/KIBSHyua13E",
     "license": "Unsplash License"
   },
   "/assets/images/gallery/08.jpg": {
@@ -49,24 +34,9 @@
     "page": "https://unsplash.com/photos/QkH6fARkiLE",
     "license": "Unsplash License"
   },
-  "/assets/images/gallery/11.jpg": {
-    "sha1": "bc21fb94730cec42f44ab072527cf07a4ec4788d",
-    "page": "https://unsplash.com/photos/ux8FqUscqzU",
-    "license": "Unsplash License"
-  },
-  "/assets/images/gallery/12.jpg": {
-    "sha1": "a9bec0dbc0059ae30750b5f9680848f9759dfadc",
-    "page": "https://unsplash.com/photos/C0hhfv5eg6k",
-    "license": "Unsplash License"
-  },
   "/assets/images/gallery/13.jpg": {
     "sha1": "ffa02c05bd83cd5d5db22acfa7b42c6434aacdcd",
     "page": "https://unsplash.com/photos/q5FNF6EEE30",
-    "license": "Unsplash License"
-  },
-  "/assets/images/gallery/14.jpg": {
-    "sha1": "6ebb2973224402207cd8a435d01118ca36c161b3",
-    "page": "https://unsplash.com/photos/JupLDMLcTtU",
     "license": "Unsplash License"
   },
   "/assets/images/gallery/15.jpg": {
@@ -104,39 +74,9 @@
     "page": "https://unsplash.com/photos/SRVllNIwMWU",
     "license": "Unsplash License"
   },
-  "/assets/images/gallery/22.jpg": {
-    "sha1": "692b3f9d8a94b2bce9f4983cdfe6649d08a1365a",
-    "page": "https://unsplash.com/photos/cis_UL2ktNY",
-    "license": "Unsplash License"
-  },
-  "/assets/images/gallery/23.jpg": {
-    "sha1": "d18c0aa57b12c7ea68a171c658d1f9e296ec3051",
-    "page": "https://unsplash.com/photos/tOHBo3v_1Gs",
-    "license": "Unsplash License"
-  },
   "/assets/images/gallery/24.jpg": {
     "sha1": "aaf411f4004ddfb709bdb017b1113f55e91ceb8e",
     "page": "https://unsplash.com/photos/k6P-en1dQf4",
-    "license": "Unsplash License"
-  },
-  "/assets/images/hero/bodas.jpg": {
-    "sha1": "ba2b5a2dfa9436927875b91f6c8282a47d21424b",
-    "page": "https://unsplash.com/photos/6E-pmvRa3AU",
-    "license": "Unsplash License"
-  },
-  "/assets/images/hero/cabina-360.jpg": {
-    "sha1": "b804b2204dcfca09f186531d23d9787a38199d86",
-    "page": "https://unsplash.com/photos/QOajY0MNp8Y",
-    "license": "Unsplash License"
-  },
-  "/assets/images/hero/xv-anos.jpg": {
-    "sha1": "d9d03b335d502d79a7bd318282f52e1db288aa50",
-    "page": "https://unsplash.com/photos/nFqF3eFj5w4",
-    "license": "Unsplash License"
-  },
-  "/assets/images/nosotros/luces.jpg": {
-    "sha1": "3b6e13fb48c48b8f8261a23371d52af79de9b705",
-    "page": "https://unsplash.com/photos/83KMyAtMzIs",
     "license": "Unsplash License"
   },
   "/assets/images/packages/baby-shower/bienvenida-al-mundo.jpg": {
@@ -152,16 +92,6 @@
   "/assets/images/packages/baby-shower/explosion-de-amor.jpg": {
     "sha1": "96b080ff3f476a1ff6484fc42a0540c82464d80f",
     "page": "https://unsplash.com/photos/qulJcsLyIHM",
-    "license": "Unsplash License"
-  },
-  "/assets/images/packages/baby-shower/hecho-con-amor.jpg": {
-    "sha1": "1b2739e7625de74eb6f4690b1a5634b85151514f",
-    "page": "https://unsplash.com/photos/LG75dMD3CUI",
-    "license": "Unsplash License"
-  },
-  "/assets/images/packages/bodas/amor-eterno.jpg": {
-    "sha1": "9df9f0e17509bf02cdfda450b03981f5c978b8f6",
-    "page": "https://unsplash.com/photos/QE7QfOq6xu0",
     "license": "Unsplash License"
   },
   "/assets/images/packages/bodas/teaser.jpg": {
@@ -202,11 +132,6 @@
   "/assets/images/packages/propuestas/oro.jpg": {
     "sha1": "a1676d6f2a7313b77bb6cb6a66627670648764eb",
     "page": "https://unsplash.com/photos/tX4-tYibILg",
-    "license": "Unsplash License"
-  },
-  "/assets/images/packages/propuestas/plata.jpg": {
-    "sha1": "fb5f58e6147aeea78c7477052c5775ebac5d872e",
-    "page": "https://unsplash.com/photos/XKCo9N6gyS4",
     "license": "Unsplash License"
   },
   "/assets/images/packages/propuestas/teaser.jpg": {

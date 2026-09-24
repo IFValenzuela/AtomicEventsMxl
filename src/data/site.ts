@@ -115,7 +115,7 @@ export const CTA = {
  * button sit.
  */
 export const HOME_HERO: Photo = {
-  src: '/assets/images/hero/Hero.jpg',
+  src: '/assets/images/hero/Hero.png',
   alt: 'Pedida de mano de noche sobre un muelle: el novio de rodillas frente a las letras iluminadas "CÁSATE CONMIGO", con chisperos encendidos detrás y un camino de pétalos de rosa al frente.',
   caption: 'Pedida de mano con letras "CÁSATE CONMIGO" y chisperos',
   ratio: '16/9',
@@ -134,7 +134,7 @@ export const HOME_HERO: Photo = {
  * drop-shadow rather than the picture carrying a veil.
  */
 export const CLOSING_PHOTO: Photo = {
-  src: '/assets/images/hero/Hero.jpg',
+  src: '/assets/images/hero/Hero.png',
   alt: '',
   caption: 'Pedida de mano de noche, letras iluminadas y chisperos',
   ratio: '16/9',

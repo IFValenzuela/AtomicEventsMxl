@@ -1,28 +1,114 @@
 {
-  "/assets/images/hero/Hero.jpg": [
+  "/assets/images/gallery/04.jpg": [
     {
-      "w": 640,
-      "src": "/assets/images/_responsive/hero/Hero-640.jpg"
+      "w": 400,
+      "src": "/assets/images/_responsive/gallery/04-400.jpg"
     },
     {
-      "w": 1024,
-      "src": "/assets/images/_responsive/hero/Hero-1024.jpg"
+      "w": 800,
+      "src": "/assets/images/_responsive/gallery/04-800.jpg"
     },
     {
-      "w": 1536,
-      "src": "/assets/images/_responsive/hero/Hero-1536.jpg"
+      "w": 1200,
+      "src": "/assets/images/gallery/04.jpg"
+    }
+  ],
+  "/assets/images/gallery/05.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/gallery/05-400.jpg"
     },
     {
-      "w": 2048,
-      "src": "/assets/images/_responsive/hero/Hero-2048.jpg"
+      "w": 800,
+      "src": "/assets/images/_responsive/gallery/05-800.jpg"
     },
     {
-      "w": 2560,
-      "src": "/assets/images/_responsive/hero/Hero-2560.jpg"
+      "w": 1200,
+      "src": "/assets/images/gallery/05.jpg"
+    }
+  ],
+  "/assets/images/gallery/07.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/gallery/07-400.jpg"
     },
     {
-      "w": 2560,
-      "src": "/assets/images/hero/Hero.jpg"
+      "w": 800,
+      "src": "/assets/images/_responsive/gallery/07-800.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/gallery/07.jpg"
+    }
+  ],
+  "/assets/images/gallery/11.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/gallery/11-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/gallery/11-800.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/gallery/11.jpg"
+    }
+  ],
+  "/assets/images/gallery/12.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/gallery/12-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/gallery/12-800.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/gallery/12.jpg"
+    }
+  ],
+  "/assets/images/gallery/14.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/gallery/14-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/gallery/14-800.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/gallery/14.jpg"
+    }
+  ],
+  "/assets/images/gallery/22.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/gallery/22-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/gallery/22-800.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/gallery/22.jpg"
+    }
+  ],
+  "/assets/images/gallery/23.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/gallery/23-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/gallery/23-800.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/gallery/23.jpg"
     }
   ],
   "/assets/images/hero/baby-shower.jpg": [
@@ -49,6 +135,34 @@
     {
       "w": 2560,
       "src": "/assets/images/hero/baby-shower.jpg"
+    }
+  ],
+  "/assets/images/hero/bodas.jpg": [
+    {
+      "w": 640,
+      "src": "/assets/images/_responsive/hero/bodas-640.jpg"
+    },
+    {
+      "w": 1024,
+      "src": "/assets/images/_responsive/hero/bodas-1024.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/hero/bodas.jpg"
+    }
+  ],
+  "/assets/images/hero/cabina-360.jpg": [
+    {
+      "w": 640,
+      "src": "/assets/images/_responsive/hero/cabina-360-640.jpg"
+    },
+    {
+      "w": 1024,
+      "src": "/assets/images/_responsive/hero/cabina-360-1024.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/hero/cabina-360.jpg"
     }
   ],
   "/assets/images/hero/contacto.jpg": [
@@ -227,6 +341,20 @@
       "src": "/assets/images/hero/servicios.jpg"
     }
   ],
+  "/assets/images/hero/xv-anos.jpg": [
+    {
+      "w": 640,
+      "src": "/assets/images/_responsive/hero/xv-anos-640.jpg"
+    },
+    {
+      "w": 1024,
+      "src": "/assets/images/_responsive/hero/xv-anos-1024.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/hero/xv-anos.jpg"
+    }
+  ],
   "/assets/images/instagram/01.jpg": [
     {
       "w": 400,
@@ -299,6 +427,20 @@
       "src": "/assets/images/nosotros/equipo.jpg"
     }
   ],
+  "/assets/images/nosotros/luces.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/nosotros/luces-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/nosotros/luces-800.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/nosotros/luces.jpg"
+    }
+  ],
   "/assets/images/nosotros/montaje.jpg": [
     {
       "w": 400,
@@ -323,6 +465,20 @@
       "src": "/assets/images/packages/baby-shower.jpg"
     }
   ],
+  "/assets/images/packages/baby-shower/hecho-con-amor.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/packages/baby-shower/hecho-con-amor-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/packages/baby-shower/hecho-con-amor-800.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/packages/baby-shower/hecho-con-amor.jpg"
+    }
+  ],
   "/assets/images/packages/baby-shower/teaser.jpg": [
     {
       "w": 400,
@@ -331,6 +487,34 @@
     {
       "w": 513,
       "src": "/assets/images/packages/baby-shower/teaser.jpg"
+    }
+  ],
+  "/assets/images/packages/bodas/amor-eterno.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/packages/bodas/amor-eterno-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/packages/bodas/amor-eterno-800.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/packages/bodas/amor-eterno.jpg"
+    }
+  ],
+  "/assets/images/packages/propuestas/plata.jpg": [
+    {
+      "w": 400,
+      "src": "/assets/images/_responsive/packages/propuestas/plata-400.jpg"
+    },
+    {
+      "w": 800,
+      "src": "/assets/images/_responsive/packages/propuestas/plata-800.jpg"
+    },
+    {
+      "w": 1200,
+      "src": "/assets/images/packages/propuestas/plata.jpg"
     }
   ],
   "/assets/images/servicios/cabina-360.jpg": [

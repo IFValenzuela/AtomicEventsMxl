@@ -53,8 +53,8 @@ que deja aire alrededor de lo importante.
 | `/assets/images/hero/cabina-360.jpg` ✅ | 21/9 | Cabina 360° montada y lista, alfombra roja al frente |
 | `/assets/images/hero/contacto.jpg` ✅ | 21/9 | Velas y pétalos, detalle nocturno |
 | `/assets/images/hero/galeria.jpg` ✅ | 21/9 | Invitados en la cabina, luces girando |
-| `/assets/images/hero/Hero.jpg` ✅ | 16/9 | Pedida de mano con letras "CÁSATE CONMIGO" y chisperos |
-| `/assets/images/hero/Hero.jpg` ✅ | 16/9 | Pedida de mano de noche, letras iluminadas y chisperos |
+| `/assets/images/hero/Hero.png` ✅ | 16/9 | Pedida de mano con letras "CÁSATE CONMIGO" y chisperos |
+| `/assets/images/hero/Hero.png` ✅ | 16/9 | Pedida de mano de noche, letras iluminadas y chisperos |
 | `/assets/images/hero/nosotros.jpg` ✅ | 21/9 | Salón montado y listo, antes de abrir puertas |
 | `/assets/images/hero/paquetes.jpg` ✅ | 21/9 | Chisperos y alfombra roja hacia las letras |
 | `/assets/images/hero/propuestas.jpg` ✅ | 21/9 | Pareja dentro del corazón de pétalos, chisperos al fondo |

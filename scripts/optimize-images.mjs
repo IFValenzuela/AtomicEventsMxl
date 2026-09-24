@@ -68,8 +68,14 @@ const ROLES = [
   { match: /.*/, cap: 1200, widths: [400, 800, 1200] },
 ]
 
-/** Left alone: already optimised by hand, and a palette PNG is not a photo. */
-const SKIP = /^frieze\//
+/**
+ * Left alone: the frieze is already optimised by hand, and a palette PNG is
+ * not a photo. The home hero ships exactly as delivered: every re-encode of
+ * it (the 256-colour PNG palette, the q82 JPEG, the narrower srcset rungs a
+ * retina screen stretches to full width) came out visibly blurry. With no
+ * manifest entry, Photo.tsx serves the file itself and nothing else.
+ */
+const SKIP = /^frieze\/|^hero\/Hero\.(png|jpe?g)$/
 
 /**
  * Every generated rung lives here, and nothing else does.
