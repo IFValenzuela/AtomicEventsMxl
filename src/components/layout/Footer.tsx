@@ -90,6 +90,14 @@ export function Footer() {
           <div>
             <h2 className="text-xl">Contacto</h2>
             <ul className="mt-9 -my-2.5 text-[0.9375rem] leading-6 lg:mt-11 lg:my-0">
+              <li>
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  className="inkwipe block py-2.5 break-all text-ink lg:py-0"
+                >
+                  {CONTACT.email}
+                </a>
+              </li>
               {CONTACT.phones.map((phone) => (
                 <li key={phone.tel}>
                   <a

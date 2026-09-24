@@ -43,7 +43,11 @@ export const BRAND = {
   badge: '/assets/brand/atomic-badge-512.png',
 } as const
 
+/** Atomic's public email. Shown on the contact page and in the footer. */
+const EMAIL = 'atomic.events19@gmail.com'
+
 export const CONTACT = {
+  email: EMAIL,
   phones: [
     { display: '(686) 143 6523', tel: '+526861436523' },
     { display: '(686) 188 9205', tel: '+526861889205' },
@@ -55,14 +59,14 @@ export const CONTACT = {
   area: 'Mexicali y valle de Mexicali',
   /**
    * Where the contact form's quote requests are emailed, through FormSubmit
-   * (formsubmit.co). Empty for now: until an address is set here the form
-   * says it cannot send and points to WhatsApp and the phones instead.
+   * (formsubmit.co). Leave it empty and the form says it cannot send and
+   * points to WhatsApp and the phones instead.
    *
-   * After filling it in, send one test request from the live site. FormSubmit
-   * emails this address a one-time confirmation link, and nothing is
-   * delivered until it has been clicked.
+   * The first request sent from the live site makes FormSubmit email this
+   * address a one-time confirmation link, and nothing is delivered until it
+   * has been clicked.
    */
-  formEmail: '',
+  formEmail: EMAIL as string,
 } as const
 
 /** Primary navigation. Kept to five items so the bar stays on one line. */
@@ -80,9 +84,9 @@ export const NAV = [
  * and it becomes a working link.
  */
 export const SOCIALS: { name: string; url: string }[] = [
-  { name: 'WhatsApp', url: CONTACT.whatsapp },
   { name: 'Instagram', url: 'https://www.instagram.com/atomic.eventsmxli/' },
   { name: 'Facebook', url: 'https://www.facebook.com/profile.php?id=100076638574715' },
+  { name: 'TikTok', url: 'https://www.tiktok.com/@atomiceventsmxli' },
 ]
 
 /**

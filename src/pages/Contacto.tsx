@@ -35,7 +35,7 @@ export default function Contacto() {
 
           <Reveal index={1} className="lg:col-span-4 lg:col-start-9">
             <div className="border-t border-ink pt-10">
-              <h2 className="text-2xl">O márcanos directo</h2>
+              <h2 className="text-2xl">O contáctanos directo</h2>
               <ul className="mt-5 space-y-1">
                 {CONTACT.phones.map((phone) => (
                   <li key={phone.tel}>
@@ -48,6 +48,12 @@ export default function Contacto() {
                   </li>
                 ))}
               </ul>
+              <a
+                href={`mailto:${CONTACT.email}`}
+                className="inkwipe mt-3 inline-block py-1.5 text-[1.0625rem] break-all text-ink"
+              >
+                {CONTACT.email}
+              </a>
             </div>
 
             <div className="mt-10 border-t border-rule pt-8">

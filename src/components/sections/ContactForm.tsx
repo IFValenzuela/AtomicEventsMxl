@@ -123,7 +123,7 @@ export function ContactForm() {
       return
     }
 
-    const fallback = `Escríbenos por WhatsApp o márcanos al ${CONTACT.phones[0].display}.`
+    const fallback = `Escríbenos por WhatsApp, a ${CONTACT.email} o márcanos al ${CONTACT.phones[0].display}.`
 
     if (!CONTACT.formEmail) {
       setStatus('error')
