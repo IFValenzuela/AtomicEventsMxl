@@ -30,7 +30,8 @@
  */
 
 import sharp from 'sharp'
-import { readdirSync, statSync, mkdirSync, copyFileSync, existsSync, writeFileSync, unlinkSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import { readdirSync, readFileSync, statSync, mkdirSync, copyFileSync, existsSync, writeFileSync, unlinkSync } from 'node:fs'
 import { join, relative, dirname, extname, basename } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -38,6 +39,19 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url))
 const PUBLIC_IMAGES = join(ROOT, 'public/assets/images')
 const ORIGINALS = join(ROOT, 'assets-src')
 const MANIFEST = join(ROOT, 'src/data/imageVariants.json')
+
+/**
+ * Stock photographs standing in for Atomic's own, one per empty slot, listed
+ * with a hash of the file as it was written (see scripts/provisionales.json).
+ *
+ * They are skipped here on purpose. This script keeps the first file it ever
+ * sees at a path as that path's permanent original, so letting a stand-in in
+ * would mean the real photograph dropped over it later got re-encoded FROM
+ * the stock one. A file whose hash no longer matches has been replaced by a
+ * real photograph: it leaves the list and is treated like any new file.
+ */
+const PROVISIONAL = join(ROOT, 'scripts/provisionales.json')
+const sha1 = (p) => createHash('sha1').update(readFileSync(p)).digest('hex')
 
 /** Quality 82 is the point where mozjpeg stops being distinguishable by eye. */
 const QUALITY = 82
@@ -87,17 +101,36 @@ async function main() {
 
   const files = walk(PUBLIC_IMAGES)
     .filter((f) => /\.(jpe?g|png)$/i.test(f))
-    .map((f) => relative(PUBLIC_IMAGES, f))
-    .filter((rel) => !SKIP.test(rel) && !rel.split(/[\\/]/).includes(VARIANT_DIR))
+    /* Forward slashes whatever the OS. SKIP and ROLES are written with `/`,
+       and on Windows `relative` returns `frieze\frieze-4096.png`, which
+       matched neither: the frieze got re-encoded down to 1200px and every
+       hero was capped at the column size instead of 2560. */
+    .map((f) => relative(PUBLIC_IMAGES, f).split('\\').join('/'))
+    .filter((rel) => !SKIP.test(rel) && !rel.split('/').includes(VARIANT_DIR))
     .sort()
 
   const manifest = {}
   let before = 0
   let after = 0
 
+  const provisional = existsSync(PROVISIONAL) ? JSON.parse(readFileSync(PROVISIONAL, 'utf8')) : {}
+  let provisionalChanged = false
+  let skipped = 0
+
   for (const rel of files) {
     const live = join(PUBLIC_IMAGES, rel)
     const original = join(ORIGINALS, rel)
+
+    const key = '/assets/images/' + rel.split('\\').join('/')
+    if (provisional[key]) {
+      if (sha1(live) === provisional[key].sha1) {
+        skipped++
+        continue
+      }
+      delete provisional[key]
+      provisionalChanged = true
+      console.log(`${rel}: a real photograph replaced the stock stand-in`)
+    }
 
     // First sight of this file: preserve it before touching anything.
     if (!existsSync(original)) {
@@ -164,6 +197,12 @@ async function main() {
   }
 
   writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + '\n')
+  if (provisionalChanged) {
+    writeFileSync(PROVISIONAL, JSON.stringify(provisional, null, 2) + '\n')
+  }
+  if (skipped) {
+    console.log(`${skipped} stock stand-ins left as they are (scripts/provisionales.json).`)
+  }
 
   /* `after` counts the canonical files only, because a browser downloads one
      width per photograph, never the whole ladder. The variants cost disk, not

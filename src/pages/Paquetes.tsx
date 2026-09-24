@@ -91,7 +91,7 @@ function OccasionCard({
 
       <div className={wide ? 'mt-7 md:mt-0' : 'mt-7'}>
         {top?.stars != null && top.starsOf != null && (
-          <StarTier stars={top.stars} of={top.starsOf} />
+          <StarTier stars={top.stars} of={top.starsOf} name={top.name} />
         )}
 
         <h2 className="mt-4 text-[1.75rem] transition-colors duration-300 group-hover:text-ink-soft lg:text-3xl">

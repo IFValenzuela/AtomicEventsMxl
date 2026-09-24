@@ -20,6 +20,7 @@ export { CaretRightIcon as CaretRight } from '@phosphor-icons/react/dist/csr/Car
 export { CheckCircleIcon as CheckCircle } from '@phosphor-icons/react/dist/csr/CheckCircle'
 export { ClockIcon as Clock } from '@phosphor-icons/react/dist/csr/Clock'
 export { DroneIcon as Drone } from '@phosphor-icons/react/dist/csr/Drone'
+export { EnvelopeSimpleIcon as EnvelopeSimple } from '@phosphor-icons/react/dist/csr/EnvelopeSimple'
 export { FacebookLogoIcon as FacebookLogo } from '@phosphor-icons/react/dist/csr/FacebookLogo'
 export { FlowerIcon as Flower } from '@phosphor-icons/react/dist/csr/Flower'
 export { HeartIcon as Heart } from '@phosphor-icons/react/dist/csr/Heart'

@@ -38,7 +38,7 @@ export function PackageCard({ pkg, occasion }: Props) {
 
       <div className="flex flex-1 flex-col pt-7">
         {pkg.stars != null && pkg.starsOf != null && (
-          <StarTier stars={pkg.stars} of={pkg.starsOf} />
+          <StarTier stars={pkg.stars} of={pkg.starsOf} name={pkg.name} />
         )}
 
         <h3 className="mt-4 text-2xl">{pkg.name}</h3>
@@ -105,7 +105,7 @@ export function FeaturedPackage({ pkg, occasion }: Props) {
 
       <div className="lg:col-span-5 lg:col-start-8">
         {pkg.stars != null && pkg.starsOf != null && (
-          <StarTier stars={pkg.stars} of={pkg.starsOf} size={17} />
+          <StarTier stars={pkg.stars} of={pkg.starsOf} name={pkg.name} size={22} />
         )}
 
         <h3 className="mt-4 text-[1.75rem] lg:text-4xl">{pkg.name}</h3>
@@ -168,7 +168,7 @@ export function DurationCard({ pkg, occasion }: Props) {
   return (
     <article className="flex h-full flex-col border-t-2 border-ink pt-8">
       {pkg.stars != null && pkg.starsOf != null && (
-        <StarTier stars={pkg.stars} of={pkg.starsOf} />
+        <StarTier stars={pkg.stars} of={pkg.starsOf} name={pkg.name} />
       )}
 
       <h3 className="mt-4 text-2xl">{pkg.name}</h3>

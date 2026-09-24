@@ -53,6 +53,16 @@ export const CONTACT = {
   whatsappMessage:
     'Hola Atomic Events, me gustaría cotizar un evento.',
   area: 'Mexicali y valle de Mexicali',
+  /**
+   * Where the contact form's quote requests are emailed, through FormSubmit
+   * (formsubmit.co). Empty for now: until an address is set here the form
+   * says it cannot send and points to WhatsApp and the phones instead.
+   *
+   * After filling it in, send one test request from the live site. FormSubmit
+   * emails this address a one-time confirmation link, and nothing is
+   * delivered until it has been clicked.
+   */
+  formEmail: '',
 } as const
 
 /** Primary navigation. Kept to five items so the bar stays on one line. */

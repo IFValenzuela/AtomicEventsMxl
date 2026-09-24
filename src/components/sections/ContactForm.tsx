@@ -2,9 +2,9 @@ import { useEffect, useId, useState, type FormEvent } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import {
   CheckCircle,
+  EnvelopeSimple,
   PaperPlaneTilt,
   WarningCircle,
-  WhatsappLogo,
 } from '../ui/icons'
 import { CONTACT } from '../../data/site'
 import { byslug, OCCASIONS } from '../../data/occasions'
@@ -32,10 +32,15 @@ const EMPTY: Fields = {
 /**
  * Quote request form.
  *
- * There is no backend and this is a static build, so a submit composes the
- * message and hands it to WhatsApp, which is where Atomic already answers
- * clients. The button says so. Nothing is sent anywhere else and nothing is
- * stored in the browser.
+ * A submit emails the request to CONTACT.formEmail through FormSubmit's
+ * AJAX endpoint, since this is a static build with no backend of its own.
+ * It deliberately does not open WhatsApp: the WhatsApp link and the phone
+ * numbers sit beside the form for anyone who would rather write or call.
+ * Nothing is stored in the browser.
+ *
+ * Until formEmail is set, or if the send fails, the form stays filled in and
+ * says so plainly, pointing to WhatsApp and the phones. A hidden honeypot
+ * field (_honey) turns away the simplest bots.
  *
  * Package cards deep-link here with ?ocasion=&paquete=, which preselects the
  * occasion and opens the message with the package already named.
@@ -48,6 +53,7 @@ export function ContactForm() {
   const [fields, setFields] = useState<Fields>(EMPTY)
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<Status>('idle')
+  const [sendError, setSendError] = useState('')
   const uid = useId()
 
   // Preselect from a package card's deep link.
@@ -105,8 +111,9 @@ export function ContactForm() {
     return next
   }
 
-  const onSubmit = (event: FormEvent) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setSendError('')
 
     const found = validate()
     setErrors(found)
@@ -116,29 +123,56 @@ export function ContactForm() {
       return
     }
 
+    const fallback = `Escríbenos por WhatsApp o márcanos al ${CONTACT.phones[0].display}.`
+
+    if (!CONTACT.formEmail) {
+      setStatus('error')
+      setSendError(`Por ahora no pudimos enviar tu solicitud. ${fallback}`)
+      return
+    }
+
+    // A bot filled the hidden field. Pretend it worked and send nothing.
+    if (new FormData(event.currentTarget).get('_honey')) {
+      setStatus('sent')
+      return
+    }
+
     setStatus('sending')
 
     const occasion = byslug(fields.ocasion)
-    const lines = [
-      `Hola Atomic Events, soy ${fields.nombre.trim()}.`,
-      `Quiero cotizar: ${occasion ? occasion.nav : fields.ocasion}.`,
-      fields.fecha ? `Fecha del evento: ${fields.fecha}.` : null,
-      `Mi teléfono: ${fields.telefono.trim()}.`,
-      fields.mensaje.trim() ? `\n${fields.mensaje.trim()}` : null,
-    ].filter(Boolean)
+    const celebra = occasion
+      ? occasion.nav
+      : fields.ocasion === 'otro'
+        ? 'Otro evento'
+        : fields.ocasion
 
-    const url = `${CONTACT.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`
-    const opened = window.open(url, '_blank', 'noopener,noreferrer')
-
-    if (opened) {
-      setStatus('sent')
-    } else {
-      // Popup blocked. Say so plainly and leave the form filled in.
-      setStatus('error')
-      setErrors({
-        mensaje:
-          'Tu navegador bloqueó la ventana de WhatsApp. Permite las ventanas emergentes o escríbenos directo al (686) 143 6523.',
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${CONTACT.formEmail}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: `Nueva cotización: ${celebra} (${fields.nombre.trim()})`,
+          _template: 'table',
+          Nombre: fields.nombre.trim(),
+          Teléfono: fields.telefono.trim(),
+          'Qué celebra': celebra,
+          'Fecha del evento': fields.fecha || 'Sin fecha todavía',
+          Mensaje: fields.mensaje.trim() || '(sin mensaje)',
+        }),
       })
+      const result = (await response.json().catch(() => null)) as {
+        success?: string | boolean
+      } | null
+      if (!response.ok || String(result?.success) !== 'true') {
+        throw new Error('send failed')
+      }
+      setStatus('sent')
+    } catch {
+      // Say so plainly and leave the form filled in.
+      setStatus('error')
+      setSendError(
+        `No se pudo enviar tu solicitud. Inténtalo de nuevo en un momento. ${fallback}`,
+      )
     }
   }
 
@@ -152,13 +186,11 @@ export function ContactForm() {
           className="mx-auto text-ink"
         />
 
-        <h3 className="mt-6 text-[1.75rem]">
-          Te abrimos WhatsApp con tu mensaje listo
-        </h3>
+        <h3 className="mt-6 text-[1.75rem]">Recibimos tu solicitud</h3>
 
         <p className="mx-auto mt-4 max-w-[46ch] text-ink">
-          Solo dale enviar y te contestamos. Si no se abrió, márcanos al{' '}
-          {CONTACT.phones[0].display}.
+          Te contactamos pronto al número que nos dejaste con tu cotización.
+          Si es urgente, márcanos al {CONTACT.phones[0].display}.
         </p>
 
         <button
@@ -185,6 +217,31 @@ export function ContactForm() {
          the sidebar's height; the message row takes up the slack. */
       className="border-t border-ink pt-10 lg:flex lg:flex-1 lg:flex-col"
     >
+      {sendError && (
+        <p
+          role="alert"
+          className="mb-8 flex items-start gap-3 border-l-2 border-danger pl-4 text-[0.9375rem] text-danger"
+        >
+          <WarningCircle
+            size={18}
+            weight="regular"
+            aria-hidden="true"
+            className="mt-0.5 shrink-0"
+          />
+          {sendError}
+        </p>
+      )}
+
+      {/* Honeypot. Hidden from people and screen readers; bots fill it. */}
+      <input
+        type="text"
+        name="_honey"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="hidden"
+      />
+
       {status === 'error' && errorCount > 0 && (
         <p
           role="alert"
@@ -297,7 +354,7 @@ export function ContactForm() {
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
         <Button type="submit"  disabled={status === 'sending'}>
           {status === 'sending' ? (
-            'Abriendo WhatsApp'
+            'Enviando…'
           ) : (
             <>
               <PaperPlaneTilt size={18} weight="regular" aria-hidden="true" />
@@ -307,13 +364,13 @@ export function ContactForm() {
         </Button>
 
         <p className="flex items-center gap-2.5 text-[0.9375rem] text-ink-soft">
-          <WhatsappLogo
+          <EnvelopeSimple
             size={17}
             weight="regular"
             aria-hidden="true"
             className="shrink-0 text-ink-soft"
           />
-          Se abre WhatsApp con tu mensaje ya escrito.
+          Te respondemos con tu cotización al número que nos dejes.
         </p>
       </div>
     </form>

@@ -8,6 +8,21 @@
  */
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+
+/** Stock stand-ins, see scripts/provisionales.json. They still count as missing. */
+const PROVISIONAL_FILE = new URL('./provisionales.json', import.meta.url)
+const provisional = existsSync(PROVISIONAL_FILE)
+  ? JSON.parse(readFileSync(PROVISIONAL_FILE, 'utf8'))
+  : {}
+const isProvisional = (src) => {
+  const file = new URL(`../public${src}`, import.meta.url)
+  return (
+    Boolean(provisional[src]) &&
+    existsSync(file) &&
+    createHash('sha1').update(readFileSync(file)).digest('hex') === provisional[src].sha1
+  )
+}
 
 const DATA = [
   'site.ts',
@@ -51,16 +66,22 @@ const TITLES = {
   nosotros: 'Nosotros',
 }
 
-const done = slots.filter((s) =>
-  existsSync(new URL(`../public${s.src}`, import.meta.url)),
+const done = slots.filter(
+  (s) => existsSync(new URL(`../public${s.src}`, import.meta.url)) && !isProvisional(s.src),
 ).length
+const stand = slots.filter((s) => isProvisional(s.src)).length
 
 const lines = [
   '# Fotos que faltan',
   '',
   'Lista generada desde el código. No la edites a mano: corre `npm run shotlist`.',
   '',
-  `**${done} de ${slots.length} listas.**`,
+  `**${done} de ${slots.length} listas.**` +
+    (stand ? ` ${stand} tienen una foto de stock provisional (🟡) mientras llega la real.` : ''),
+  '',
+  '🟡 = foto de stock de Unsplash, solo para mostrar el diseño. Hay que',
+  'cambiarla por una foto real antes de publicar. Se reemplaza igual que las',
+  'demás: guarda la foto real encima, con el mismo nombre.',
   '',
   'Para poner una foto: guárdala en `public/` + la ruta exacta de la columna',
   '"Archivo", con ese mismo nombre. No hay que tocar nada de código. Si el',
@@ -76,11 +97,15 @@ for (const [key, items] of groups) {
   lines.push('| Archivo | Proporción | Qué debe salir |')
   lines.push('| --- | --- | --- |')
   for (const s of items) {
-    const mark = existsSync(new URL(`../public${s.src}`, import.meta.url)) ? ' ✅' : ''
+    const mark = isProvisional(s.src)
+      ? ' 🟡'
+      : existsSync(new URL(`../public${s.src}`, import.meta.url))
+        ? ' ✅'
+        : ''
     lines.push(`| \`${s.src}\`${mark} | ${s.ratio} | ${s.caption} |`)
   }
   lines.push('')
 }
 
 writeFileSync(new URL('../FOTOS.md', import.meta.url), lines.join('\n'))
-console.log(`FOTOS.md: ${slots.length} slots, ${done} ya con foto.`)
+console.log(`FOTOS.md: ${slots.length} slots, ${done} ya con foto, ${stand} provisionales.`)
