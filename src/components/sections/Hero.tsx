@@ -144,12 +144,23 @@ export function Hero() {
             actually on screen when the page opens, so the block ends there.
             On desktop the two are the same. */}
         <div className="shell rise relative flex h-[100svh] items-end justify-center pb-10 lg:justify-start lg:pb-24">
-          <div className="flex flex-col items-center">
+          <div className="relative isolate flex flex-col items-center">
+            {/* A pool of shade behind this block only. The hero is a night
+                shot whose lit letters reflect off the wet pier in bright
+                streaks exactly where the contact line sits, and the page-wide
+                bottom gradient is too faint to hold white type over them.
+                Darkening the whole floor would dull the petals; this fades to
+                nothing well before the edge of the block's neighbourhood. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -inset-x-24 -inset-y-12 -z-10 bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--color-ink)_75%,transparent),transparent)]"
+            />
+
             <Button to="/paquetes" variant="onPhoto">
               Ver paquetes
             </Button>
 
-            <div className="mt-3 flex items-center gap-x-8 text-[0.9375rem] font-semibold text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] sm:gap-x-10">
+            <div className="mt-3 flex items-center gap-x-8 text-[0.9375rem] font-semibold text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.9),0_0_12px_rgba(0,0,0,0.7)] sm:gap-x-10">
               <a
                 href={`tel:${CONTACT.phones[0].tel}`}
                 className="inline-flex min-h-11 items-center gap-2 transition-opacity duration-200 hover:opacity-75"
